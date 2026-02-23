@@ -10,6 +10,7 @@ const TRACK_WINDOW_MS = 900;
 const TRACK_LOCK_ERROR_DEG = 7;
 const TRACK_MIN_UNSPOTTED_SAMPLES = 8;
 const TRACK_STREAK_TARGET_MS = 240;
+const UNSPOTTED_LONG_RANGE_MIN = 700;
 
 export function computeWallhackMetric(
   player: PlayerIdentity,
@@ -61,9 +62,17 @@ export function computeWallhackMetric(
       reasons.push("blind headshot");
     }
 
+    const unspottedLongRange =
+      kill.attackerVictimDistance !== undefined &&
+      kill.attackerVictimDistance >= UNSPOTTED_LONG_RANGE_MIN;
     if (kill.victimSpottedByAttacker === false) {
-      signalScore += 0.16;
-      reasons.push("victim not spotted by attacker");
+      if (unspottedLongRange) {
+        signalScore += 0.1;
+        reasons.push("long-range victim not spotted");
+      } else {
+        signalScore += 0.03;
+        reasons.push("close-range victim not spotted (low confidence)");
+      }
     }
 
     if (
@@ -80,7 +89,7 @@ export function computeWallhackMetric(
       kill.attackerVictimDistance !== undefined &&
       kill.attackerVictimDistance > 900
     ) {
-      signalScore += 0.08;
+      signalScore += 0.06;
       reasons.push("long-range unspotted headshot");
     }
 
@@ -99,6 +108,17 @@ export function computeWallhackMetric(
     if (tracking.score >= 0.72) {
       signalScore += 0.12;
       reasons.push("persistent tracking streak");
+    }
+
+    const onlyWeakUnspottedSignal =
+      kill.victimSpottedByAttacker === false &&
+      !kill.throughSmoke &&
+      kill.penetrated === 0 &&
+      !kill.attackerBlind &&
+      !unspottedLongRange &&
+      tracking.score < 0.5;
+    if (onlyWeakUnspottedSignal) {
+      signalScore = Math.min(signalScore, 0.1);
     }
 
     if (kill.throughSmoke && kill.penetrated > 0) {

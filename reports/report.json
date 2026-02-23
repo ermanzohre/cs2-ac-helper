@@ -1,48 +1,61 @@
 {
   "meta": {
-    "inputDemo": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Counter-Strike Global Offensive\\game\\csgo\\replays\\match730_003804891835101348763_1889459580_390.dem",
-    "generatedAt": "2026-02-23T14:12:24.820Z",
+    "inputDemo": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Counter-Strike Global Offensive\\game\\csgo\\replays\\match730_003805084698460291191_0144960510_274.dem",
+    "generatedAt": "2026-02-23T22:04:44.723Z",
     "parser": "demoparser2",
     "language": "tr",
-    "rounds": 20,
-    "ticks": 124671
+    "rounds": 16,
+    "ticks": 103093
   },
   "ranking": [
     {
       "player": {
-        "slot": 5,
-        "name": "MAG",
-        "steamId": "76561198951122217",
+        "slot": 2,
+        "name": "whoami–¦–aWe",
+        "steamId": "76561199512841461",
         "team": "CT"
       },
       "metrics": {
         "flick": {
-          "value": 0.030610050120212676,
-          "samples": 8,
-          "confidence": 0.8,
+          "value": 0.04918972856414787,
+          "samples": 22,
+          "confidence": 1,
           "stats": {
-            "min": 12.326876887778896,
-            "avg": 61.22010024042536,
-            "p95": 108.33475882008065
-          },
-          "evidence": []
-        },
-        "prefire": {
-          "value": 0.14500000000000002,
-          "samples": 8,
-          "confidence": 0.32421875,
-          "stats": {
-            "min": 0,
-            "avg": 0.14500000000000002,
-            "p95": 0.5
+            "min": 8.767706040919181,
+            "avg": 98.37945712829574,
+            "p95": 66.16015625
           },
           "evidence": [
             {
-              "playerName": "MAG",
-              "round": 15,
-              "tickStart": 90645,
-              "tickEnd": 90661,
-              "timeSec": 1416.578125,
+              "playerName": "whoami–¦–aWe",
+              "round": 17,
+              "tickStart": 103074,
+              "tickEnd": 103093,
+              "timeSec": 1610.78125,
+              "reason": "High angular speed near kill (1342.6 deg/s)",
+              "tags": [
+                "aim",
+                "flick"
+              ]
+            }
+          ]
+        },
+        "prefire": {
+          "value": 0.06090909090909091,
+          "samples": 22,
+          "confidence": 0.4696022727272728,
+          "stats": {
+            "min": 0,
+            "avg": 0.06090909090909091,
+            "p95": 0.16
+          },
+          "evidence": [
+            {
+              "playerName": "whoami–¦–aWe",
+              "round": 14,
+              "tickStart": 92462,
+              "tickEnd": 92478,
+              "timeSec": 1444.96875,
               "reason": "Prefire proxy hit (stable angle hold before kill, through smoke, smoke headshot)",
               "tags": [
                 "info",
@@ -52,34 +65,22 @@
           ]
         },
         "wallhack": {
-          "value": 0.5309166666666667,
-          "samples": 8,
-          "confidence": 0.32499999999999996,
+          "value": 0.19307575757575757,
+          "samples": 22,
+          "confidence": 0.35000000000000003,
           "stats": {
             "min": 0,
-            "avg": 0.32500000000000007,
-            "p95": 0.9400000000000002
+            "avg": 0.05090909090909091,
+            "p95": 0.03
           },
           "evidence": [
             {
-              "playerName": "MAG",
-              "round": 5,
-              "tickStart": 29580,
-              "tickEnd": 29599,
-              "timeSec": 462.484375,
-              "reason": "Visibility proxy hit (through smoke, smoke headshot, victim not spotted by attacker, occluded kill without spot info)",
-              "tags": [
-                "info",
-                "wallhack"
-              ]
-            },
-            {
-              "playerName": "MAG",
-              "round": 15,
-              "tickStart": 90642,
-              "tickEnd": 90661,
-              "timeSec": 1416.578125,
-              "reason": "Visibility proxy hit (through smoke, smoke headshot, victim not spotted by attacker, occluded kill without spot info)",
+              "playerName": "whoami–¦–aWe",
+              "round": 14,
+              "tickStart": 92459,
+              "tickEnd": 92478,
+              "timeSec": 1444.96875,
+              "reason": "Visibility proxy hit (through smoke, smoke headshot, close-range victim not spotted (low confidence), occluded kill without spot info)",
               "tags": [
                 "info",
                 "wallhack"
@@ -89,459 +90,141 @@
         }
       },
       "verdict": {
-        "code": "suspicious",
-        "label": "Supheli"
+        "code": "watch",
+        "label": "Izlenmeli"
       },
       "guardrails": {
         "samplePenalty": 0,
-        "weaponAdjustment": 0
+        "weaponAdjustment": 0.10909090909090909
       },
       "combat": {
-        "kills": 8,
-        "deaths": 15,
-        "kdRatio": 0.53,
-        "headshotKills": 3,
-        "headshotRate": 0.375,
-        "damageGiven": 1279,
-        "damageTaken": 2113,
-        "adr": 64
+        "kills": 22,
+        "deaths": 8,
+        "kdRatio": 2.75,
+        "headshotKills": 7,
+        "headshotRate": 0.318,
+        "damageGiven": 2933,
+        "damageTaken": 1133,
+        "adr": 183.3
       },
-      "scoreRaw": 0.20051902004808508,
-      "scoreFinal": 20,
+      "scoreRaw": 0.07887134597111368,
+      "scoreFinal": 8,
       "confidence": 1,
       "explanation": [
-        "Şüphe skoru 20/100, güven 100%.",
-        "Flick 3.1% (8 örnek), prefire 14.5% (8 kill), wallhack proxy 53.1% (8 kill).",
-        "En güçlü prefire sinyali 23:36 civarı.",
-        "En güçlü wallhack sinyali 07:42 civarı.",
-        "Savas ozeti: K/D 8/15 (0.53), HS 3 (38%), verilen hasar 1279, alinan hasar 2113, ADR 64.0."
-      ]
-    },
-    {
-      "player": {
-        "slot": 4,
-        "name": "7berdeg™",
-        "steamId": "76561198313026571",
-        "team": "T"
-      },
-      "metrics": {
-        "flick": {
-          "value": 0.049744590896990695,
-          "samples": 15,
-          "confidence": 1,
-          "stats": {
-            "min": 16.023241448284107,
-            "avg": 99.48918179398137,
-            "p95": 372.99113071829595
-          },
-          "evidence": []
-        },
-        "prefire": {
-          "value": 0.092,
-          "samples": 15,
-          "confidence": 0.4623333333333333,
-          "stats": {
-            "min": 0,
-            "avg": 0.092,
-            "p95": 0.16
-          },
-          "evidence": [
-            {
-              "playerName": "7berdeg™",
-              "round": 17,
-              "tickStart": 103431,
-              "tickEnd": 103447,
-              "timeSec": 1616.359375,
-              "reason": "Prefire proxy hit (pre-kill probing shots x4, stable angle hold before kill, hold + probing on unspotted target, through smoke, smoke headshot)",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            }
-          ]
-        },
-        "wallhack": {
-          "value": 0.42879999999999996,
-          "samples": 15,
-          "confidence": 0.41,
-          "stats": {
-            "min": 0,
-            "avg": 0.21733333333333338,
-            "p95": 0.85
-          },
-          "evidence": [
-            {
-              "playerName": "7berdeg™",
-              "round": 11,
-              "tickStart": 70113,
-              "tickEnd": 70132,
-              "timeSec": 1095.8125,
-              "reason": "Visibility proxy hit (through smoke, single wall penetration, victim not spotted by attacker, occluded kill without spot info, smoke + wallbang overlap)",
-              "tags": [
-                "info",
-                "wallhack"
-              ]
-            },
-            {
-              "playerName": "7berdeg™",
-              "round": 17,
-              "tickStart": 103428,
-              "tickEnd": 103447,
-              "timeSec": 1616.359375,
-              "reason": "Visibility proxy hit (through smoke, smoke headshot, victim not spotted by attacker, occluded kill without spot info)",
-              "tags": [
-                "info",
-                "wallhack"
-              ]
-            }
-          ]
-        }
-      },
-      "verdict": {
-        "code": "suspicious",
-        "label": "Supheli"
-      },
-      "guardrails": {
-        "samplePenalty": 0,
-        "weaponAdjustment": 0.16
-      },
-      "combat": {
-        "kills": 15,
-        "deaths": 13,
-        "kdRatio": 1.15,
-        "headshotKills": 4,
-        "headshotRate": 0.267,
-        "damageGiven": 1777,
-        "damageTaken": 1842,
-        "adr": 88.9
-      },
-      "scoreRaw": 0.15093783635879626,
-      "scoreFinal": 15,
-      "confidence": 1,
-      "explanation": [
-        "Şüphe skoru 15/100, güven 100%.",
-        "Flick 5.0% (15 örnek), prefire 9.2% (15 kill), wallhack proxy 42.9% (15 kill).",
-        "Koruma katsayısı uygulandı (örnek=0.00, round=0.00, silah=0.16).",
-        "En güçlü prefire sinyali 26:56 civarı.",
-        "En güçlü wallhack sinyali 18:15 civarı.",
-        "Savas ozeti: K/D 15/13 (1.15), HS 4 (27%), verilen hasar 1777, alinan hasar 1842, ADR 88.9."
+        "Şüphe skoru 8/100, güven 100%.",
+        "Flick 4.9% (22 örnek), prefire 6.1% (22 kill), wallhack proxy 19.3% (22 kill).",
+        "Koruma katsayısı uygulandı (örnek=0.00, round=0.00, silah=0.11).",
+        "En yüksek aim anomali zamanı 26:50.",
+        "En güçlü prefire sinyali 24:04 civarı.",
+        "En güçlü wallhack sinyali 24:04 civarı.",
+        "Savas ozeti: K/D 22/8 (2.75), HS 7 (32%), verilen hasar 2933, alinan hasar 1133, ADR 183.3."
       ]
     },
     {
       "player": {
         "slot": 0,
-        "name": "DANDE",
-        "steamId": "76561199439086897",
-        "team": "T"
+        "name": "EBY ALI BABY",
+        "steamId": "76561199020873311",
+        "team": "CT"
       },
       "metrics": {
         "flick": {
-          "value": 0.03407353013480404,
-          "samples": 10,
+          "value": 0.042044912828049834,
+          "samples": 22,
           "confidence": 1,
           "stats": {
-            "min": 0,
-            "avg": 68.14706026960809,
-            "p95": 145.2421764353963
+            "min": 9.430496952234982,
+            "avg": 84.08982565609966,
+            "p95": 212.95797897047657
           },
           "evidence": []
         },
         "prefire": {
-          "value": 0.09999999999999999,
-          "samples": 10,
-          "confidence": 0.4103125,
+          "value": 0.007272727272727273,
+          "samples": 22,
+          "confidence": 0.4397727272727273,
           "stats": {
             "min": 0,
-            "avg": 0.09999999999999999,
-            "p95": 0.16
+            "avg": 0.007272727272727273,
+            "p95": 0
           },
-          "evidence": [
-            {
-              "playerName": "DANDE",
-              "round": 9,
-              "tickStart": 54991,
-              "tickEnd": 55007,
-              "timeSec": 859.484375,
-              "reason": "Prefire proxy hit (pre-kill probing shots x6, stable angle hold before kill, hold + probing on unspotted target, through smoke, single wall penetration)",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            }
-          ]
+          "evidence": []
         },
         "wallhack": {
-          "value": 0.25354999999999994,
-          "samples": 10,
+          "value": 0.012954545454545453,
+          "samples": 22,
           "confidence": 0.3,
           "stats": {
             "min": 0,
-            "avg": 0.14899999999999997,
-            "p95": 0.16
+            "avg": 0.005454545454545454,
+            "p95": 0.03
           },
-          "evidence": [
-            {
-              "playerName": "DANDE",
-              "round": 9,
-              "tickStart": 54988,
-              "tickEnd": 55007,
-              "timeSec": 859.484375,
-              "reason": "Visibility proxy hit (through smoke, single wall penetration, victim not spotted by attacker, occluded kill without spot info, smoke + wallbang overlap)",
-              "tags": [
-                "info",
-                "wallhack"
-              ]
-            }
-          ]
+          "evidence": []
         }
       },
       "verdict": {
-        "code": "watch",
-        "label": "Izlenmeli"
+        "code": "clean",
+        "label": "Temiz"
       },
       "guardrails": {
         "samplePenalty": 0,
         "weaponAdjustment": 0
       },
       "combat": {
-        "kills": 10,
-        "deaths": 14,
-        "kdRatio": 0.71,
-        "headshotKills": 4,
-        "headshotRate": 0.4,
-        "damageGiven": 1672,
-        "damageTaken": 2104,
-        "adr": 83.6
-      },
-      "scoreRaw": 0.1096944120539216,
-      "scoreFinal": 11,
-      "confidence": 1,
-      "explanation": [
-        "Şüphe skoru 11/100, güven 100%.",
-        "Flick 3.4% (10 örnek), prefire 10.0% (10 kill), wallhack proxy 25.4% (10 kill).",
-        "En güçlü prefire sinyali 14:19 civarı.",
-        "En güçlü wallhack sinyali 14:19 civarı.",
-        "Savas ozeti: K/D 10/14 (0.71), HS 4 (40%), verilen hasar 1672, alinan hasar 2104, ADR 83.6."
-      ]
-    },
-    {
-      "player": {
-        "slot": 9,
-        "name": "INSPIRING",
-        "steamId": "76561198200643875",
-        "team": "CT"
-      },
-      "metrics": {
-        "flick": {
-          "value": 0.03072890099806807,
-          "samples": 26,
-          "confidence": 1,
-          "stats": {
-            "min": 0,
-            "avg": 61.457801996136155,
-            "p95": 138.87728628959954
-          },
-          "evidence": []
-        },
-        "prefire": {
-          "value": 0.057692307692307696,
-          "samples": 26,
-          "confidence": 0.4666235207100592,
-          "stats": {
-            "min": 0,
-            "avg": 0.057692307692307696,
-            "p95": 0.24
-          },
-          "evidence": [
-            {
-              "playerName": "INSPIRING",
-              "round": 11,
-              "tickStart": 67475,
-              "tickEnd": 67491,
-              "timeSec": 1054.546875,
-              "reason": "Prefire proxy hit (stable angle hold before kill, through smoke, smoke headshot)",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            }
-          ]
-        },
-        "wallhack": {
-          "value": 0.26221794871794873,
-          "samples": 26,
-          "confidence": 0.34615384615384615,
-          "stats": {
-            "min": 0,
-            "avg": 0.09307692307692308,
-            "p95": 0.16
-          },
-          "evidence": [
-            {
-              "playerName": "INSPIRING",
-              "round": 11,
-              "tickStart": 67472,
-              "tickEnd": 67491,
-              "timeSec": 1054.546875,
-              "reason": "Visibility proxy hit (through smoke, smoke headshot, victim not spotted by attacker, occluded kill without spot info)",
-              "tags": [
-                "info",
-                "wallhack"
-              ]
-            }
-          ]
-        }
-      },
-      "verdict": {
-        "code": "watch",
-        "label": "Izlenmeli"
-      },
-      "guardrails": {
-        "samplePenalty": 0,
-        "weaponAdjustment": 0.046153846153846156
-      },
-      "combat": {
-        "kills": 26,
+        "kills": 22,
         "deaths": 12,
-        "kdRatio": 2.17,
-        "headshotKills": 10,
-        "headshotRate": 0.385,
-        "damageGiven": 3353,
-        "damageTaken": 2303,
-        "adr": 167.7
+        "kdRatio": 1.83,
+        "headshotKills": 13,
+        "headshotRate": 0.591,
+        "damageGiven": 2876,
+        "damageTaken": 1474,
+        "adr": 179.8
       },
-      "scoreRaw": 0.09788002193768877,
-      "scoreFinal": 10,
+      "scoreRaw": -0.057841125777870976,
+      "scoreFinal": 0,
       "confidence": 1,
       "explanation": [
-        "Şüphe skoru 10/100, güven 100%.",
-        "Flick 3.1% (26 örnek), prefire 5.8% (26 kill), wallhack proxy 26.2% (26 kill).",
-        "Koruma katsayısı uygulandı (örnek=0.00, round=0.00, silah=0.05).",
-        "En güçlü prefire sinyali 17:34 civarı.",
-        "En güçlü wallhack sinyali 17:34 civarı.",
-        "Savas ozeti: K/D 26/12 (2.17), HS 10 (39%), verilen hasar 3353, alinan hasar 2303, ADR 167.7."
+        "Şüphe skoru 0/100, güven 100%.",
+        "Flick 4.2% (22 örnek), prefire 0.7% (22 kill), wallhack proxy 1.3% (22 kill).",
+        "Savas ozeti: K/D 22/12 (1.83), HS 13 (59%), verilen hasar 2876, alinan hasar 1474, ADR 179.8."
       ]
     },
     {
       "player": {
-        "slot": 1,
-        "name": "DJAZAIRI",
-        "steamId": "76561199132263155",
+        "slot": 5,
+        "name": "aKs--",
+        "steamId": "76561198211732671",
         "team": "T"
       },
       "metrics": {
         "flick": {
-          "value": 0.035239665827064226,
-          "samples": 19,
+          "value": 0.043273812820351344,
+          "samples": 21,
           "confidence": 1,
           "stats": {
-            "min": 11.135077005932864,
-            "avg": 70.47933165412843,
-            "p95": 149.2647868487996
+            "min": 23.709828992192342,
+            "avg": 86.54762564070268,
+            "p95": 197.2121138842678
           },
           "evidence": []
         },
         "prefire": {
-          "value": 0.017894736842105262,
-          "samples": 19,
-          "confidence": 0.44703947368421054,
+          "value": 0.07285714285714284,
+          "samples": 21,
+          "confidence": 0.4620181405895692,
           "stats": {
             "min": 0,
-            "avg": 0.017894736842105262,
-            "p95": 0
-          },
-          "evidence": []
-        },
-        "wallhack": {
-          "value": 0.3217280701754386,
-          "samples": 19,
-          "confidence": 0.34342105263157896,
-          "stats": {
-            "min": 0,
-            "avg": 0.1242105263157895,
-            "p95": 0.56
-          },
-          "evidence": [
-            {
-              "playerName": "DJAZAIRI",
-              "round": 3,
-              "tickStart": 11213,
-              "tickEnd": 11232,
-              "timeSec": 175.5,
-              "reason": "Visibility proxy hit (single wall penetration, penetration headshot, victim not spotted by attacker, occluded kill without spot info)",
-              "tags": [
-                "info",
-                "wallhack"
-              ]
-            }
-          ]
-        }
-      },
-      "verdict": {
-        "code": "suspicious",
-        "label": "Supheli"
-      },
-      "guardrails": {
-        "samplePenalty": 0,
-        "weaponAdjustment": 0.09473684210526315
-      },
-      "combat": {
-        "kills": 19,
-        "deaths": 11,
-        "kdRatio": 1.73,
-        "headshotKills": 7,
-        "headshotRate": 0.368,
-        "damageGiven": 2704,
-        "damageTaken": 1639,
-        "adr": 135.2
-      },
-      "scoreRaw": 0.104719550541352,
-      "scoreFinal": 10,
-      "confidence": 1,
-      "explanation": [
-        "Şüphe skoru 10/100, güven 100%.",
-        "Flick 3.5% (19 örnek), prefire 1.8% (19 kill), wallhack proxy 32.2% (19 kill).",
-        "Koruma katsayısı uygulandı (örnek=0.00, round=0.00, silah=0.09).",
-        "En güçlü wallhack sinyali 02:55 civarı.",
-        "Savas ozeti: K/D 19/11 (1.73), HS 7 (37%), verilen hasar 2704, alinan hasar 1639, ADR 135.2."
-      ]
-    },
-    {
-      "player": {
-        "slot": 6,
-        "name": "Mmt",
-        "steamId": "76561198857901135",
-        "team": "CT"
-      },
-      "metrics": {
-        "flick": {
-          "value": 0.016285992895381875,
-          "samples": 6,
-          "confidence": 0.6,
-          "stats": {
-            "min": 12.957909633337271,
-            "avg": 32.571985790763755,
-            "p95": 46.82953988637128
-          },
-          "evidence": []
-        },
-        "prefire": {
-          "value": 0.22999999999999998,
-          "samples": 6,
-          "confidence": 0.27083333333333337,
-          "stats": {
-            "min": 0,
-            "avg": 0.22999999999999998,
+            "avg": 0.07285714285714284,
             "p95": 0.43999999999999995
           },
           "evidence": [
             {
-              "playerName": "Mmt",
-              "round": 15,
-              "tickStart": 90468,
-              "tickEnd": 90484,
-              "timeSec": 1413.8125,
-              "reason": "Prefire proxy hit (pre-kill probing shots x12, stable angle hold before kill, hold + probing on unspotted target, through smoke, smoke headshot)",
+              "playerName": "aKs--",
+              "round": 7,
+              "tickStart": 48471,
+              "tickEnd": 48487,
+              "timeSec": 757.609375,
+              "reason": "Prefire proxy hit (pre-kill probing shots x8, stable angle hold before kill, hold + probing on unspotted target, through smoke)",
               "tags": [
                 "info",
                 "prefire"
@@ -550,195 +233,13 @@
           ]
         },
         "wallhack": {
-          "value": 0.2608333333333333,
-          "samples": 6,
-          "confidence": 0.20833333333333334,
+          "value": 0.06895238095238096,
+          "samples": 21,
+          "confidence": 0.3,
           "stats": {
             "min": 0,
-            "avg": 0.18333333333333335,
-            "p95": 0.16
-          },
-          "evidence": [
-            {
-              "playerName": "Mmt",
-              "round": 15,
-              "tickStart": 90465,
-              "tickEnd": 90484,
-              "timeSec": 1413.8125,
-              "reason": "Visibility proxy hit (through smoke, smoke headshot, victim not spotted by attacker, occluded kill without spot info)",
-              "tags": [
-                "info",
-                "wallhack"
-              ]
-            }
-          ]
-        }
-      },
-      "verdict": {
-        "code": "watch",
-        "label": "Izlenmeli"
-      },
-      "guardrails": {
-        "samplePenalty": 0.25,
-        "weaponAdjustment": 0
-      },
-      "combat": {
-        "kills": 6,
-        "deaths": 16,
-        "kdRatio": 0.38,
-        "headshotKills": 4,
-        "headshotRate": 0.667,
-        "damageGiven": 1252,
-        "damageTaken": 1978,
-        "adr": 62.6
-      },
-      "scoreRaw": 0.10576439715815275,
-      "scoreFinal": 9,
-      "confidence": 0.85,
-      "explanation": [
-        "Şüphe skoru 9/100, güven 85%.",
-        "Flick 1.6% (6 örnek), prefire 23.0% (6 kill), wallhack proxy 26.1% (6 kill).",
-        "Koruma katsayısı uygulandı (örnek=0.25, round=0.00, silah=0.00).",
-        "En güçlü prefire sinyali 23:33 civarı.",
-        "En güçlü wallhack sinyali 23:33 civarı.",
-        "Savas ozeti: K/D 6/16 (0.38), HS 4 (67%), verilen hasar 1252, alinan hasar 1978, ADR 62.6."
-      ]
-    },
-    {
-      "player": {
-        "slot": 3,
-        "name": "JynX!",
-        "steamId": "76561199260916661",
-        "team": "T"
-      },
-      "metrics": {
-        "flick": {
-          "value": 0.04639965831599555,
-          "samples": 11,
-          "confidence": 1,
-          "stats": {
-            "min": 21.316093007715708,
-            "avg": 92.79931663199112,
-            "p95": 135.4899466891884
-          },
-          "evidence": []
-        },
-        "prefire": {
-          "value": 0.07636363636363636,
-          "samples": 11,
-          "confidence": 0.4322916666666667,
-          "stats": {
-            "min": 0,
-            "avg": 0.07636363636363636,
-            "p95": 0
-          },
-          "evidence": [
-            {
-              "playerName": "JynX!",
-              "round": 19,
-              "tickStart": 116552,
-              "tickEnd": 116568,
-              "timeSec": 1821.375,
-              "reason": "Prefire proxy hit (pre-kill probing shots x6, stable angle hold before kill, through smoke, smoke headshot)",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            }
-          ]
-        },
-        "wallhack": {
-          "value": 0.16660606060606062,
-          "samples": 11,
-          "confidence": 0.34375,
-          "stats": {
-            "min": 0,
-            "avg": 0.06727272727272728,
-            "p95": 0.16
-          },
-          "evidence": [
-            {
-              "playerName": "JynX!",
-              "round": 19,
-              "tickStart": 116549,
-              "tickEnd": 116568,
-              "timeSec": 1821.375,
-              "reason": "Visibility proxy hit (through smoke, smoke headshot)",
-              "tags": [
-                "info",
-                "wallhack"
-              ]
-            }
-          ]
-        }
-      },
-      "verdict": {
-        "code": "watch",
-        "label": "Izlenmeli"
-      },
-      "guardrails": {
-        "samplePenalty": 0,
-        "weaponAdjustment": 0
-      },
-      "combat": {
-        "kills": 11,
-        "deaths": 13,
-        "kdRatio": 0.85,
-        "headshotKills": 6,
-        "headshotRate": 0.545,
-        "damageGiven": 1313,
-        "damageTaken": 1861,
-        "adr": 65.7
-      },
-      "scoreRaw": 0.08381440878094368,
-      "scoreFinal": 8,
-      "confidence": 1,
-      "explanation": [
-        "Şüphe skoru 8/100, güven 100%.",
-        "Flick 4.6% (11 örnek), prefire 7.6% (11 kill), wallhack proxy 16.7% (11 kill).",
-        "En güçlü prefire sinyali 30:21 civarı.",
-        "En güçlü wallhack sinyali 30:21 civarı.",
-        "Savas ozeti: K/D 11/13 (0.85), HS 6 (55%), verilen hasar 1313, alinan hasar 1861, ADR 65.7."
-      ]
-    },
-    {
-      "player": {
-        "slot": 8,
-        "name": "Morpheus",
-        "steamId": "76561197994583429",
-        "team": "CT"
-      },
-      "metrics": {
-        "flick": {
-          "value": 0.03790280582735483,
-          "samples": 8,
-          "confidence": 0.8,
-          "stats": {
-            "min": 34.178177338290034,
-            "avg": 75.80561165470968,
-            "p95": 90.92401373314944
-          },
-          "evidence": []
-        },
-        "prefire": {
-          "value": 0.11624999999999999,
-          "samples": 8,
-          "confidence": 0.2859375,
-          "stats": {
-            "min": 0,
-            "avg": 0.11624999999999999,
-            "p95": 0.42999999999999994
-          },
-          "evidence": []
-        },
-        "wallhack": {
-          "value": 0.12658333333333333,
-          "samples": 8,
-          "confidence": 0.19999999999999998,
-          "stats": {
-            "min": 0,
-            "avg": 0.105,
-            "p95": 0.16
+            "avg": 0.026190476190476198,
+            "p95": 0.03
           },
           "evidence": []
         }
@@ -752,40 +253,194 @@
         "weaponAdjustment": 0
       },
       "combat": {
-        "kills": 8,
-        "deaths": 13,
-        "kdRatio": 0.62,
-        "headshotKills": 2,
-        "headshotRate": 0.25,
-        "damageGiven": 894,
-        "damageTaken": 2294,
-        "adr": 44.7
+        "kills": 21,
+        "deaths": 15,
+        "kdRatio": 1.4,
+        "headshotKills": 4,
+        "headshotRate": 0.19,
+        "damageGiven": 2598,
+        "damageTaken": 1898,
+        "adr": 162.4
       },
-      "scoreRaw": 0.07638612233094193,
-      "scoreFinal": 8,
+      "scoreRaw": -0.027433332014716608,
+      "scoreFinal": 0,
       "confidence": 1,
       "explanation": [
-        "Şüphe skoru 8/100, güven 100%.",
-        "Flick 3.8% (8 örnek), prefire 11.6% (8 kill), wallhack proxy 12.7% (8 kill).",
-        "Savas ozeti: K/D 8/13 (0.62), HS 2 (25%), verilen hasar 894, alinan hasar 2294, ADR 44.7."
+        "Şüphe skoru 0/100, güven 100%.",
+        "Flick 4.3% (21 örnek), prefire 7.3% (21 kill), wallhack proxy 6.9% (21 kill).",
+        "En güçlü prefire sinyali 12:37 civarı.",
+        "Savas ozeti: K/D 21/15 (1.40), HS 4 (19%), verilen hasar 2598, alinan hasar 1898, ADR 162.4."
       ]
     },
     {
       "player": {
-        "slot": 7,
-        "name": "aKs--",
-        "steamId": "76561198211732671",
+        "slot": 1,
+        "name": "Nojeckiy [NO CAP]",
+        "steamId": "76561198014994141",
         "team": "CT"
       },
       "metrics": {
         "flick": {
-          "value": 0.034121055415476886,
+          "value": 0.026444660537627406,
+          "samples": 16,
+          "confidence": 1,
+          "stats": {
+            "min": 8.206194784613485,
+            "avg": 52.88932107525479,
+            "p95": 86.25618580736389
+          },
+          "evidence": []
+        },
+        "prefire": {
+          "value": 0.06249999999999999,
+          "samples": 16,
+          "confidence": 0.476806640625,
+          "stats": {
+            "min": 0,
+            "avg": 0.06249999999999999,
+            "p95": 0.43999999999999995
+          },
+          "evidence": [
+            {
+              "playerName": "Nojeckiy [NO CAP]",
+              "round": 12,
+              "tickStart": 78424,
+              "tickEnd": 78440,
+              "timeSec": 1225.625,
+              "reason": "Prefire proxy hit (pre-kill probing shots x2, stable angle hold before kill, hold + probing on unspotted target, through smoke)",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            }
+          ]
+        },
+        "wallhack": {
+          "value": 0.07179166666666667,
+          "samples": 16,
+          "confidence": 0.3,
+          "stats": {
+            "min": 0,
+            "avg": 0.0325,
+            "p95": 0.03
+          },
+          "evidence": []
+        }
+      },
+      "verdict": {
+        "code": "inconclusive",
+        "label": "Belirsiz"
+      },
+      "guardrails": {
+        "samplePenalty": 0,
+        "weaponAdjustment": 0.075
+      },
+      "combat": {
+        "kills": 16,
+        "deaths": 11,
+        "kdRatio": 1.45,
+        "headshotKills": 5,
+        "headshotRate": 0.313,
+        "damageGiven": 2135,
+        "damageTaken": 1607,
+        "adr": 133.4
+      },
+      "scoreRaw": -0.04288463578494904,
+      "scoreFinal": 0,
+      "confidence": 1,
+      "explanation": [
+        "Şüphe skoru 0/100, güven 100%.",
+        "Flick 2.6% (16 örnek), prefire 6.2% (16 kill), wallhack proxy 7.2% (16 kill).",
+        "Koruma katsayısı uygulandı (örnek=0.00, round=0.00, silah=0.07).",
+        "En güçlü prefire sinyali 20:25 civarı.",
+        "Savas ozeti: K/D 16/11 (1.45), HS 5 (31%), verilen hasar 2135, alinan hasar 1607, ADR 133.4."
+      ]
+    },
+    {
+      "player": {
+        "slot": 4,
+        "name": "SNUS",
+        "steamId": "76561199380082013",
+        "team": "CT"
+      },
+      "metrics": {
+        "flick": {
+          "value": 0.033901710942839045,
+          "samples": 12,
+          "confidence": 1,
+          "stats": {
+            "min": 22.99125347515099,
+            "avg": 67.80342188567806,
+            "p95": 111.8301490940566
+          },
+          "evidence": []
+        },
+        "prefire": {
+          "value": 0.03583333333333333,
+          "samples": 12,
+          "confidence": 0.440625,
+          "stats": {
+            "min": 0,
+            "avg": 0.03583333333333333,
+            "p95": 0
+          },
+          "evidence": []
+        },
+        "wallhack": {
+          "value": 0.013874999999999998,
+          "samples": 12,
+          "confidence": 0.3,
+          "stats": {
+            "min": 0,
+            "avg": 0.0075,
+            "p95": 0.03
+          },
+          "evidence": []
+        }
+      },
+      "verdict": {
+        "code": "clean",
+        "label": "Temiz"
+      },
+      "guardrails": {
+        "samplePenalty": 0,
+        "weaponAdjustment": 0
+      },
+      "combat": {
+        "kills": 12,
+        "deaths": 9,
+        "kdRatio": 1.33,
+        "headshotKills": 1,
+        "headshotRate": 0.083,
+        "damageGiven": 1274,
+        "damageTaken": 1190,
+        "adr": 79.6
+      },
+      "scoreRaw": -0.055110148956197716,
+      "scoreFinal": 0,
+      "confidence": 1,
+      "explanation": [
+        "Şüphe skoru 0/100, güven 100%.",
+        "Flick 3.4% (12 örnek), prefire 3.6% (12 kill), wallhack proxy 1.4% (12 kill).",
+        "Savas ozeti: K/D 12/9 (1.33), HS 1 (8%), verilen hasar 1274, alinan hasar 1190, ADR 79.6."
+      ]
+    },
+    {
+      "player": {
+        "slot": 9,
+        "name": "Neo",
+        "steamId": "76561198168082875",
+        "team": "T"
+      },
+      "metrics": {
+        "flick": {
+          "value": 0.040216479273081585,
           "samples": 11,
           "confidence": 1,
           "stats": {
-            "min": 22.05118588396461,
-            "avg": 68.24211083095379,
-            "p95": 86.70514190852279
+            "min": 13.53944191288241,
+            "avg": 80.43295854616318,
+            "p95": 123.3330078125
           },
           "evidence": []
         },
@@ -801,68 +456,67 @@
           "evidence": []
         },
         "wallhack": {
-          "value": 0.08218181818181818,
+          "value": 0,
           "samples": 11,
           "confidence": 0.27499999999999997,
           "stats": {
             "min": 0,
-            "avg": 0.05818181818181818,
-            "p95": 0.16
+            "avg": 0,
+            "p95": 0
           },
           "evidence": []
         }
       },
       "verdict": {
-        "code": "inconclusive",
-        "label": "Belirsiz"
+        "code": "clean",
+        "label": "Temiz"
       },
       "guardrails": {
         "samplePenalty": 0,
-        "weaponAdjustment": 0.05454545454545454
+        "weaponAdjustment": 0
       },
       "combat": {
         "kills": 11,
-        "deaths": 17,
-        "kdRatio": 0.65,
-        "headshotKills": 2,
-        "headshotRate": 0.182,
-        "damageGiven": 1912,
-        "damageTaken": 2234,
-        "adr": 95.6
+        "deaths": 14,
+        "kdRatio": 0.79,
+        "headshotKills": 6,
+        "headshotRate": 0.545,
+        "damageGiven": 1638,
+        "damageTaken": 1903,
+        "adr": 102.4
       },
-      "scoreRaw": 0.03284842216619075,
-      "scoreFinal": 3,
+      "scoreRaw": -0.06391340829076736,
+      "scoreFinal": 0,
       "confidence": 1,
       "explanation": [
-        "Şüphe skoru 3/100, güven 100%.",
-        "Flick 3.4% (11 örnek), prefire 0.0% (11 kill), wallhack proxy 8.2% (11 kill).",
-        "Koruma katsayısı uygulandı (örnek=0.00, round=0.00, silah=0.05).",
-        "Savas ozeti: K/D 11/17 (0.65), HS 2 (18%), verilen hasar 1912, alinan hasar 2234, ADR 95.6."
+        "Şüphe skoru 0/100, güven 100%.",
+        "Flick 4.0% (11 örnek), prefire 0.0% (11 kill), wallhack proxy 0.0% (11 kill).",
+        "Savas ozeti: K/D 11/14 (0.79), HS 6 (55%), verilen hasar 1638, alinan hasar 1903, ADR 102.4."
       ]
     },
     {
       "player": {
-        "slot": 2,
-        "name": "Chikamatsu",
-        "steamId": "76561199490910330",
+        "slot": 7,
+        "name": "MAG",
+        "steamId": "76561198951122217",
         "team": "T"
       },
       "metrics": {
         "flick": {
-          "value": 0.06608529660011137,
-          "samples": 23,
-          "confidence": 1,
+          "value": 0.02731827673524414,
+          "samples": 8,
+          "confidence": 0.8,
           "stats": {
-            "min": 3.930588241698849,
-            "avg": 132.17059320022275,
-            "p95": 297.44072855018595
+            "min": 10.862639714473977,
+            "avg": 54.63655347048828,
+            "p95": 51.5439691062721
           },
           "evidence": []
         },
         "prefire": {
           "value": 0,
-          "samples": 23,
-          "confidence": 0.4230978260869565,
+          "samples": 8,
+          "confidence": 0.29531250000000003,
           "stats": {
             "min": 0,
             "avg": 0,
@@ -871,13 +525,153 @@
           "evidence": []
         },
         "wallhack": {
-          "value": 0.06852173913043477,
-          "samples": 23,
-          "confidence": 0.3,
+          "value": 0.005187499999999999,
+          "samples": 8,
+          "confidence": 0.19999999999999998,
           "stats": {
             "min": 0,
-            "avg": 0.02782608695652174,
-            "p95": 0.16
+            "avg": 0.00375,
+            "p95": 0
+          },
+          "evidence": []
+        }
+      },
+      "verdict": {
+        "code": "clean",
+        "label": "Temiz"
+      },
+      "guardrails": {
+        "samplePenalty": 0,
+        "weaponAdjustment": 0.075
+      },
+      "combat": {
+        "kills": 8,
+        "deaths": 14,
+        "kdRatio": 0.57,
+        "headshotKills": 5,
+        "headshotRate": 0.625,
+        "damageGiven": 1133,
+        "damageTaken": 1859,
+        "adr": 70.8
+      },
+      "scoreRaw": -0.07501643930590235,
+      "scoreFinal": 0,
+      "confidence": 1,
+      "explanation": [
+        "Şüphe skoru 0/100, güven 100%.",
+        "Flick 2.7% (8 örnek), prefire 0.0% (8 kill), wallhack proxy 0.5% (8 kill).",
+        "Koruma katsayısı uygulandı (örnek=0.00, round=0.00, silah=0.07).",
+        "Savas ozeti: K/D 8/14 (0.57), HS 5 (63%), verilen hasar 1133, alinan hasar 1859, ADR 70.8."
+      ]
+    },
+    {
+      "player": {
+        "slot": 8,
+        "name": "Mmt",
+        "steamId": "76561198857901135",
+        "team": "T"
+      },
+      "metrics": {
+        "flick": {
+          "value": 0.027773096445207195,
+          "samples": 7,
+          "confidence": 0.7,
+          "stats": {
+            "min": 16.790774606463838,
+            "avg": 55.54619289041438,
+            "p95": 83.99042466060935
+          },
+          "evidence": []
+        },
+        "prefire": {
+          "value": 0,
+          "samples": 7,
+          "confidence": 0.2578125,
+          "stats": {
+            "min": 0,
+            "avg": 0,
+            "p95": 0
+          },
+          "evidence": []
+        },
+        "wallhack": {
+          "value": 0,
+          "samples": 7,
+          "confidence": 0.17500000000000002,
+          "stats": {
+            "min": 0,
+            "avg": 0,
+            "p95": 0
+          },
+          "evidence": []
+        }
+      },
+      "verdict": {
+        "code": "clean",
+        "label": "Temiz"
+      },
+      "guardrails": {
+        "samplePenalty": 0.125,
+        "weaponAdjustment": 0
+      },
+      "combat": {
+        "kills": 7,
+        "deaths": 16,
+        "kdRatio": 0.44,
+        "headshotKills": 2,
+        "headshotRate": 0.286,
+        "damageGiven": 1072,
+        "damageTaken": 2126,
+        "adr": 67
+      },
+      "scoreRaw": -0.08139076142191712,
+      "scoreFinal": 0,
+      "confidence": 0.925,
+      "explanation": [
+        "Şüphe skoru 0/100, güven 93%.",
+        "Flick 2.8% (7 örnek), prefire 0.0% (7 kill), wallhack proxy 0.0% (7 kill).",
+        "Koruma katsayısı uygulandı (örnek=0.13, round=0.00, silah=0.00).",
+        "Savas ozeti: K/D 7/16 (0.44), HS 2 (29%), verilen hasar 1072, alinan hasar 2126, ADR 67.0."
+      ]
+    },
+    {
+      "player": {
+        "slot": 6,
+        "name": "Morpheus",
+        "steamId": "76561197994583429",
+        "team": "T"
+      },
+      "metrics": {
+        "flick": {
+          "value": 0.013202038717365989,
+          "samples": 5,
+          "confidence": 0.5,
+          "stats": {
+            "min": 11.821029500148226,
+            "avg": 26.404077434731978,
+            "p95": 23.957156345371107
+          },
+          "evidence": []
+        },
+        "prefire": {
+          "value": 0,
+          "samples": 5,
+          "confidence": 0.1875,
+          "stats": {
+            "min": 0,
+            "avg": 0,
+            "p95": 0
+          },
+          "evidence": []
+        },
+        "wallhack": {
+          "value": 0.0062,
+          "samples": 5,
+          "confidence": 0.125,
+          "stats": {
+            "min": 0,
+            "avg": 0.006,
+            "p95": 0
           },
           "evidence": []
         }
@@ -887,85 +681,156 @@
         "label": "Belirsiz"
       },
       "guardrails": {
-        "samplePenalty": 0,
+        "samplePenalty": 0.375,
         "weaponAdjustment": 0
       },
       "combat": {
-        "kills": 23,
-        "deaths": 13,
-        "kdRatio": 1.77,
-        "headshotKills": 15,
-        "headshotRate": 0.652,
-        "damageGiven": 3836,
-        "damageTaken": 1624,
-        "adr": 191.8
+        "kills": 5,
+        "deaths": 14,
+        "kdRatio": 0.36,
+        "headshotKills": 1,
+        "headshotRate": 0.2,
+        "damageGiven": 779,
+        "damageTaken": 1942,
+        "adr": 48.7
       },
-      "scoreRaw": -0.03300935962082502,
+      "scoreRaw": -0.11035918451305361,
       "scoreFinal": 0,
-      "confidence": 1,
+      "confidence": 0.775,
       "explanation": [
-        "Şüphe skoru 0/100, güven 100%.",
-        "Flick 6.6% (23 örnek), prefire 0.0% (23 kill), wallhack proxy 6.9% (23 kill).",
-        "Savas ozeti: K/D 23/13 (1.77), HS 15 (65%), verilen hasar 3836, alinan hasar 1624, ADR 191.8."
+        "Şüphe skoru 0/100, güven 78%.",
+        "Flick 1.3% (5 örnek), prefire 0.0% (5 kill), wallhack proxy 0.6% (5 kill).",
+        "Koruma katsayısı uygulandı (örnek=0.38, round=0.00, silah=0.00).",
+        "Savas ozeti: K/D 5/14 (0.36), HS 1 (20%), verilen hasar 779, alinan hasar 1942, ADR 48.7."
+      ]
+    },
+    {
+      "player": {
+        "slot": 3,
+        "name": "black kid",
+        "steamId": "76561198967475370",
+        "team": "CT"
+      },
+      "metrics": {
+        "flick": {
+          "value": 0.08737019933149487,
+          "samples": 3,
+          "confidence": 0.3,
+          "stats": {
+            "min": 105.88607253012096,
+            "avg": 174.74039866298975,
+            "p95": 166.58262065864133
+          },
+          "evidence": []
+        },
+        "prefire": {
+          "value": 0,
+          "samples": 3,
+          "confidence": 0.1078125,
+          "stats": {
+            "min": 0,
+            "avg": 0,
+            "p95": 0
+          },
+          "evidence": []
+        },
+        "wallhack": {
+          "value": 0,
+          "samples": 3,
+          "confidence": 0.075,
+          "stats": {
+            "min": 0,
+            "avg": 0,
+            "p95": 0
+          },
+          "evidence": []
+        }
+      },
+      "verdict": {
+        "code": "inconclusive",
+        "label": "Belirsiz"
+      },
+      "guardrails": {
+        "samplePenalty": 0.625,
+        "weaponAdjustment": 0
+      },
+      "combat": {
+        "kills": 3,
+        "deaths": 14,
+        "kdRatio": 0.21,
+        "headshotKills": 0,
+        "headshotRate": 0,
+        "damageGiven": 582,
+        "damageTaken": 1888,
+        "adr": 36.4
+      },
+      "scoreRaw": -0.027551920267402052,
+      "scoreFinal": 0,
+      "confidence": 0.625,
+      "explanation": [
+        "Şüphe skoru 0/100, güven 63%.",
+        "Flick 8.7% (3 örnek), prefire 0.0% (3 kill), wallhack proxy 0.0% (3 kill).",
+        "Koruma katsayısı uygulandı (örnek=0.63, round=0.00, silah=0.00).",
+        "Savas ozeti: K/D 3/14 (0.21), HS 0 (0%), verilen hasar 582, alinan hasar 1888, ADR 36.4."
       ]
     }
   ],
   "topEvents": [
     {
-      "playerName": "JynX!",
-      "round": 19,
-      "tickStart": 116552,
-      "tickEnd": 116568,
-      "timeSec": 1821.375,
-      "reason": "Prefire proxy hit (pre-kill probing shots x6, stable angle hold before kill, through smoke, smoke headshot)",
-      "tags": [
-        "info",
-        "prefire"
-      ]
-    },
-    {
-      "playerName": "JynX!",
-      "round": 19,
-      "tickStart": 116549,
-      "tickEnd": 116568,
-      "timeSec": 1821.375,
-      "reason": "Visibility proxy hit (through smoke, smoke headshot)",
-      "tags": [
-        "info",
-        "wallhack"
-      ]
-    },
-    {
-      "playerName": "7berdeg™",
+      "playerName": "whoami–¦–aWe",
       "round": 17,
-      "tickStart": 103431,
-      "tickEnd": 103447,
-      "timeSec": 1616.359375,
-      "reason": "Prefire proxy hit (pre-kill probing shots x4, stable angle hold before kill, hold + probing on unspotted target, through smoke, smoke headshot)",
+      "tickStart": 103074,
+      "tickEnd": 103093,
+      "timeSec": 1610.78125,
+      "reason": "High angular speed near kill (1342.6 deg/s)",
       "tags": [
-        "info",
-        "prefire"
+        "aim",
+        "flick"
       ]
     },
     {
-      "playerName": "7berdeg™",
-      "round": 17,
-      "tickStart": 103428,
-      "tickEnd": 103447,
-      "timeSec": 1616.359375,
-      "reason": "Visibility proxy hit (through smoke, smoke headshot, victim not spotted by attacker, occluded kill without spot info)",
-      "tags": [
-        "info",
-        "wallhack"
-      ]
-    },
-    {
-      "playerName": "MAG",
-      "round": 15,
-      "tickStart": 90645,
-      "tickEnd": 90661,
-      "timeSec": 1416.578125,
+      "playerName": "whoami–¦–aWe",
+      "round": 14,
+      "tickStart": 92462,
+      "tickEnd": 92478,
+      "timeSec": 1444.96875,
       "reason": "Prefire proxy hit (stable angle hold before kill, through smoke, smoke headshot)",
+      "tags": [
+        "info",
+        "prefire"
+      ]
+    },
+    {
+      "playerName": "whoami–¦–aWe",
+      "round": 14,
+      "tickStart": 92459,
+      "tickEnd": 92478,
+      "timeSec": 1444.96875,
+      "reason": "Visibility proxy hit (through smoke, smoke headshot, close-range victim not spotted (low confidence), occluded kill without spot info)",
+      "tags": [
+        "info",
+        "wallhack"
+      ]
+    },
+    {
+      "playerName": "Nojeckiy [NO CAP]",
+      "round": 12,
+      "tickStart": 78424,
+      "tickEnd": 78440,
+      "timeSec": 1225.625,
+      "reason": "Prefire proxy hit (pre-kill probing shots x2, stable angle hold before kill, hold + probing on unspotted target, through smoke)",
+      "tags": [
+        "info",
+        "prefire"
+      ]
+    },
+    {
+      "playerName": "aKs--",
+      "round": 7,
+      "tickStart": 48471,
+      "tickEnd": 48487,
+      "timeSec": 757.609375,
+      "reason": "Prefire proxy hit (pre-kill probing shots x8, stable angle hold before kill, hold + probing on unspotted target, through smoke)",
       "tags": [
         "info",
         "prefire"
@@ -973,6 +838,6 @@
     }
   ],
   "warnings": [
-    "[verbose] Çözümlenen eventler: players=10, kills=137, shots=3101, damages=671, frames=89300, roundEnds=20"
+    "[verbose] Çözümlenen eventler: players=10, kills=127, shots=2928, damages=539, frames=81430, roundEnds=16"
   ]
 }

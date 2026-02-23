@@ -126,6 +126,35 @@ test("wallhack metric remains low with clean kills", () => {
   assert.equal(score.evidence.length, 0);
 });
 
+test("wallhack metric downweights close-range unspotted-only kills", () => {
+  const kills: ParsedKill[] = [
+    {
+      tick: 2300,
+      round: 6,
+      attackerSlot: 4,
+      victimSlot: 8,
+      weapon: "m4a1",
+      weaponClass: "rifle",
+      throughSmoke: false,
+      penetrated: 0,
+      attackerBlind: false,
+      headshot: false,
+      victimSpottedByAttacker: false,
+      attackerVictimDistance: 260,
+    },
+  ];
+
+  const score = computeWallhackMetric(
+    { name: "clean-ish", slot: 4, team: "T" },
+    kills,
+    [],
+    64,
+  );
+
+  assert.ok(score.value <= 0.1);
+  assert.equal(score.evidence.length, 0);
+});
+
 test("wallhack metric detects unspotted aim tracking before kill", () => {
   const kills: ParsedKill[] = [
     {
@@ -177,5 +206,5 @@ test("wallhack metric detects unspotted aim tracking before kill", () => {
     64,
   );
 
-  assert.ok(score.value >= 0.35);
+  assert.ok(score.value >= 0.33);
 });
