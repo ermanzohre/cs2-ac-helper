@@ -51,3 +51,59 @@ test("verdict marks high wallhack signal as suspicious with stronger score", () 
 
   assert.equal(verdict.code, "suspicious");
 });
+
+test("verdict marks repeated wall evidence as suspicious even with low total score", () => {
+  const verdict = computeVerdict(
+    {
+      scoreFinal: 22,
+      confidence: 0.9,
+      wallhack: {
+        value: 0.16,
+        samples: 20,
+        confidence: 0.6,
+        evidence: [
+          {
+            round: 3,
+            tickStart: 10,
+            tickEnd: 12,
+            timeSec: 1,
+            reason: "Visibility proxy hit",
+            tags: ["info", "wallhack"],
+          },
+          {
+            round: 7,
+            tickStart: 20,
+            tickEnd: 22,
+            timeSec: 2,
+            reason: "Visibility proxy hit",
+            tags: ["info", "wallhack"],
+          },
+          {
+            round: 11,
+            tickStart: 30,
+            tickEnd: 32,
+            timeSec: 3,
+            reason: "Visibility proxy hit",
+            tags: ["info", "wallhack"],
+          },
+        ],
+      },
+    },
+    "tr",
+  );
+
+  assert.equal(verdict.code, "suspicious");
+});
+
+test("verdict marks strong wall-only profile as suspicious", () => {
+  const verdict = computeVerdict(
+    {
+      scoreFinal: 18,
+      confidence: 0.9,
+      wallhack: metric(0.32),
+    },
+    "tr",
+  );
+
+  assert.equal(verdict.code, "suspicious");
+});

@@ -52,6 +52,12 @@ Notes:
 - `report.html`
 - `timeline.csv` (only when `--csv` is provided)
 
+Each player row now includes combat context:
+- kills / deaths / K-D ratio
+- damage given / damage taken
+- ADR (average damage per round)
+- headshot rate
+
 ## Detection notes
 
 Current proxy rules prioritize these suspicious patterns:

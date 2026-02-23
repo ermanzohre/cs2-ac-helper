@@ -19,6 +19,8 @@ export interface ParsedKill {
   penetrated: number;
   attackerBlind: boolean;
   headshot: boolean;
+  victimSpottedByAttacker?: boolean;
+  attackerVictimDistance?: number;
   attackerYaw?: number;
   attackerPitch?: number;
 }
@@ -28,6 +30,18 @@ export interface ParsedShot {
   round: number;
   shooterSlot: number;
   weapon: string;
+}
+
+export interface ParsedDamage {
+  tick: number;
+  round: number;
+  attackerSlot: number;
+  victimSlot: number;
+  damageHealth: number;
+  damageArmor: number;
+  hitgroup?: number;
+  throughSmoke: boolean;
+  attackerBlind: boolean;
 }
 
 export interface FrameSample {
@@ -46,6 +60,7 @@ export interface ParsedMatch {
   tickRate: number;
   kills: ParsedKill[];
   shots: ParsedShot[];
+  damages: ParsedDamage[];
   frames: FrameSample[];
   warnings: string[];
 }

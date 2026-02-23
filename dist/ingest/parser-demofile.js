@@ -14,6 +14,7 @@ async function parseDemoWithDemofile(demoPath, verbose) {
     const players = new Map();
     const kills = [];
     const shots = [];
+    const damages = [];
     const frames = [];
     const warnings = [];
     let rounds = 0;
@@ -59,6 +60,31 @@ async function parseDemoWithDemofile(demoPath, verbose) {
                 weapon: String(event.weapon ?? "unknown"),
             });
         });
+        demoFile.gameEvents.on("player_hurt", (event) => {
+            const attacker = safeGetPlayerByUserId(demoFile, event.attacker);
+            const victim = safeGetPlayerByUserId(demoFile, event.userid);
+            if (!attacker || !victim) {
+                return;
+            }
+            const damageHealth = safeInt(event.dmg_health ?? event.health_damage ?? event.damage_health);
+            const damageArmor = safeInt(event.dmg_armor ?? event.armor_damage ?? event.damage_armor);
+            if (damageHealth === undefined || damageHealth <= 0) {
+                return;
+            }
+            upsertPlayer(players, attacker);
+            upsertPlayer(players, victim);
+            damages.push({
+                tick: Number(demoFile.currentTick ?? 0),
+                round: rounds,
+                attackerSlot: Number(attacker.slot ?? 0),
+                victimSlot: Number(victim.slot ?? 0),
+                damageHealth,
+                damageArmor: Math.max(0, damageArmor ?? 0),
+                hitgroup: safeInt(event.hitgroup),
+                throughSmoke: Boolean(event.thrusmoke),
+                attackerBlind: Boolean(event.attackerblind),
+            });
+        });
     }
     if (typeof demoFile.on === "function") {
         demoFile.on("tickend", () => {
@@ -100,7 +126,7 @@ async function parseDemoWithDemofile(demoPath, verbose) {
         warnings.push("No frame samples available. Flick metric confidence will be reduced.");
     }
     if (verbose) {
-        warnings.push(`[verbose] Parsed events: players=${players.size}, kills=${kills.length}, shots=${shots.length}, frames=${frames.length}`);
+        warnings.push(`[verbose] Parsed events: players=${players.size}, kills=${kills.length}, shots=${shots.length}, damages=${damages.length}, frames=${frames.length}`);
     }
     return {
         parser: "demofile",
@@ -110,6 +136,7 @@ async function parseDemoWithDemofile(demoPath, verbose) {
         tickRate: Number(demoFile.tickRate ?? 64),
         kills,
         shots,
+        damages,
         frames,
         warnings,
     };
@@ -189,4 +216,8 @@ function classifyWeapon(weapon) {
 function safeNumber(value) {
     const parsed = Number(value);
     return Number.isFinite(parsed) ? parsed : undefined;
+}
+function safeInt(value) {
+    const parsed = Number(value);
+    return Number.isInteger(parsed) ? parsed : undefined;
 }

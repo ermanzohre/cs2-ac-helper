@@ -33,6 +33,17 @@ export interface MetricScore {
   evidence: EvidenceMoment[];
 }
 
+export interface PlayerCombatSummary {
+  kills: number;
+  deaths: number;
+  kdRatio: number;
+  headshotKills: number;
+  headshotRate: number;
+  damageGiven: number;
+  damageTaken: number;
+  adr: number;
+}
+
 export interface PlayerSuspicion {
   player: PlayerIdentity;
   metrics: {
@@ -48,6 +59,7 @@ export interface PlayerSuspicion {
     samplePenalty: number;
     weaponAdjustment: number;
   };
+  combat: PlayerCombatSummary;
   scoreRaw: number;
   scoreFinal: number;
   confidence: number;

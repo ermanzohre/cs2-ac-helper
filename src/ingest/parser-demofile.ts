@@ -2,6 +2,7 @@
 import type { PlayerIdentity } from "../domain/types";
 import type {
   FrameSample,
+  ParsedDamage,
   ParsedKill,
   ParsedMatch,
   ParsedShot,
@@ -22,6 +23,7 @@ export async function parseDemoWithDemofile(
   const players = new Map<number, PlayerIdentity>();
   const kills: ParsedKill[] = [];
   const shots: ParsedShot[] = [];
+  const damages: ParsedDamage[] = [];
   const frames: FrameSample[] = [];
   const warnings: string[] = [];
 
@@ -74,6 +76,41 @@ export async function parseDemoWithDemofile(
         round: rounds,
         shooterSlot: Number(shooter.slot ?? 0),
         weapon: String(event.weapon ?? "unknown"),
+      });
+    });
+
+    demoFile.gameEvents.on("player_hurt", (event: any) => {
+      const attacker = safeGetPlayerByUserId(demoFile, event.attacker);
+      const victim = safeGetPlayerByUserId(demoFile, event.userid);
+
+      if (!attacker || !victim) {
+        return;
+      }
+
+      const damageHealth = safeInt(
+        event.dmg_health ?? event.health_damage ?? event.damage_health,
+      );
+      const damageArmor = safeInt(
+        event.dmg_armor ?? event.armor_damage ?? event.damage_armor,
+      );
+
+      if (damageHealth === undefined || damageHealth <= 0) {
+        return;
+      }
+
+      upsertPlayer(players, attacker);
+      upsertPlayer(players, victim);
+
+      damages.push({
+        tick: Number(demoFile.currentTick ?? 0),
+        round: rounds,
+        attackerSlot: Number(attacker.slot ?? 0),
+        victimSlot: Number(victim.slot ?? 0),
+        damageHealth,
+        damageArmor: Math.max(0, damageArmor ?? 0),
+        hitgroup: safeInt(event.hitgroup),
+        throughSmoke: Boolean(event.thrusmoke),
+        attackerBlind: Boolean(event.attackerblind),
       });
     });
   }
@@ -131,7 +168,7 @@ export async function parseDemoWithDemofile(
 
   if (verbose) {
     warnings.push(
-      `[verbose] Parsed events: players=${players.size}, kills=${kills.length}, shots=${shots.length}, frames=${frames.length}`,
+      `[verbose] Parsed events: players=${players.size}, kills=${kills.length}, shots=${shots.length}, damages=${damages.length}, frames=${frames.length}`,
     );
   }
 
@@ -143,6 +180,7 @@ export async function parseDemoWithDemofile(
     tickRate: Number(demoFile.tickRate ?? 64),
     kills,
     shots,
+    damages,
     frames,
     warnings,
   };
@@ -253,4 +291,9 @@ function classifyWeapon(weapon: string): WeaponClass {
 function safeNumber(value: unknown): number | undefined {
   const parsed = Number(value);
   return Number.isFinite(parsed) ? parsed : undefined;
+}
+
+function safeInt(value: unknown): number | undefined {
+  const parsed = Number(value);
+  return Number.isInteger(parsed) ? parsed : undefined;
 }

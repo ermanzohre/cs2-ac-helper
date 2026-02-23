@@ -1,6 +1,7 @@
 import type { PlayerIdentity } from "../domain/types";
 import type {
   FrameSample,
+  ParsedDamage,
   ParsedKill,
   ParsedMatch,
   ParsedShot,
@@ -9,7 +10,7 @@ import type {
 import { validateDemoExtension } from "./parser-adapter";
 
 const DEFAULT_TICK_RATE = 64;
-const FLICK_WINDOW_BEFORE_MS = 250;
+const FLICK_WINDOW_BEFORE_MS = 1000;
 const FLICK_WINDOW_AFTER_MS = 50;
 
 export async function parseDemoWithDemoparser2(
@@ -26,6 +27,7 @@ export async function parseDemoWithDemoparser2(
 
   const kills: ParsedKill[] = [];
   const shots: ParsedShot[] = [];
+  const damages: ParsedDamage[] = [];
   const frames: FrameSample[] = [];
 
   const roundEndEvents = toArray(
@@ -45,6 +47,26 @@ export async function parseDemoWithDemoparser2(
       "weapon_fire",
       ["name", "steamid", "team_num", "user_id"],
       ["tick", "round", "total_rounds_played"],
+    ),
+  );
+  const hurtEvents = toArray(
+    parserModule.parseEvent(
+      demoPath,
+      "player_hurt",
+      ["name", "steamid", "team_num", "user_id"],
+      [
+        "tick",
+        "round",
+        "total_rounds_played",
+        "dmg_health",
+        "health_damage",
+        "dmg_health_real",
+        "dmg_armor",
+        "armor_damage",
+        "hitgroup",
+        "thrusmoke",
+        "attackerblind",
+      ],
     ),
   );
 
@@ -111,6 +133,45 @@ export async function parseDemoWithDemoparser2(
     });
   }
 
+  for (const event of hurtEvents) {
+    const attackerSlot = safeInt(event.attacker_user_id);
+    const victimSlot = safeInt(event.user_user_id);
+    if (attackerSlot === undefined || victimSlot === undefined) {
+      continue;
+    }
+
+    const damageHealth = readDamageHealth(event);
+    if (damageHealth <= 0) {
+      continue;
+    }
+
+    upsertPlayer(playersBySlot, steamIdToSlot, {
+      slot: attackerSlot,
+      name: safeString(event.attacker_name) ?? `player_${attackerSlot}`,
+      steamId: safeString(event.attacker_steamid),
+      teamNum: safeInt(event.attacker_team_num),
+    });
+
+    upsertPlayer(playersBySlot, steamIdToSlot, {
+      slot: victimSlot,
+      name: safeString(event.user_name) ?? `player_${victimSlot}`,
+      steamId: safeString(event.user_steamid),
+      teamNum: safeInt(event.user_team_num),
+    });
+
+    damages.push({
+      tick: safeInt(event.tick) ?? 0,
+      round: normalizeRound(event),
+      attackerSlot,
+      victimSlot,
+      damageHealth,
+      damageArmor: Math.max(0, readDamageArmor(event)),
+      hitgroup: safeInt(event.hitgroup),
+      throughSmoke: Boolean(event.thrusmoke),
+      attackerBlind: Boolean(event.attackerblind),
+    });
+  }
+
   const wantedTicks = buildWantedTicks(kills, DEFAULT_TICK_RATE);
   const wantedPlayers = [...steamIdToSlot.keys()];
   const roundBoundaries = buildRoundBoundaries(roundEndEvents);
@@ -119,13 +180,23 @@ export async function parseDemoWithDemoparser2(
     const tickRows = toArray(
       parserModule.parseTicks(
         demoPath,
-        ["tick", "yaw", "pitch", "steamid"],
+        [
+          "tick",
+          "yaw",
+          "pitch",
+          "steamid",
+          "CCSPlayerPawn.m_vecX",
+          "CCSPlayerPawn.m_vecY",
+          "CCSPlayerPawn.m_vecZ",
+          "CCSPlayerPawn.m_bSpottedByMask",
+        ],
         wantedTicks,
         wantedPlayers,
         false,
         false,
       ),
     );
+    const tickPlayerStates = new Map<number, Map<number, TickPlayerState>>();
 
     for (const row of tickRows) {
       const steamId = safeString(row.steamid);
@@ -145,6 +216,17 @@ export async function parseDemoWithDemoparser2(
         continue;
       }
 
+      const px = safeNumber(row["CCSPlayerPawn.m_vecX"]);
+      const py = safeNumber(row["CCSPlayerPawn.m_vecY"]);
+      const pz = safeNumber(row["CCSPlayerPawn.m_vecZ"]);
+      const spottedByMask = toSteamIdArray(row["CCSPlayerPawn.m_bSpottedByMask"]);
+      upsertTickPlayerState(tickPlayerStates, tick, slot, {
+        x: px,
+        y: py,
+        z: pz,
+        spottedByMask,
+      });
+
       frames.push({
         tick,
         round: resolveRoundFromTick(tick, roundBoundaries),
@@ -153,6 +235,8 @@ export async function parseDemoWithDemoparser2(
         pitch,
       });
     }
+
+    augmentKillContext(kills, playersBySlot, tickPlayerStates);
   }
 
   if (playersBySlot.size === 0) {
@@ -169,18 +253,19 @@ export async function parseDemoWithDemoparser2(
 
   if (verbose) {
     warnings.push(
-      `[verbose] Parsed events: players=${playersBySlot.size}, kills=${kills.length}, shots=${shots.length}, frames=${frames.length}, roundEnds=${roundEndEvents.length}`,
+      `[verbose] Parsed events: players=${playersBySlot.size}, kills=${kills.length}, shots=${shots.length}, damages=${damages.length}, frames=${frames.length}, roundEnds=${roundEndEvents.length}`,
     );
   }
 
   return {
     parser: "demoparser2",
     players: [...playersBySlot.values()],
-    rounds: deriveRoundCount(roundEndEvents, kills, shots),
-    totalTicks: deriveTotalTicks(roundEndEvents, kills, shots, frames),
+    rounds: deriveRoundCount(roundEndEvents, kills, shots, damages),
+    totalTicks: deriveTotalTicks(roundEndEvents, kills, shots, damages, frames),
     tickRate: DEFAULT_TICK_RATE,
     kills,
     shots,
+    damages,
     frames,
     warnings,
   };
@@ -218,6 +303,7 @@ function deriveRoundCount(
   roundEnds: any[],
   kills: ParsedKill[],
   shots: ParsedShot[],
+  damages: ParsedDamage[],
 ): number {
   const roundEndMax = roundEnds.reduce((max, event) => {
     const round = normalizeRound(event);
@@ -230,13 +316,15 @@ function deriveRoundCount(
 
   const killMax = kills.reduce((max, kill) => Math.max(max, kill.round), 0);
   const shotMax = shots.reduce((max, shot) => Math.max(max, shot.round), 0);
-  return Math.max(killMax, shotMax);
+  const damageMax = damages.reduce((max, damage) => Math.max(max, damage.round), 0);
+  return Math.max(killMax, shotMax, damageMax);
 }
 
 function deriveTotalTicks(
   roundEnds: any[],
   kills: ParsedKill[],
   shots: ParsedShot[],
+  damages: ParsedDamage[],
   frames: FrameSample[],
 ): number {
   let maxTick = -1;
@@ -254,6 +342,10 @@ function deriveTotalTicks(
 
   for (const shot of shots) {
     maxTick = Math.max(maxTick, shot.tick);
+  }
+
+  for (const damage of damages) {
+    maxTick = Math.max(maxTick, damage.tick);
   }
 
   for (const frame of frames) {
@@ -421,4 +513,90 @@ function safeNumber(value: unknown): number | undefined {
 function safeInt(value: unknown): number | undefined {
   const parsed = Number(value);
   return Number.isInteger(parsed) ? parsed : undefined;
+}
+
+function readDamageHealth(event: any): number {
+  return Math.max(
+    0,
+    safeInt(event.dmg_health) ??
+      safeInt(event.health_damage) ??
+      safeInt(event.dmg_health_real) ??
+      0,
+  );
+}
+
+function readDamageArmor(event: any): number {
+  return Math.max(
+    0,
+    safeInt(event.dmg_armor) ?? safeInt(event.armor_damage) ?? 0,
+  );
+}
+
+interface TickPlayerState {
+  x?: number;
+  y?: number;
+  z?: number;
+  spottedByMask: string[];
+}
+
+function toSteamIdArray(value: unknown): string[] {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+
+  return value.map((item) => String(item));
+}
+
+function upsertTickPlayerState(
+  states: Map<number, Map<number, TickPlayerState>>,
+  tick: number,
+  slot: number,
+  state: TickPlayerState,
+): void {
+  let bySlot = states.get(tick);
+  if (!bySlot) {
+    bySlot = new Map<number, TickPlayerState>();
+    states.set(tick, bySlot);
+  }
+
+  bySlot.set(slot, state);
+}
+
+function augmentKillContext(
+  kills: ParsedKill[],
+  playersBySlot: Map<number, PlayerIdentity>,
+  tickPlayerStates: Map<number, Map<number, TickPlayerState>>,
+): void {
+  for (const kill of kills) {
+    const bySlot = tickPlayerStates.get(kill.tick);
+    if (!bySlot) {
+      continue;
+    }
+
+    const attackerState = bySlot.get(kill.attackerSlot);
+    const victimState = bySlot.get(kill.victimSlot);
+    const attackerSteamId = playersBySlot.get(kill.attackerSlot)?.steamId;
+
+    if (victimState && attackerSteamId) {
+      kill.victimSpottedByAttacker = victimState.spottedByMask.includes(
+        attackerSteamId,
+      );
+    }
+
+    if (
+      attackerState &&
+      victimState &&
+      attackerState.x !== undefined &&
+      attackerState.y !== undefined &&
+      attackerState.z !== undefined &&
+      victimState.x !== undefined &&
+      victimState.y !== undefined &&
+      victimState.z !== undefined
+    ) {
+      const dx = attackerState.x - victimState.x;
+      const dy = attackerState.y - victimState.y;
+      const dz = attackerState.z - victimState.z;
+      kill.attackerVictimDistance = Math.sqrt(dx * dx + dy * dy + dz * dz);
+    }
+  }
 }

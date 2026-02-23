@@ -55,7 +55,7 @@ body {
   color: var(--ink);
 }
 main {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 24px auto;
   padding: 0 16px 24px;
 }
@@ -115,6 +115,13 @@ th {
         <th>${labels.verdict}</th>
         <th>${labels.score}</th>
         <th>${labels.confidence}</th>
+        <th>${labels.kills}</th>
+        <th>${labels.deaths}</th>
+        <th>${labels.kd}</th>
+        <th>${labels.damageGiven}</th>
+        <th>${labels.damageTaken}</th>
+        <th>${labels.adr}</th>
+        <th>${labels.hsRate}</th>
         <th>Flick</th>
         <th>Prefire</th>
         <th>Wallhack</th>
@@ -166,6 +173,13 @@ function renderPlayerRow(player: PlayerSuspicion): string {
 <td>${escapeHtml(player.verdict.label)}</td>
 <td><span class="badge">${player.scoreFinal}</span></td>
 <td>${(player.confidence * 100).toFixed(0)}%</td>
+<td>${player.combat.kills}</td>
+<td>${player.combat.deaths}</td>
+<td>${player.combat.kdRatio.toFixed(2)}</td>
+<td>${player.combat.damageGiven}</td>
+<td>${player.combat.damageTaken}</td>
+<td>${player.combat.adr.toFixed(1)}</td>
+<td>${(player.combat.headshotRate * 100).toFixed(0)}%</td>
 <td>${(player.metrics.flick.value * 100).toFixed(1)}%</td>
 <td>${(player.metrics.prefire.value * 100).toFixed(1)}%</td>
 <td>${(player.metrics.wallhack.value * 100).toFixed(1)}%</td>
@@ -186,6 +200,13 @@ function getLabels(language: Locale): {
   verdict: string;
   score: string;
   confidence: string;
+  kills: string;
+  deaths: string;
+  kd: string;
+  damageGiven: string;
+  damageTaken: string;
+  adr: string;
+  hsRate: string;
   samples: string;
   why: string;
   noSuspicious: string;
@@ -200,29 +221,36 @@ function getLabels(language: Locale): {
 } {
   if (language === "tr") {
     return {
-      pageTitle: "CS2 AC Yardımcı Raporu",
-      title: "CS2 Anti-Cheat Yardımcı Raporu",
+      pageTitle: "CS2 AC Yardimci Raporu",
+      title: "CS2 Anti-Cheat Yardimci Raporu",
       demo: "Demo",
       parser: "Parser",
       rounds: "Round",
       ticks: "Tick",
-      generated: "Oluşturulma",
-      topPlayers: "En Şüpheli Oyuncular",
+      generated: "Olusturulma",
+      topPlayers: "Suphe Siralamasi",
       player: "Oyuncu",
       verdict: "Yorum",
       score: "Skor",
-      confidence: "Güven",
-      samples: "Örnek",
-      why: "Neden Şüpheli?",
-      noSuspicious: "Yüksek güvenli şüpheli oyuncu bulunamadı.",
-      topEvents: "İlk 5 Kanıt Anı",
+      confidence: "Guven",
+      kills: "Kill",
+      deaths: "Death",
+      kd: "K/D",
+      damageGiven: "Hasar+",
+      damageTaken: "Hasar-",
+      adr: "ADR",
+      hsRate: "HS%",
+      samples: "Ornek",
+      why: "Ayrintili Aciklama",
+      noSuspicious: "Yuksek guvenli supheli oyuncu bulunamadi.",
+      topEvents: "Ilk 5 Kanit Ani",
       round: "Round",
-      tickRange: "Tick Aralığı",
+      tickRange: "Tick Araligi",
       time: "Zaman",
       reason: "Neden",
-      noEvents: "Kanıt anı yok.",
-      warnings: "Uyarılar",
-      noWarnings: "Uyarı yok.",
+      noEvents: "Kanit ani yok.",
+      warnings: "Uyarilar",
+      noWarnings: "Uyari yok.",
     };
   }
 
@@ -234,13 +262,20 @@ function getLabels(language: Locale): {
     rounds: "Rounds",
     ticks: "Ticks",
     generated: "Generated",
-    topPlayers: "Top Suspicious Players",
+    topPlayers: "Suspicion Ranking",
     player: "Player",
     verdict: "Verdict",
     score: "Score",
     confidence: "Confidence",
+    kills: "Kills",
+    deaths: "Deaths",
+    kd: "K/D",
+    damageGiven: "DMG+",
+    damageTaken: "DMG-",
+    adr: "ADR",
+    hsRate: "HS%",
     samples: "Samples",
-    why: "Why Suspicious?",
+    why: "Detailed Explanation",
     noSuspicious: "No high-confidence suspicious players detected.",
     topEvents: "Top 5 Evidence Moments",
     round: "Round",

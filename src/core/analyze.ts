@@ -9,6 +9,7 @@ import type {
 import { computeFlickMetric } from "../features/flick";
 import { computePrefireMetric } from "../features/prefire";
 import { computeWallhackMetric } from "../features/wallhack";
+import { computePlayerCombatSummary } from "./combat";
 import { computeGuardrails } from "../scoring/guardrails";
 import { computeSuspicionScore } from "../scoring/compute-score";
 import {
@@ -67,6 +68,12 @@ export async function analyzeDemo(input: AnalyzeInput): Promise<MatchReport> {
       parsed.tickRate,
     );
     const wallhack = computeWallhackMetric(player, playerKills, parsed.tickRate);
+    const combat = computePlayerCombatSummary(
+      player.slot,
+      parsed.kills,
+      parsed.damages,
+      parsed.rounds,
+    );
 
     const guardrail = computeGuardrails({
       flick,
@@ -151,6 +158,8 @@ export async function analyzeDemo(input: AnalyzeInput): Promise<MatchReport> {
       explanation.push(labelNote);
     }
 
+    explanation.push(localizeCombatSummary(combat, input.language));
+
     players.push({
       player,
       metrics: { flick, prefire, wallhack },
@@ -159,6 +168,7 @@ export async function analyzeDemo(input: AnalyzeInput): Promise<MatchReport> {
         samplePenalty: guardrail.samplePenalty,
         weaponAdjustment: guardrail.weaponAdjustment,
       },
+      combat,
       scoreRaw,
       scoreFinal,
       confidence,
@@ -213,6 +223,26 @@ export async function analyzeDemo(input: AnalyzeInput): Promise<MatchReport> {
     topEvents,
     warnings,
   };
+}
+
+function localizeCombatSummary(
+  combat: {
+    kills: number;
+    deaths: number;
+    kdRatio: number;
+    headshotKills: number;
+    headshotRate: number;
+    damageGiven: number;
+    damageTaken: number;
+    adr: number;
+  },
+  language: Locale,
+): string {
+  if (language === "tr") {
+    return `Savas ozeti: K/D ${combat.kills}/${combat.deaths} (${combat.kdRatio.toFixed(2)}), HS ${combat.headshotKills} (${(combat.headshotRate * 100).toFixed(0)}%), verilen hasar ${combat.damageGiven}, alinan hasar ${combat.damageTaken}, ADR ${combat.adr.toFixed(1)}.`;
+  }
+
+  return `Combat snapshot: K/D ${combat.kills}/${combat.deaths} (${combat.kdRatio.toFixed(2)}), HS ${combat.headshotKills} (${(combat.headshotRate * 100).toFixed(0)}%), damage given ${combat.damageGiven}, damage taken ${combat.damageTaken}, ADR ${combat.adr.toFixed(1)}.`;
 }
 
 function collectTopEvents(players: PlayerSuspicion[]): EvidenceMoment[] {

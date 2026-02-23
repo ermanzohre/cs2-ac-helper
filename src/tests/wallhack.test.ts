@@ -68,6 +68,34 @@ test("wallhack metric keeps non-headshot smoke spam at lower signal", () => {
   assert.equal(score.evidence.length, 0);
 });
 
+test("wallhack metric boosts unspotted occluded kills", () => {
+  const kills: ParsedKill[] = [
+    {
+      tick: 1500,
+      round: 4,
+      attackerSlot: 1,
+      victimSlot: 2,
+      weapon: "ak47",
+      weaponClass: "rifle",
+      throughSmoke: true,
+      penetrated: 1,
+      attackerBlind: false,
+      headshot: true,
+      victimSpottedByAttacker: false,
+      attackerVictimDistance: 1200,
+    },
+  ];
+
+  const score = computeWallhackMetric(
+    { name: "tester", slot: 1, team: "CT" },
+    kills,
+    64,
+  );
+
+  assert.ok(score.value >= 0.8);
+  assert.equal(score.evidence.length, 1);
+});
+
 test("wallhack metric remains low with clean kills", () => {
   const kills: ParsedKill[] = [
     {

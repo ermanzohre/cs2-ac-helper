@@ -4,6 +4,8 @@ import { buildStats, clamp01 } from "./shared";
 
 const EVIDENCE_WINDOW_MS = 300;
 const STRONG_SIGNAL_THRESHOLD = 0.58;
+const BURST_EVENT_TARGET = 4;
+const TOP_SIGNAL_WINDOW = 3;
 
 export function computeWallhackMetric(
   player: PlayerIdentity,
@@ -52,6 +54,29 @@ export function computeWallhackMetric(
       reasons.push("blind headshot");
     }
 
+    if (kill.victimSpottedByAttacker === false) {
+      signalScore += 0.16;
+      reasons.push("victim not spotted by attacker");
+    }
+
+    if (
+      kill.victimSpottedByAttacker === false &&
+      (kill.throughSmoke || kill.penetrated > 0)
+    ) {
+      signalScore += 0.2;
+      reasons.push("occluded kill without spot info");
+    }
+
+    if (
+      kill.victimSpottedByAttacker === false &&
+      kill.headshot &&
+      kill.attackerVictimDistance !== undefined &&
+      kill.attackerVictimDistance > 900
+    ) {
+      signalScore += 0.08;
+      reasons.push("long-range unspotted headshot");
+    }
+
     if (kill.throughSmoke && kill.penetrated > 0) {
       signalScore += 0.1;
       reasons.push("smoke + wallbang overlap");
@@ -81,13 +106,23 @@ export function computeWallhackMetric(
     }
   }
 
-  const value = signalScores.length
+  const meanValue = signalScores.length
     ? signalScores.reduce((acc, item) => acc + item, 0) / signalScores.length
     : 0;
+  const strongSignals = signalScores.filter(
+    (item) => item >= STRONG_SIGNAL_THRESHOLD,
+  );
+  const topSignals = [...signalScores]
+    .sort((a, b) => b - a)
+    .slice(0, TOP_SIGNAL_WINDOW);
+  const topMean = topSignals.length
+    ? topSignals.reduce((acc, item) => acc + item, 0) / topSignals.length
+    : 0;
+  const burstFactor = clamp01(strongSignals.length / BURST_EVENT_TARGET);
+  const value = clamp01(0.45 * meanValue + 0.35 * topMean + 0.2 * burstFactor);
 
   const suspiciousRatio = signalScores.length
-    ? signalScores.filter((item) => item >= STRONG_SIGNAL_THRESHOLD).length /
-      signalScores.length
+    ? strongSignals.length / signalScores.length
     : 0;
   const smokeHeadshotRatio = playerKills.length
     ? playerKills.filter((kill) => kill.throughSmoke && kill.headshot).length /
@@ -95,7 +130,10 @@ export function computeWallhackMetric(
     : 0;
   const confidence = clamp01(
     Math.min(signalScores.length / 12, 1) *
-      (0.35 + 0.45 * suspiciousRatio + 0.2 * smokeHeadshotRatio),
+      (0.3 +
+        0.35 * suspiciousRatio +
+        0.2 * smokeHeadshotRatio +
+        0.15 * burstFactor),
   );
 
   return {

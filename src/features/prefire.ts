@@ -72,6 +72,16 @@ export function computePrefireMetric(
       reasons.push("prepared timing overlap");
     }
 
+    if (kill.victimSpottedByAttacker === false && hasLeadSignal) {
+      signal += 0.14;
+      reasons.push("short lead on unspotted target");
+    }
+
+    if (kill.victimSpottedByAttacker === false && holdSignal && prepShotCount >= 2) {
+      signal += 0.1;
+      reasons.push("hold + probing on unspotted target");
+    }
+
     if (hasLeadSignal && holdSignal && kill.headshot) {
       signal += 0.12;
       reasons.push("hold + short-lead headshot");
