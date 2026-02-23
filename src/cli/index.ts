@@ -39,6 +39,24 @@ program
   )
   .option("--parser <name>", "Parser backend: auto|demofile|demoparser2", "auto")
   .option("--lang <code>", "Report language: tr|en", parseLocale, "tr")
+  .option(
+    "--known-clean <list>",
+    "Comma-separated known clean player names",
+    parseNameList,
+    [],
+  )
+  .option(
+    "--known-suspicious <list>",
+    "Comma-separated known suspicious player names",
+    parseNameList,
+    [],
+  )
+  .option(
+    "--known-cheat <list>",
+    "Alias of --known-suspicious",
+    parseNameList,
+    [],
+  )
   .option("--pretty", "Pretty print JSON output", true)
   .option("--no-pretty", "Disable JSON pretty printing")
   .option("--verbose", "Verbose logs", false)
@@ -52,6 +70,10 @@ program
 
     const outDir = path.resolve(options.out);
     const formatSet = parseFormats(options.format as string, Boolean(options.csv));
+    const knownSuspiciousNames = [
+      ...(options.knownSuspicious as string[]),
+      ...(options.knownCheat as string[]),
+    ];
 
     try {
       ensureDirectory(outDir);
@@ -63,6 +85,8 @@ program
         parser: options.parser as string,
         language: options.lang as Locale,
         verbose: Boolean(options.verbose),
+        knownCleanNames: options.knownClean as string[],
+        knownSuspiciousNames,
       });
 
       if (formatSet.has("json")) {
@@ -143,4 +167,12 @@ function parseFormats(raw: string, csvFlag: boolean): Set<string> {
   }
 
   return new Set(values);
+}
+
+function parseNameList(raw: string, previous: string[] = []): string[] {
+  const names = raw
+    .split(",")
+    .map((name) => name.trim())
+    .filter(Boolean);
+  return [...previous, ...names];
 }

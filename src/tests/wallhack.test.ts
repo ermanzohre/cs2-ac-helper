@@ -15,6 +15,7 @@ test("wallhack metric increases on smoke and wallbang kills", () => {
       throughSmoke: true,
       penetrated: 0,
       attackerBlind: false,
+      headshot: true,
     },
     {
       tick: 1100,
@@ -26,6 +27,7 @@ test("wallhack metric increases on smoke and wallbang kills", () => {
       throughSmoke: false,
       penetrated: 1,
       attackerBlind: false,
+      headshot: true,
     },
   ];
 
@@ -35,9 +37,35 @@ test("wallhack metric increases on smoke and wallbang kills", () => {
     64,
   );
 
-  assert.ok(score.value > 0.3);
+  assert.ok(score.value > 0.4);
   assert.equal(score.samples, 2);
   assert.ok(score.evidence.length >= 1);
+});
+
+test("wallhack metric keeps non-headshot smoke spam at lower signal", () => {
+  const kills: ParsedKill[] = [
+    {
+      tick: 1400,
+      round: 4,
+      attackerSlot: 1,
+      victimSlot: 2,
+      weapon: "ak47",
+      weaponClass: "rifle",
+      throughSmoke: true,
+      penetrated: 0,
+      attackerBlind: false,
+      headshot: false,
+    },
+  ];
+
+  const score = computeWallhackMetric(
+    { name: "tester", slot: 1, team: "CT" },
+    kills,
+    64,
+  );
+
+  assert.ok(score.value < 0.3);
+  assert.equal(score.evidence.length, 0);
 });
 
 test("wallhack metric remains low with clean kills", () => {
@@ -52,6 +80,7 @@ test("wallhack metric remains low with clean kills", () => {
       throughSmoke: false,
       penetrated: 0,
       attackerBlind: false,
+      headshot: false,
     },
   ];
 

@@ -28,6 +28,9 @@ program
     .option("--min-rounds <n>", "Minimum rounds for confidence gates", parsePositiveInt, 10)
     .option("--parser <name>", "Parser backend: auto|demofile|demoparser2", "auto")
     .option("--lang <code>", "Report language: tr|en", parseLocale, "tr")
+    .option("--known-clean <list>", "Comma-separated known clean player names", parseNameList, [])
+    .option("--known-suspicious <list>", "Comma-separated known suspicious player names", parseNameList, [])
+    .option("--known-cheat <list>", "Alias of --known-suspicious", parseNameList, [])
     .option("--pretty", "Pretty print JSON output", true)
     .option("--no-pretty", "Disable JSON pretty printing")
     .option("--verbose", "Verbose logs", false)
@@ -39,6 +42,10 @@ program
     }
     const outDir = path_1.default.resolve(options.out);
     const formatSet = parseFormats(options.format, Boolean(options.csv));
+    const knownSuspiciousNames = [
+        ...options.knownSuspicious,
+        ...options.knownCheat,
+    ];
     try {
         (0, fs_2.ensureDirectory)(outDir);
         const report = await (0, analyze_1.analyzeDemo)({
@@ -48,6 +55,8 @@ program
             parser: options.parser,
             language: options.lang,
             verbose: Boolean(options.verbose),
+            knownCleanNames: options.knownClean,
+            knownSuspiciousNames,
         });
         if (formatSet.has("json")) {
             (0, json_writer_1.writeJsonReport)(outDir, report, Boolean(options.pretty));
@@ -111,4 +120,11 @@ function parseFormats(raw, csvFlag) {
         }
     }
     return new Set(values);
+}
+function parseNameList(raw, previous = []) {
+    const names = raw
+        .split(",")
+        .map((name) => name.trim())
+        .filter(Boolean);
+    return [...previous, ...names];
 }

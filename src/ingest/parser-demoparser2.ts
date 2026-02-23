@@ -36,7 +36,7 @@ export async function parseDemoWithDemoparser2(
       demoPath,
       "player_death",
       ["name", "steamid", "team_num", "user_id"],
-      ["tick", "round", "total_rounds_played"],
+      ["tick", "round", "total_rounds_played", "headshot"],
     ),
   );
   const weaponFireEvents = toArray(
@@ -84,6 +84,7 @@ export async function parseDemoWithDemoparser2(
       throughSmoke: Boolean(event.thrusmoke),
       penetrated: safeInt(event.penetrated) ?? 0,
       attackerBlind: Boolean(event.attackerblind),
+      headshot: Boolean(event.headshot),
     });
   }
 

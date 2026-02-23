@@ -75,4 +75,6 @@ export interface AnalyzeInput {
   parser: string;
   language: Locale;
   verbose: boolean;
+  knownCleanNames: string[];
+  knownSuspiciousNames: string[];
 }

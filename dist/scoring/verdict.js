@@ -9,16 +9,22 @@ function computeVerdict(input, language) {
     };
 }
 function resolveVerdictCode(input) {
-    if (input.scoreFinal >= 75 ||
-        (input.scoreFinal >= 65 && input.wallhack.value >= 0.25 && input.confidence >= 0.85)) {
+    if (input.scoreFinal >= 78 ||
+        (input.scoreFinal >= 66 &&
+            input.wallhack.value >= 0.28 &&
+            input.confidence >= 0.9)) {
         return "high_suspicion";
     }
-    if (input.scoreFinal >= 55 ||
-        (input.wallhack.value >= 0.2 && input.confidence >= 0.75)) {
+    if (input.scoreFinal >= 58 ||
+        (input.scoreFinal >= 46 &&
+            input.wallhack.value >= 0.24 &&
+            input.confidence >= 0.85)) {
         return "suspicious";
     }
-    if (input.scoreFinal >= 40 ||
-        (input.wallhack.value >= 0.1 && input.confidence >= 0.7)) {
+    if (input.scoreFinal >= 38 ||
+        (input.scoreFinal >= 28 &&
+            input.wallhack.value >= 0.18 &&
+            input.confidence >= 0.8)) {
         return "watch";
     }
     return "clean";

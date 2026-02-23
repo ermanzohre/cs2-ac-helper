@@ -87,9 +87,11 @@ test("prefire metric detects short shot-to-kill windows", () => {
         throughSmoke: false,
         penetrated: 0,
         attackerBlind: false,
+        headshot: false,
       },
     ],
     [{ tick: 95, round: 1, shooterSlot: 1, weapon: "ak47" }],
+    [],
     64,
   );
 
@@ -110,12 +112,50 @@ test("prefire metric does not mark same-tick shot+kill as suspicious alone", () 
         throughSmoke: false,
         penetrated: 0,
         attackerBlind: false,
+        headshot: false,
       },
     ],
     [{ tick: 200, round: 2, shooterSlot: 1, weapon: "ak47" }],
+    [],
     64,
   );
 
   assert.equal(result.value, 0);
   assert.equal(result.evidence.length, 0);
+});
+
+test("prefire metric increases on prepared peek pattern with smoke headshot", () => {
+  const result = computePrefireMetric(
+    { name: "tester", slot: 1, team: "CT" },
+    [
+      {
+        tick: 500,
+        round: 3,
+        attackerSlot: 1,
+        victimSlot: 2,
+        weapon: "ak47",
+        weaponClass: "rifle",
+        throughSmoke: true,
+        penetrated: 0,
+        attackerBlind: false,
+        headshot: true,
+      },
+    ],
+    [
+      { tick: 390, round: 3, shooterSlot: 1, weapon: "ak47" },
+      { tick: 430, round: 3, shooterSlot: 1, weapon: "ak47" },
+      { tick: 460, round: 3, shooterSlot: 1, weapon: "ak47" },
+      { tick: 494, round: 3, shooterSlot: 1, weapon: "ak47" },
+    ],
+    [
+      { tick: 455, round: 3, playerSlot: 1, yaw: 12, pitch: 1 },
+      { tick: 470, round: 3, playerSlot: 1, yaw: 13, pitch: 1.5 },
+      { tick: 485, round: 3, playerSlot: 1, yaw: 11.5, pitch: 0.8 },
+      { tick: 499, round: 3, playerSlot: 1, yaw: 12.2, pitch: 1.2 },
+    ],
+    64,
+  );
+
+  assert.ok(result.value >= 0.55);
+  assert.ok(result.evidence.length >= 1);
 });

@@ -55,6 +55,7 @@ export async function parseDemoWithDemofile(
         throughSmoke: Boolean(event.thrusmoke),
         penetrated: Number(event.penetrated ?? 0),
         attackerBlind: Boolean(event.attackerblind),
+        headshot: Boolean(event.headshot),
         attackerYaw: safeNumber(attacker.eyeAngles?.yaw),
         attackerPitch: safeNumber(attacker.eyeAngles?.pitch),
       });

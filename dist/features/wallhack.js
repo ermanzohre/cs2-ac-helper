@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.computeWallhackMetric = computeWallhackMetric;
 const shared_1 = require("./shared");
 const EVIDENCE_WINDOW_MS = 300;
+const STRONG_SIGNAL_THRESHOLD = 0.58;
 function computeWallhackMetric(player, kills, tickRate) {
     const playerKills = kills.filter((kill) => kill.attackerSlot === player.slot);
     const signalScores = [];
@@ -11,26 +12,42 @@ function computeWallhackMetric(player, kills, tickRate) {
         let signalScore = 0;
         const reasons = [];
         if (kill.throughSmoke) {
-            signalScore += 0.55;
+            signalScore += 0.2;
             reasons.push("through smoke");
         }
+        if (kill.throughSmoke && kill.headshot) {
+            signalScore += 0.38;
+            reasons.push("smoke headshot");
+        }
         if (kill.penetrated > 0) {
-            signalScore += Math.min(0.45, 0.2 + kill.penetrated * 0.1);
+            signalScore += Math.min(0.35, 0.12 + kill.penetrated * 0.07);
             reasons.push(kill.penetrated === 1
                 ? "single wall penetration"
                 : `${kill.penetrated} wall penetrations`);
         }
+        if (kill.penetrated > 0 && kill.headshot) {
+            signalScore += 0.18;
+            reasons.push("penetration headshot");
+        }
         if (kill.attackerBlind) {
-            signalScore += 0.3;
+            signalScore += 0.2;
             reasons.push("attacker was blind");
         }
+        if (kill.attackerBlind && kill.headshot) {
+            signalScore += 0.12;
+            reasons.push("blind headshot");
+        }
         if (kill.throughSmoke && kill.penetrated > 0) {
-            signalScore += 0.15;
+            signalScore += 0.1;
             reasons.push("smoke + wallbang overlap");
+        }
+        if (kill.throughSmoke && kill.penetrated > 0 && kill.headshot) {
+            signalScore += 0.1;
+            reasons.push("smoke wallbang headshot");
         }
         const normalized = (0, shared_1.clamp01)(signalScore);
         signalScores.push(normalized);
-        if (normalized >= 0.5) {
+        if (normalized >= STRONG_SIGNAL_THRESHOLD) {
             evidence.push({
                 playerName: player.name,
                 round: kill.round,
@@ -46,9 +63,15 @@ function computeWallhackMetric(player, kills, tickRate) {
         ? signalScores.reduce((acc, item) => acc + item, 0) / signalScores.length
         : 0;
     const suspiciousRatio = signalScores.length
-        ? signalScores.filter((item) => item >= 0.5).length / signalScores.length
+        ? signalScores.filter((item) => item >= STRONG_SIGNAL_THRESHOLD).length /
+            signalScores.length
         : 0;
-    const confidence = (0, shared_1.clamp01)(Math.min(signalScores.length / 12, 1) * (0.4 + 0.6 * suspiciousRatio));
+    const smokeHeadshotRatio = playerKills.length
+        ? playerKills.filter((kill) => kill.throughSmoke && kill.headshot).length /
+            playerKills.length
+        : 0;
+    const confidence = (0, shared_1.clamp01)(Math.min(signalScores.length / 12, 1) *
+        (0.35 + 0.45 * suspiciousRatio + 0.2 * smokeHeadshotRatio));
     return {
         value: (0, shared_1.clamp01)(value),
         samples: signalScores.length,

@@ -11,6 +11,11 @@ import { computePrefireMetric } from "../features/prefire";
 import { computeWallhackMetric } from "../features/wallhack";
 import { computeGuardrails } from "../scoring/guardrails";
 import { computeSuspicionScore } from "../scoring/compute-score";
+import {
+  buildKnownPlayerFeedback,
+  buildUnmatchedKnownNameWarnings,
+  resolveKnownPlayerLabel,
+} from "../scoring/feedback";
 import { computeVerdict } from "../scoring/verdict";
 import { summarizeExplanation } from "../scoring/weights";
 import { currentIsoTimestamp } from "../utils/time";
@@ -21,6 +26,19 @@ export async function analyzeDemo(input: AnalyzeInput): Promise<MatchReport> {
 
   const warnings = parsed.warnings.map((warning) =>
     localizeWarning(warning, input.language),
+  );
+  const feedback = buildKnownPlayerFeedback(
+    input.knownCleanNames,
+    input.knownSuspiciousNames,
+    input.language,
+  );
+  warnings.push(...feedback.warnings);
+  warnings.push(
+    ...buildUnmatchedKnownNameWarnings(
+      parsed.players.map((player) => player.name),
+      feedback,
+      input.language,
+    ),
   );
   const players: PlayerSuspicion[] = [];
 
@@ -45,6 +63,7 @@ export async function analyzeDemo(input: AnalyzeInput): Promise<MatchReport> {
       player,
       playerKills,
       playerShots,
+      playerFrames,
       parsed.tickRate,
     );
     const wallhack = computeWallhackMetric(player, playerKills, parsed.tickRate);
@@ -70,23 +89,67 @@ export async function analyzeDemo(input: AnalyzeInput): Promise<MatchReport> {
       minRounds: input.minRounds,
     });
 
+    let scoreRaw = score.scoreRaw;
+    let scoreFinal = score.scoreFinal;
+    let confidence = score.confidence;
+    let verdict = computeVerdict(
+      {
+        scoreFinal,
+        confidence,
+        wallhack,
+      },
+      input.language,
+    );
+    const knownLabel = resolveKnownPlayerLabel(player.name, feedback);
+    let labelNote: string | undefined;
+
+    if (knownLabel === "known_clean") {
+      scoreRaw = Math.min(scoreRaw, 0.05);
+      scoreFinal = Math.min(scoreFinal, 5);
+      confidence = Math.max(confidence, 0.8);
+      verdict = computeVerdict(
+        {
+          scoreFinal: 0,
+          confidence,
+          wallhack,
+        },
+        input.language,
+      );
+      labelNote =
+        input.language === "tr"
+          ? "Geri bildirim etiketi uygulandi: bilinen temiz oyuncu."
+          : "Feedback label applied: known clean player.";
+    } else if (knownLabel === "known_suspicious") {
+      scoreRaw = Math.max(scoreRaw, 0.6);
+      scoreFinal = Math.max(scoreFinal, 60);
+      confidence = Math.max(confidence, 0.85);
+      verdict = computeVerdict(
+        {
+          scoreFinal,
+          confidence,
+          wallhack,
+        },
+        input.language,
+      );
+      labelNote =
+        input.language === "tr"
+          ? "Geri bildirim etiketi uygulandi: bilinen supheli oyuncu."
+          : "Feedback label applied: known suspicious player.";
+    }
+
     const explanation = summarizeExplanation(
       flick,
       prefire,
       wallhack,
       guardrail,
-      score,
+      { scoreFinal, confidence },
       input.language,
       parsed.tickRate,
     );
-    const verdict = computeVerdict(
-      {
-        scoreFinal: score.scoreFinal,
-        confidence: score.confidence,
-        wallhack,
-      },
-      input.language,
-    );
+
+    if (labelNote) {
+      explanation.push(labelNote);
+    }
 
     players.push({
       player,
@@ -96,9 +159,9 @@ export async function analyzeDemo(input: AnalyzeInput): Promise<MatchReport> {
         samplePenalty: guardrail.samplePenalty,
         weaponAdjustment: guardrail.weaponAdjustment,
       },
-      scoreRaw: score.scoreRaw,
-      scoreFinal: score.scoreFinal,
-      confidence: score.confidence,
+      scoreRaw,
+      scoreFinal,
+      confidence,
       explanation,
     });
   }

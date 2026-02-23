@@ -19,8 +19,24 @@ node dist/cli/index.js analyze .\match.dem --out .\reports
 - `--min-rounds <n>` default `10`
 - `--parser <name>` `auto|demofile|demoparser2`, default `auto`
 - `--lang <code>` `tr|en`, default `tr`
+- `--known-clean <list>` comma-separated known clean players (name matching is normalized)
+- `--known-suspicious <list>` comma-separated known suspicious players
+- `--known-cheat <list>` alias of `--known-suspicious`
 - `--pretty` / `--no-pretty` JSON indentation toggle
 - `--verbose` include parser diagnostics in warnings
+
+## Feedback calibration
+
+You can calibrate verdicts with known player feedback when a demo has trusted labels:
+
+```powershell
+node dist/cli/index.js analyze .\match.dem --out .\reports --lang tr --known-clean "aKs--,Morpheus,MAG,Mmt" --known-suspicious "INSPIRING"
+```
+
+Notes:
+- Name matching ignores case, punctuation and accents (example: `aKs--` equals `aks`).
+- If a name is provided in both clean and suspicious lists, suspicious takes priority and a warning is added.
+- If a provided name is not found in the demo, a warning is added.
 
 ## Parser selection
 
@@ -35,6 +51,16 @@ node dist/cli/index.js analyze .\match.dem --out .\reports
 - `report.json`
 - `report.html`
 - `timeline.csv` (only when `--csv` is provided)
+
+## Detection notes
+
+Current proxy rules prioritize these suspicious patterns:
+
+- smoke + headshot combinations
+- prepared peek timing (probing shots before kill + short shot-to-kill lead)
+- stable angle hold before kill followed by immediate elimination
+
+These are still behavioral proxies from demo events, not direct cheat proof by themselves.
 
 ## Verdict labels
 

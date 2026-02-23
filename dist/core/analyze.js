@@ -7,6 +7,7 @@ const prefire_1 = require("../features/prefire");
 const wallhack_1 = require("../features/wallhack");
 const guardrails_1 = require("../scoring/guardrails");
 const compute_score_1 = require("../scoring/compute-score");
+const feedback_1 = require("../scoring/feedback");
 const verdict_1 = require("../scoring/verdict");
 const weights_1 = require("../scoring/weights");
 const time_1 = require("../utils/time");
@@ -14,13 +15,16 @@ async function analyzeDemo(input) {
     (0, parser_adapter_1.validateDemoExtension)(input.demoPath);
     const parsed = await (0, parser_adapter_1.parseDemo)(input.demoPath, input.parser, input.verbose);
     const warnings = parsed.warnings.map((warning) => localizeWarning(warning, input.language));
+    const feedback = (0, feedback_1.buildKnownPlayerFeedback)(input.knownCleanNames, input.knownSuspiciousNames, input.language);
+    warnings.push(...feedback.warnings);
+    warnings.push(...(0, feedback_1.buildUnmatchedKnownNameWarnings)(parsed.players.map((player) => player.name), feedback, input.language));
     const players = [];
     for (const player of parsed.players) {
         const playerKills = parsed.kills.filter((kill) => kill.attackerSlot === player.slot);
         const playerShots = parsed.shots.filter((shot) => shot.shooterSlot === player.slot);
         const playerFrames = parsed.frames.filter((frame) => frame.playerSlot === player.slot);
         const flick = (0, flick_1.computeFlickMetric)(player, playerKills, playerFrames, parsed.tickRate);
-        const prefire = (0, prefire_1.computePrefireMetric)(player, playerKills, playerShots, parsed.tickRate);
+        const prefire = (0, prefire_1.computePrefireMetric)(player, playerKills, playerShots, playerFrames, parsed.tickRate);
         const wallhack = (0, wallhack_1.computeWallhackMetric)(player, playerKills, parsed.tickRate);
         const guardrail = (0, guardrails_1.computeGuardrails)({
             flick,
@@ -41,12 +45,48 @@ async function analyzeDemo(input) {
             rounds: parsed.rounds,
             minRounds: input.minRounds,
         });
-        const explanation = (0, weights_1.summarizeExplanation)(flick, prefire, wallhack, guardrail, score, input.language, parsed.tickRate);
-        const verdict = (0, verdict_1.computeVerdict)({
-            scoreFinal: score.scoreFinal,
-            confidence: score.confidence,
+        let scoreRaw = score.scoreRaw;
+        let scoreFinal = score.scoreFinal;
+        let confidence = score.confidence;
+        let verdict = (0, verdict_1.computeVerdict)({
+            scoreFinal,
+            confidence,
             wallhack,
         }, input.language);
+        const knownLabel = (0, feedback_1.resolveKnownPlayerLabel)(player.name, feedback);
+        let labelNote;
+        if (knownLabel === "known_clean") {
+            scoreRaw = Math.min(scoreRaw, 0.05);
+            scoreFinal = Math.min(scoreFinal, 5);
+            confidence = Math.max(confidence, 0.8);
+            verdict = (0, verdict_1.computeVerdict)({
+                scoreFinal: 0,
+                confidence,
+                wallhack,
+            }, input.language);
+            labelNote =
+                input.language === "tr"
+                    ? "Geri bildirim etiketi uygulandi: bilinen temiz oyuncu."
+                    : "Feedback label applied: known clean player.";
+        }
+        else if (knownLabel === "known_suspicious") {
+            scoreRaw = Math.max(scoreRaw, 0.6);
+            scoreFinal = Math.max(scoreFinal, 60);
+            confidence = Math.max(confidence, 0.85);
+            verdict = (0, verdict_1.computeVerdict)({
+                scoreFinal,
+                confidence,
+                wallhack,
+            }, input.language);
+            labelNote =
+                input.language === "tr"
+                    ? "Geri bildirim etiketi uygulandi: bilinen supheli oyuncu."
+                    : "Feedback label applied: known suspicious player.";
+        }
+        const explanation = (0, weights_1.summarizeExplanation)(flick, prefire, wallhack, guardrail, { scoreFinal, confidence }, input.language, parsed.tickRate);
+        if (labelNote) {
+            explanation.push(labelNote);
+        }
         players.push({
             player,
             metrics: { flick, prefire, wallhack },
@@ -55,9 +95,9 @@ async function analyzeDemo(input) {
                 samplePenalty: guardrail.samplePenalty,
                 weaponAdjustment: guardrail.weaponAdjustment,
             },
-            scoreRaw: score.scoreRaw,
-            scoreFinal: score.scoreFinal,
-            confidence: score.confidence,
+            scoreRaw,
+            scoreFinal,
+            confidence,
             explanation,
         });
     }

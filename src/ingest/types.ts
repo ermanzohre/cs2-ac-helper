@@ -18,6 +18,7 @@ export interface ParsedKill {
   throughSmoke: boolean;
   penetrated: number;
   attackerBlind: boolean;
+  headshot: boolean;
   attackerYaw?: number;
   attackerPitch?: number;
 }

@@ -2,7 +2,7 @@
   "name": "cs2-ac-helper",
   "version": "1.0.0",
   "description": "CS2 demo analyzer for suspicion scoring",
-  "main": "index.js",
+  "main": "dist/cli/index.js",
   "scripts": {
     "build": "tsc",
     "start": "ts-node src/cli/index.ts",
@@ -15,7 +15,7 @@
     "cli"
   ],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "type": "commonjs",
   "devDependencies": {
     "@types/node": "^25.3.0",

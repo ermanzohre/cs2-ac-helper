@@ -15,7 +15,7 @@ async function parseDemoWithDemoparser2(demoPath, verbose) {
     const shots = [];
     const frames = [];
     const roundEndEvents = toArray(parserModule.parseEvent(demoPath, "round_end", [], ["tick", "round", "total_rounds_played"]));
-    const deathEvents = toArray(parserModule.parseEvent(demoPath, "player_death", ["name", "steamid", "team_num", "user_id"], ["tick", "round", "total_rounds_played"]));
+    const deathEvents = toArray(parserModule.parseEvent(demoPath, "player_death", ["name", "steamid", "team_num", "user_id"], ["tick", "round", "total_rounds_played", "headshot"]));
     const weaponFireEvents = toArray(parserModule.parseEvent(demoPath, "weapon_fire", ["name", "steamid", "team_num", "user_id"], ["tick", "round", "total_rounds_played"]));
     for (const event of deathEvents) {
         const attackerSlot = safeInt(event.attacker_user_id);
@@ -47,6 +47,7 @@ async function parseDemoWithDemoparser2(demoPath, verbose) {
             throughSmoke: Boolean(event.thrusmoke),
             penetrated: safeInt(event.penetrated) ?? 0,
             attackerBlind: Boolean(event.attackerblind),
+            headshot: Boolean(event.headshot),
         });
     }
     for (const event of weaponFireEvents) {

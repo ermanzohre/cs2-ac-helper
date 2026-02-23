@@ -23,9 +23,17 @@ function metric(value) {
     strict_1.default.equal(verdict.code, "clean");
     strict_1.default.equal(verdict.label, "Temiz");
 });
-(0, node_test_1.default)("verdict marks high wallhack signal as suspicious", () => {
+(0, node_test_1.default)("verdict keeps low-score wallhack spikes at watch level", () => {
     const verdict = (0, verdict_1.computeVerdict)({
         scoreFinal: 43,
+        confidence: 0.92,
+        wallhack: metric(0.24),
+    }, "tr");
+    strict_1.default.equal(verdict.code, "watch");
+});
+(0, node_test_1.default)("verdict marks high wallhack signal as suspicious with stronger score", () => {
+    const verdict = (0, verdict_1.computeVerdict)({
+        scoreFinal: 49,
         confidence: 0.92,
         wallhack: metric(0.24),
     }, "tr");

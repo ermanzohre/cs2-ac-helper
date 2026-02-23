@@ -1,0 +1,27 @@
+{
+  "version": "0.2",
+  "language": "en,tr",
+  "useGitignore": true,
+  "ignorePaths": [
+    "node_modules/**",
+    "dist/**",
+    "reports/**"
+  ],
+  "words": [
+    "cs2",
+    "demofile",
+    "laihoe",
+    "demoparser",
+    "demoparser2",
+    "wallhack",
+    "prefire",
+    "thrusmoke",
+    "tickrate",
+    "headshot",
+    "steamid",
+    "userid",
+    "awp",
+    "morpheus",
+    "inspiring"
+  ]
+}

@@ -80,8 +80,9 @@ function metric(value, samples, confidence = 1) {
             throughSmoke: false,
             penetrated: 0,
             attackerBlind: false,
+            headshot: false,
         },
-    ], [{ tick: 95, round: 1, shooterSlot: 1, weapon: "ak47" }], 64);
+    ], [{ tick: 95, round: 1, shooterSlot: 1, weapon: "ak47" }], [], 64);
     strict_1.default.ok(result.value > 0);
 });
 (0, node_test_1.default)("prefire metric does not mark same-tick shot+kill as suspicious alone", () => {
@@ -96,8 +97,37 @@ function metric(value, samples, confidence = 1) {
             throughSmoke: false,
             penetrated: 0,
             attackerBlind: false,
+            headshot: false,
         },
-    ], [{ tick: 200, round: 2, shooterSlot: 1, weapon: "ak47" }], 64);
+    ], [{ tick: 200, round: 2, shooterSlot: 1, weapon: "ak47" }], [], 64);
     strict_1.default.equal(result.value, 0);
     strict_1.default.equal(result.evidence.length, 0);
+});
+(0, node_test_1.default)("prefire metric increases on prepared peek pattern with smoke headshot", () => {
+    const result = (0, prefire_1.computePrefireMetric)({ name: "tester", slot: 1, team: "CT" }, [
+        {
+            tick: 500,
+            round: 3,
+            attackerSlot: 1,
+            victimSlot: 2,
+            weapon: "ak47",
+            weaponClass: "rifle",
+            throughSmoke: true,
+            penetrated: 0,
+            attackerBlind: false,
+            headshot: true,
+        },
+    ], [
+        { tick: 390, round: 3, shooterSlot: 1, weapon: "ak47" },
+        { tick: 430, round: 3, shooterSlot: 1, weapon: "ak47" },
+        { tick: 460, round: 3, shooterSlot: 1, weapon: "ak47" },
+        { tick: 494, round: 3, shooterSlot: 1, weapon: "ak47" },
+    ], [
+        { tick: 455, round: 3, playerSlot: 1, yaw: 12, pitch: 1 },
+        { tick: 470, round: 3, playerSlot: 1, yaw: 13, pitch: 1.5 },
+        { tick: 485, round: 3, playerSlot: 1, yaw: 11.5, pitch: 0.8 },
+        { tick: 499, round: 3, playerSlot: 1, yaw: 12.2, pitch: 1.2 },
+    ], 64);
+    strict_1.default.ok(result.value >= 0.55);
+    strict_1.default.ok(result.evidence.length >= 1);
 });

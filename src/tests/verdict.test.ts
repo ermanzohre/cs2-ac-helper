@@ -26,10 +26,23 @@ test("verdict marks low-score player as clean", () => {
   assert.equal(verdict.label, "Temiz");
 });
 
-test("verdict marks high wallhack signal as suspicious", () => {
+test("verdict keeps low-score wallhack spikes at watch level", () => {
   const verdict = computeVerdict(
     {
       scoreFinal: 43,
+      confidence: 0.92,
+      wallhack: metric(0.24),
+    },
+    "tr",
+  );
+
+  assert.equal(verdict.code, "watch");
+});
+
+test("verdict marks high wallhack signal as suspicious with stronger score", () => {
+  const verdict = computeVerdict(
+    {
+      scoreFinal: 49,
       confidence: 0.92,
       wallhack: metric(0.24),
     },

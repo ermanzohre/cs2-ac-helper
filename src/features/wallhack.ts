@@ -3,6 +3,7 @@ import type { ParsedKill } from "../ingest/types";
 import { buildStats, clamp01 } from "./shared";
 
 const EVIDENCE_WINDOW_MS = 300;
+const STRONG_SIGNAL_THRESHOLD = 0.58;
 
 export function computeWallhackMetric(
   player: PlayerIdentity,
@@ -18,12 +19,17 @@ export function computeWallhackMetric(
     const reasons: string[] = [];
 
     if (kill.throughSmoke) {
-      signalScore += 0.55;
+      signalScore += 0.2;
       reasons.push("through smoke");
     }
 
+    if (kill.throughSmoke && kill.headshot) {
+      signalScore += 0.38;
+      reasons.push("smoke headshot");
+    }
+
     if (kill.penetrated > 0) {
-      signalScore += Math.min(0.45, 0.2 + kill.penetrated * 0.1);
+      signalScore += Math.min(0.35, 0.12 + kill.penetrated * 0.07);
       reasons.push(
         kill.penetrated === 1
           ? "single wall penetration"
@@ -31,20 +37,35 @@ export function computeWallhackMetric(
       );
     }
 
+    if (kill.penetrated > 0 && kill.headshot) {
+      signalScore += 0.18;
+      reasons.push("penetration headshot");
+    }
+
     if (kill.attackerBlind) {
-      signalScore += 0.3;
+      signalScore += 0.2;
       reasons.push("attacker was blind");
     }
 
+    if (kill.attackerBlind && kill.headshot) {
+      signalScore += 0.12;
+      reasons.push("blind headshot");
+    }
+
     if (kill.throughSmoke && kill.penetrated > 0) {
-      signalScore += 0.15;
+      signalScore += 0.1;
       reasons.push("smoke + wallbang overlap");
+    }
+
+    if (kill.throughSmoke && kill.penetrated > 0 && kill.headshot) {
+      signalScore += 0.1;
+      reasons.push("smoke wallbang headshot");
     }
 
     const normalized = clamp01(signalScore);
     signalScores.push(normalized);
 
-    if (normalized >= 0.5) {
+    if (normalized >= STRONG_SIGNAL_THRESHOLD) {
       evidence.push({
         playerName: player.name,
         round: kill.round,
@@ -65,9 +86,17 @@ export function computeWallhackMetric(
     : 0;
 
   const suspiciousRatio = signalScores.length
-    ? signalScores.filter((item) => item >= 0.5).length / signalScores.length
+    ? signalScores.filter((item) => item >= STRONG_SIGNAL_THRESHOLD).length /
+      signalScores.length
     : 0;
-  const confidence = clamp01(Math.min(signalScores.length / 12, 1) * (0.4 + 0.6 * suspiciousRatio));
+  const smokeHeadshotRatio = playerKills.length
+    ? playerKills.filter((kill) => kill.throughSmoke && kill.headshot).length /
+      playerKills.length
+    : 0;
+  const confidence = clamp01(
+    Math.min(signalScores.length / 12, 1) *
+      (0.35 + 0.45 * suspiciousRatio + 0.2 * smokeHeadshotRatio),
+  );
 
   return {
     value: clamp01(value),
