@@ -27,6 +27,7 @@ program
     .option("--min-samples <n>", "Minimum samples for confidence gates", parsePositiveInt, 8)
     .option("--min-rounds <n>", "Minimum rounds for confidence gates", parsePositiveInt, 10)
     .option("--parser <name>", "Parser backend: auto|demofile|demoparser2", "auto")
+    .option("--lang <code>", "Report language: tr|en", parseLocale, "tr")
     .option("--pretty", "Pretty print JSON output", true)
     .option("--no-pretty", "Disable JSON pretty printing")
     .option("--verbose", "Verbose logs", false)
@@ -45,6 +46,7 @@ program
             minSamples: options.minSamples,
             minRounds: options.minRounds,
             parser: options.parser,
+            language: options.lang,
             verbose: Boolean(options.verbose),
         });
         if (formatSet.has("json")) {
@@ -56,8 +58,14 @@ program
         if (formatSet.has("csv")) {
             (0, csv_writer_1.writeTimelineCsv)(outDir, report);
         }
-        console.log(`[OK] Analysis completed: ${absoluteDemo}`);
-        console.log(`[OK] Outputs written to: ${outDir}`);
+        if (options.lang === "tr") {
+            console.log(`[OK] Analiz tamamlandi: ${absoluteDemo}`);
+            console.log(`[OK] Ciktilar yazildi: ${outDir}`);
+        }
+        else {
+            console.log(`[OK] Analysis completed: ${absoluteDemo}`);
+            console.log(`[OK] Outputs written to: ${outDir}`);
+        }
         process.exit(EXIT_SUCCESS);
     }
     catch (error) {
@@ -77,6 +85,13 @@ function parsePositiveInt(value) {
         throw new commander_1.InvalidArgumentError(`Expected a positive integer, received: ${value}`);
     }
     return parsed;
+}
+function parseLocale(value) {
+    const normalized = value.trim().toLowerCase();
+    if (normalized === "tr" || normalized === "en") {
+        return normalized;
+    }
+    throw new commander_1.InvalidArgumentError(`Unsupported language: ${value}. Use tr or en.`);
 }
 function parseFormats(raw, csvFlag) {
     const values = raw

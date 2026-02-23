@@ -2,6 +2,7 @@ import { parseDemo, validateDemoExtension } from "../ingest/parser-adapter";
 import type {
   AnalyzeInput,
   EvidenceMoment,
+  Locale,
   MatchReport,
   PlayerSuspicion,
 } from "../domain/types";
@@ -10,6 +11,7 @@ import { computePrefireMetric } from "../features/prefire";
 import { computeWallhackMetric } from "../features/wallhack";
 import { computeGuardrails } from "../scoring/guardrails";
 import { computeSuspicionScore } from "../scoring/compute-score";
+import { computeVerdict } from "../scoring/verdict";
 import { summarizeExplanation } from "../scoring/weights";
 import { currentIsoTimestamp } from "../utils/time";
 
@@ -17,7 +19,9 @@ export async function analyzeDemo(input: AnalyzeInput): Promise<MatchReport> {
   validateDemoExtension(input.demoPath);
   const parsed = await parseDemo(input.demoPath, input.parser, input.verbose);
 
-  const warnings = [...parsed.warnings];
+  const warnings = parsed.warnings.map((warning) =>
+    localizeWarning(warning, input.language),
+  );
   const players: PlayerSuspicion[] = [];
 
   for (const player of parsed.players) {
@@ -72,12 +76,22 @@ export async function analyzeDemo(input: AnalyzeInput): Promise<MatchReport> {
       wallhack,
       guardrail,
       score,
+      input.language,
       parsed.tickRate,
+    );
+    const verdict = computeVerdict(
+      {
+        scoreFinal: score.scoreFinal,
+        confidence: score.confidence,
+        wallhack,
+      },
+      input.language,
     );
 
     players.push({
       player,
       metrics: { flick, prefire, wallhack },
+      verdict,
       guardrails: {
         samplePenalty: guardrail.samplePenalty,
         weaponAdjustment: guardrail.weaponAdjustment,
@@ -112,9 +126,15 @@ export async function analyzeDemo(input: AnalyzeInput): Promise<MatchReport> {
   const topEvents = collectTopEvents(players);
 
   if (parsed.rounds < input.minRounds) {
-    warnings.push(
-      `Low round count (${parsed.rounds}) below configured minimum (${input.minRounds}). Confidence is capped.`,
-    );
+    if (input.language === "tr") {
+      warnings.push(
+        `Round sayisi dusuk (${parsed.rounds}), minimum deger (${input.minRounds}) altinda. Guven sinirlandi.`,
+      );
+    } else {
+      warnings.push(
+        `Low round count (${parsed.rounds}) below configured minimum (${input.minRounds}). Confidence is capped.`,
+      );
+    }
   }
 
   return {
@@ -122,6 +142,7 @@ export async function analyzeDemo(input: AnalyzeInput): Promise<MatchReport> {
       inputDemo: input.demoPath,
       generatedAt: currentIsoTimestamp(),
       parser: parsed.parser,
+      language: input.language,
       rounds: parsed.rounds,
       ticks: parsed.totalTicks,
     },
@@ -140,4 +161,29 @@ function collectTopEvents(players: PlayerSuspicion[]): EvidenceMoment[] {
     ])
     .sort((a, b) => b.timeSec - a.timeSec)
     .slice(0, 5);
+}
+
+function localizeWarning(warning: string, language: Locale): string {
+  if (language !== "tr") {
+    return warning;
+  }
+
+  if (
+    warning === "Parser returned no players. Demo may be unsupported or incomplete."
+  ) {
+    return "Parser oyuncu verisi cikarmadi. Demo desteklenmiyor veya eksik olabilir.";
+  }
+
+  if (
+    warning ===
+    "No frame samples available. Flick metric confidence will be reduced."
+  ) {
+    return "Frame ornekleri bulunamadi. Flick metriği guveni dusurulecek.";
+  }
+
+  if (warning.startsWith("[verbose] Parsed events:")) {
+    return warning.replace("[verbose] Parsed events:", "[verbose] Cozumlenen eventler:");
+  }
+
+  return warning;
 }

@@ -1,4 +1,6 @@
 export type TeamSide = "T" | "CT" | "SPEC";
+export type Locale = "tr" | "en";
+export type VerdictCode = "clean" | "watch" | "suspicious" | "high_suspicion";
 
 export interface PlayerIdentity {
   steamId?: string;
@@ -37,6 +39,10 @@ export interface PlayerSuspicion {
     prefire: MetricScore;
     wallhack: MetricScore;
   };
+  verdict: {
+    code: VerdictCode;
+    label: string;
+  };
   guardrails: {
     samplePenalty: number;
     weaponAdjustment: number;
@@ -52,6 +58,7 @@ export interface MatchReport {
     inputDemo: string;
     generatedAt: string;
     parser: string;
+    language: Locale;
     rounds: number;
     ticks: number;
   };
@@ -65,5 +72,6 @@ export interface AnalyzeInput {
   minSamples: number;
   minRounds: number;
   parser: string;
+  language: Locale;
   verbose: boolean;
 }

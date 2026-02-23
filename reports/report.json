@@ -1,8 +1,9 @@
 {
   "meta": {
     "inputDemo": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Counter-Strike Global Offensive\\game\\csgo\\replays\\match730_003804891835101348763_1889459580_390.dem",
-    "generatedAt": "2026-02-23T12:03:37.107Z",
+    "generatedAt": "2026-02-23T12:28:51.141Z",
     "parser": "demoparser2",
+    "language": "tr",
     "rounds": 20,
     "ticks": 124671
   },
@@ -139,6 +140,10 @@
           ]
         }
       },
+      "verdict": {
+        "code": "suspicious",
+        "label": "Supheli"
+      },
       "guardrails": {
         "samplePenalty": 0,
         "weaponAdjustment": 0
@@ -147,10 +152,10 @@
       "scoreFinal": 40,
       "confidence": 1,
       "explanation": [
-        "Suspicion score 40/100 with confidence 100%.",
-        "Flick 3.1% (8 samples), prefire 100.0% (8 kills), wallhack proxy 20.6% (8 kills).",
-        "Strongest prefire proxy around 01:45.",
-        "Strongest wallhack proxy around 07:19."
+        "Suphe skoru 40/100, guven 100%.",
+        "Flick 3.1% (8 ornek), prefire 100.0% (8 kill), wallhack proxy 20.6% (8 kill).",
+        "En guclu prefire sinyali 01:45 civari.",
+        "En guclu wallhack sinyali 07:19 civari."
       ]
     },
     {
@@ -251,6 +256,10 @@
           "evidence": []
         }
       },
+      "verdict": {
+        "code": "clean",
+        "label": "Temiz"
+      },
       "guardrails": {
         "samplePenalty": 0,
         "weaponAdjustment": 0
@@ -259,9 +268,9 @@
       "scoreFinal": 37,
       "confidence": 1,
       "explanation": [
-        "Suspicion score 37/100 with confidence 100%.",
-        "Flick 3.8% (8 samples), prefire 100.0% (8 kills), wallhack proxy 3.8% (8 kills).",
-        "Strongest prefire proxy around 02:10."
+        "Suphe skoru 37/100, guven 100%.",
+        "Flick 3.8% (8 ornek), prefire 100.0% (8 kill), wallhack proxy 3.8% (8 kill).",
+        "En guclu prefire sinyali 02:10 civari."
       ]
     },
     {
@@ -362,6 +371,10 @@
           "evidence": []
         }
       },
+      "verdict": {
+        "code": "clean",
+        "label": "Temiz"
+      },
       "guardrails": {
         "samplePenalty": 0,
         "weaponAdjustment": 0.05454545454545454
@@ -370,10 +383,10 @@
       "scoreFinal": 36,
       "confidence": 1,
       "explanation": [
-        "Suspicion score 36/100 with confidence 100%.",
-        "Flick 3.4% (11 samples), prefire 100.0% (11 kills), wallhack proxy 0.0% (11 kills).",
-        "Guardrails applied (sample=0.00, rounds=0.00, weapon=0.05).",
-        "Strongest prefire proxy around 06:33."
+        "Suphe skoru 36/100, guven 100%.",
+        "Flick 3.4% (11 ornek), prefire 100.0% (11 kill), wallhack proxy 0.0% (11 kill).",
+        "Koruma katsayisi uygulandi (ornek=0.00, round=0.00, silah=0.05).",
+        "En guclu prefire sinyali 06:33 civari."
       ]
     },
     {
@@ -497,6 +510,10 @@
           ]
         }
       },
+      "verdict": {
+        "code": "clean",
+        "label": "Temiz"
+      },
       "guardrails": {
         "samplePenalty": 0,
         "weaponAdjustment": 0.09473684210526315
@@ -505,11 +522,11 @@
       "scoreFinal": 35,
       "confidence": 1,
       "explanation": [
-        "Suspicion score 35/100 with confidence 100%.",
-        "Flick 3.5% (19 samples), prefire 94.7% (19 kills), wallhack proxy 8.9% (19 kills).",
-        "Guardrails applied (sample=0.00, rounds=0.00, weapon=0.09).",
-        "Strongest prefire proxy around 00:48.",
-        "Strongest wallhack proxy around 19:13."
+        "Suphe skoru 35/100, guven 100%.",
+        "Flick 3.5% (19 ornek), prefire 94.7% (19 kill), wallhack proxy 8.9% (19 kill).",
+        "Koruma katsayisi uygulandi (ornek=0.00, round=0.00, silah=0.09).",
+        "En guclu prefire sinyali 00:48 civari.",
+        "En guclu wallhack sinyali 19:13 civari."
       ]
     },
     {
@@ -622,6 +639,10 @@
           ]
         }
       },
+      "verdict": {
+        "code": "clean",
+        "label": "Temiz"
+      },
       "guardrails": {
         "samplePenalty": 0,
         "weaponAdjustment": 0.046153846153846156
@@ -630,11 +651,11 @@
       "scoreFinal": 34,
       "confidence": 1,
       "explanation": [
-        "Suspicion score 34/100 with confidence 100%.",
-        "Flick 3.1% (26 samples), prefire 92.3% (26 kills), wallhack proxy 3.3% (26 kills).",
-        "Guardrails applied (sample=0.00, rounds=0.00, weapon=0.05).",
-        "Strongest prefire proxy around 01:45.",
-        "Strongest wallhack proxy around 17:34."
+        "Suphe skoru 34/100, guven 100%.",
+        "Flick 3.1% (26 ornek), prefire 92.3% (26 kill), wallhack proxy 3.3% (26 kill).",
+        "Koruma katsayisi uygulandi (ornek=0.00, round=0.00, silah=0.05).",
+        "En guclu prefire sinyali 01:45 civari.",
+        "En guclu wallhack sinyali 17:34 civari."
       ]
     },
     {
@@ -735,6 +756,10 @@
           "evidence": []
         }
       },
+      "verdict": {
+        "code": "clean",
+        "label": "Temiz"
+      },
       "guardrails": {
         "samplePenalty": 0,
         "weaponAdjustment": 0
@@ -743,9 +768,9 @@
       "scoreFinal": 34,
       "confidence": 1,
       "explanation": [
-        "Suspicion score 34/100 with confidence 100%.",
-        "Flick 6.6% (23 samples), prefire 91.3% (23 kills), wallhack proxy 0.0% (23 kills).",
-        "Strongest prefire proxy around 00:51."
+        "Suphe skoru 34/100, guven 100%.",
+        "Flick 6.6% (23 ornek), prefire 91.3% (23 kill), wallhack proxy 0.0% (23 kill).",
+        "En guclu prefire sinyali 00:51 civari."
       ]
     },
     {
@@ -858,6 +883,10 @@
           ]
         }
       },
+      "verdict": {
+        "code": "clean",
+        "label": "Temiz"
+      },
       "guardrails": {
         "samplePenalty": 0,
         "weaponAdjustment": 0
@@ -866,10 +895,10 @@
       "scoreFinal": 31,
       "confidence": 1,
       "explanation": [
-        "Suspicion score 31/100 with confidence 100%.",
-        "Flick 4.6% (11 samples), prefire 81.8% (11 kills), wallhack proxy 5.0% (11 kills).",
-        "Strongest prefire proxy around 00:46.",
-        "Strongest wallhack proxy around 30:21."
+        "Suphe skoru 31/100, guven 100%.",
+        "Flick 4.6% (11 ornek), prefire 81.8% (11 kill), wallhack proxy 5.0% (11 kill).",
+        "En guclu prefire sinyali 00:46 civari.",
+        "En guclu wallhack sinyali 30:21 civari."
       ]
     },
     {
@@ -982,6 +1011,10 @@
           ]
         }
       },
+      "verdict": {
+        "code": "clean",
+        "label": "Temiz"
+      },
       "guardrails": {
         "samplePenalty": 0.25,
         "weaponAdjustment": 0
@@ -990,11 +1023,11 @@
       "scoreFinal": 30,
       "confidence": 0.85,
       "explanation": [
-        "Suspicion score 30/100 with confidence 85%.",
-        "Flick 1.6% (6 samples), prefire 100.0% (6 kills), wallhack proxy 9.2% (6 kills).",
-        "Guardrails applied (sample=0.25, rounds=0.00, weapon=0.00).",
-        "Strongest prefire proxy around 00:47.",
-        "Strongest wallhack proxy around 23:33."
+        "Suphe skoru 30/100, guven 85%.",
+        "Flick 1.6% (6 ornek), prefire 100.0% (6 kill), wallhack proxy 9.2% (6 kill).",
+        "Koruma katsayisi uygulandi (ornek=0.25, round=0.00, silah=0.00).",
+        "En guclu prefire sinyali 00:47 civari.",
+        "En guclu wallhack sinyali 23:33 civari."
       ]
     },
     {
@@ -1107,6 +1140,10 @@
           ]
         }
       },
+      "verdict": {
+        "code": "watch",
+        "label": "Izlenmeli"
+      },
       "guardrails": {
         "samplePenalty": 0,
         "weaponAdjustment": 0
@@ -1115,10 +1152,10 @@
       "scoreFinal": 28,
       "confidence": 1,
       "explanation": [
-        "Suspicion score 28/100 with confidence 100%.",
-        "Flick 3.4% (10 samples), prefire 70.0% (10 kills), wallhack proxy 10.0% (10 kills).",
-        "Strongest prefire proxy around 06:35.",
-        "Strongest wallhack proxy around 14:19."
+        "Suphe skoru 28/100, guven 100%.",
+        "Flick 3.4% (10 ornek), prefire 70.0% (10 kill), wallhack proxy 10.0% (10 kill).",
+        "En guclu prefire sinyali 06:35 civari.",
+        "En guclu wallhack sinyali 14:19 civari."
       ]
     },
     {
@@ -1242,6 +1279,10 @@
           ]
         }
       },
+      "verdict": {
+        "code": "watch",
+        "label": "Izlenmeli"
+      },
       "guardrails": {
         "samplePenalty": 0,
         "weaponAdjustment": 0.16
@@ -1250,11 +1291,11 @@
       "scoreFinal": 26,
       "confidence": 1,
       "explanation": [
-        "Suspicion score 26/100 with confidence 100%.",
-        "Flick 5.0% (15 samples), prefire 66.7% (15 kills), wallhack proxy 12.3% (15 kills).",
-        "Guardrails applied (sample=0.00, rounds=0.00, weapon=0.16).",
-        "Strongest prefire proxy around 06:55.",
-        "Strongest wallhack proxy around 18:15."
+        "Suphe skoru 26/100, guven 100%.",
+        "Flick 5.0% (15 ornek), prefire 66.7% (15 kill), wallhack proxy 12.3% (15 kill).",
+        "Koruma katsayisi uygulandi (ornek=0.00, round=0.00, silah=0.16).",
+        "En guclu prefire sinyali 06:55 civari.",
+        "En guclu wallhack sinyali 18:15 civari."
       ]
     }
   ],
@@ -1316,6 +1357,6 @@
     }
   ],
   "warnings": [
-    "[verbose] Parsed events: players=10, kills=137, shots=3101, frames=26880, roundEnds=20"
+    "[verbose] Cozumlenen eventler: players=10, kills=137, shots=3101, frames=26880, roundEnds=20"
   ]
 }

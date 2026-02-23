@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import type { MatchReport, PlayerSuspicion } from "../domain/types";
+import type { Locale, MatchReport, PlayerSuspicion } from "../domain/types";
 
 export function writeHtmlReport(outDir: string, report: MatchReport): void {
   const targetPath = path.join(outDir, "report.html");
@@ -9,6 +9,8 @@ export function writeHtmlReport(outDir: string, report: MatchReport): void {
 }
 
 function renderHtml(report: MatchReport): string {
+  const language = report.meta.language ?? "en";
+  const labels = getLabels(language);
   const rows = report.ranking.map(renderPlayerRow).join("\n");
   const reasons = report.ranking
     .slice(0, 5)
@@ -27,14 +29,14 @@ function renderHtml(report: MatchReport): string {
 
   const warnings = report.warnings.length
     ? `<ul>${report.warnings.map((warning) => `<li>${escapeHtml(warning)}</li>`).join("\n")}</ul>`
-    : "<p>No warnings.</p>";
+    : `<p>${labels.noWarnings}</p>`;
 
   return `<!doctype html>
-<html lang="en">
+<html lang="${language}">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>CS2 AC Helper Report</title>
+<title>${labels.pageTitle}</title>
 <style>
 :root {
   color-scheme: light;
@@ -99,23 +101,24 @@ th {
 <body>
 <main>
 <section>
-  <h1>CS2 Anti-Cheat Helper Report</h1>
-  <p><strong>Demo:</strong> ${escapeHtml(report.meta.inputDemo)}</p>
-  <p><strong>Parser:</strong> ${escapeHtml(report.meta.parser)} | <strong>Rounds:</strong> ${report.meta.rounds} | <strong>Ticks:</strong> ${report.meta.ticks}</p>
-  <p><strong>Generated:</strong> ${escapeHtml(report.meta.generatedAt)}</p>
+  <h1>${labels.title}</h1>
+  <p><strong>${labels.demo}:</strong> ${escapeHtml(report.meta.inputDemo)}</p>
+  <p><strong>${labels.parser}:</strong> ${escapeHtml(report.meta.parser)} | <strong>${labels.rounds}:</strong> ${report.meta.rounds} | <strong>${labels.ticks}:</strong> ${report.meta.ticks}</p>
+  <p><strong>${labels.generated}:</strong> ${escapeHtml(report.meta.generatedAt)}</p>
 </section>
 <section>
-  <h2>Top Suspicious Players</h2>
+  <h2>${labels.topPlayers}</h2>
   <table>
     <thead>
       <tr>
-        <th>Player</th>
-        <th>Score</th>
-        <th>Confidence</th>
+        <th>${labels.player}</th>
+        <th>${labels.verdict}</th>
+        <th>${labels.score}</th>
+        <th>${labels.confidence}</th>
         <th>Flick</th>
         <th>Prefire</th>
         <th>Wallhack</th>
-        <th>Samples</th>
+        <th>${labels.samples}</th>
       </tr>
     </thead>
     <tbody>
@@ -124,27 +127,27 @@ th {
   </table>
 </section>
 <section>
-  <h2>Why Suspicious?</h2>
-  <ul>${reasons || "<li>No high-confidence suspicious players detected.</li>"}</ul>
+  <h2>${labels.why}</h2>
+  <ul>${reasons || `<li>${labels.noSuspicious}</li>`}</ul>
 </section>
 <section>
-  <h2>Top 5 Evidence Moments</h2>
+  <h2>${labels.topEvents}</h2>
   <table>
     <thead>
       <tr>
-        <th>Round</th>
-        <th>Tick Range</th>
-        <th>Time</th>
-        <th>Reason</th>
+        <th>${labels.round}</th>
+        <th>${labels.tickRange}</th>
+        <th>${labels.time}</th>
+        <th>${labels.reason}</th>
       </tr>
     </thead>
     <tbody>
-      ${events || '<tr><td colspan="4">No evidence moments.</td></tr>'}
+      ${events || `<tr><td colspan="4">${labels.noEvents}</td></tr>`}
     </tbody>
   </table>
 </section>
 <section>
-  <h2>Warnings</h2>
+  <h2>${labels.warnings}</h2>
   <div class="warn">${warnings}</div>
 </section>
 </main>
@@ -159,6 +162,7 @@ function renderPlayerRow(player: PlayerSuspicion): string {
     player.metrics.wallhack.samples;
   return `<tr>
 <td>${escapeHtml(player.player.name)}</td>
+<td>${escapeHtml(player.verdict.label)}</td>
 <td><span class="badge">${player.scoreFinal}</span></td>
 <td>${(player.confidence * 100).toFixed(0)}%</td>
 <td>${(player.metrics.flick.value * 100).toFixed(1)}%</td>
@@ -166,6 +170,86 @@ function renderPlayerRow(player: PlayerSuspicion): string {
 <td>${(player.metrics.wallhack.value * 100).toFixed(1)}%</td>
 <td>${sampleCount}</td>
 </tr>`;
+}
+
+function getLabels(language: Locale): {
+  pageTitle: string;
+  title: string;
+  demo: string;
+  parser: string;
+  rounds: string;
+  ticks: string;
+  generated: string;
+  topPlayers: string;
+  player: string;
+  verdict: string;
+  score: string;
+  confidence: string;
+  samples: string;
+  why: string;
+  noSuspicious: string;
+  topEvents: string;
+  round: string;
+  tickRange: string;
+  time: string;
+  reason: string;
+  noEvents: string;
+  warnings: string;
+  noWarnings: string;
+} {
+  if (language === "tr") {
+    return {
+      pageTitle: "CS2 AC Yardimci Raporu",
+      title: "CS2 Anti-Cheat Yardimci Raporu",
+      demo: "Demo",
+      parser: "Parser",
+      rounds: "Round",
+      ticks: "Tick",
+      generated: "Olusturulma",
+      topPlayers: "En Supheli Oyuncular",
+      player: "Oyuncu",
+      verdict: "Yorum",
+      score: "Skor",
+      confidence: "Guven",
+      samples: "Ornek",
+      why: "Neden Supheli?",
+      noSuspicious: "Yuksek guvenli supheli oyuncu bulunamadi.",
+      topEvents: "Ilk 5 Kanit Ani",
+      round: "Round",
+      tickRange: "Tick Araligi",
+      time: "Zaman",
+      reason: "Neden",
+      noEvents: "Kanit ani yok.",
+      warnings: "Uyarilar",
+      noWarnings: "Uyari yok.",
+    };
+  }
+
+  return {
+    pageTitle: "CS2 AC Helper Report",
+    title: "CS2 Anti-Cheat Helper Report",
+    demo: "Demo",
+    parser: "Parser",
+    rounds: "Rounds",
+    ticks: "Ticks",
+    generated: "Generated",
+    topPlayers: "Top Suspicious Players",
+    player: "Player",
+    verdict: "Verdict",
+    score: "Score",
+    confidence: "Confidence",
+    samples: "Samples",
+    why: "Why Suspicious?",
+    noSuspicious: "No high-confidence suspicious players detected.",
+    topEvents: "Top 5 Evidence Moments",
+    round: "Round",
+    tickRange: "Tick Range",
+    time: "Time",
+    reason: "Reason",
+    noEvents: "No evidence moments.",
+    warnings: "Warnings",
+    noWarnings: "No warnings.",
+  };
 }
 
 function formatTime(seconds: number): string {

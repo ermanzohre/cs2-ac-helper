@@ -1,3 +1,5 @@
+import type { Locale } from "../domain/types";
+
 export const SCORE_WEIGHTS = {
   aim: 0.35,
   info: 0.35,
@@ -11,41 +13,73 @@ export function summarizeExplanation(
   wallhack: { value: number; samples: number; evidence: Array<{ timeSec: number }> },
   guardrail: { samplePenalty: number; roundPenalty: number; weaponAdjustment: number },
   score: { scoreFinal: number; confidence: number },
+  language: Locale,
   tickRate: number,
 ): string[] {
   const lines: string[] = [];
 
-  lines.push(
-    `Suspicion score ${score.scoreFinal}/100 with confidence ${(score.confidence * 100).toFixed(0)}%.`,
-  );
-  lines.push(
-    `Flick ${(flick.value * 100).toFixed(1)}% (${flick.samples} samples), prefire ${(prefire.value * 100).toFixed(1)}% (${prefire.samples} kills), wallhack proxy ${(wallhack.value * 100).toFixed(1)}% (${wallhack.samples} kills).`,
-  );
+  if (language === "tr") {
+    lines.push(
+      `Suphe skoru ${score.scoreFinal}/100, guven ${(score.confidence * 100).toFixed(0)}%.`,
+    );
+    lines.push(
+      `Flick ${(flick.value * 100).toFixed(1)}% (${flick.samples} ornek), prefire ${(prefire.value * 100).toFixed(1)}% (${prefire.samples} kill), wallhack proxy ${(wallhack.value * 100).toFixed(1)}% (${wallhack.samples} kill).`,
+    );
+  } else {
+    lines.push(
+      `Suspicion score ${score.scoreFinal}/100 with confidence ${(score.confidence * 100).toFixed(0)}%.`,
+    );
+    lines.push(
+      `Flick ${(flick.value * 100).toFixed(1)}% (${flick.samples} samples), prefire ${(prefire.value * 100).toFixed(1)}% (${prefire.samples} kills), wallhack proxy ${(wallhack.value * 100).toFixed(1)}% (${wallhack.samples} kills).`,
+    );
+  }
 
   if (
     guardrail.samplePenalty > 0 ||
     guardrail.roundPenalty > 0 ||
     guardrail.weaponAdjustment > 0
   ) {
-    lines.push(
-      `Guardrails applied (sample=${guardrail.samplePenalty.toFixed(2)}, rounds=${guardrail.roundPenalty.toFixed(2)}, weapon=${guardrail.weaponAdjustment.toFixed(2)}).`,
-    );
+    if (language === "tr") {
+      lines.push(
+        `Koruma katsayisi uygulandi (ornek=${guardrail.samplePenalty.toFixed(2)}, round=${guardrail.roundPenalty.toFixed(2)}, silah=${guardrail.weaponAdjustment.toFixed(2)}).`,
+      );
+    } else {
+      lines.push(
+        `Guardrails applied (sample=${guardrail.samplePenalty.toFixed(2)}, rounds=${guardrail.roundPenalty.toFixed(2)}, weapon=${guardrail.weaponAdjustment.toFixed(2)}).`,
+      );
+    }
   }
 
   if (flick.evidence[0]) {
-    lines.push(`Peak aim anomaly around ${formatTime(flick.evidence[0].timeSec)}.`);
+    if (language === "tr") {
+      lines.push(`En yuksek aim anomali zamani ${formatTime(flick.evidence[0].timeSec)}.`);
+    } else {
+      lines.push(`Peak aim anomaly around ${formatTime(flick.evidence[0].timeSec)}.`);
+    }
   }
 
   if (prefire.evidence[0]) {
-    lines.push(
-      `Strongest prefire proxy around ${formatTime(prefire.evidence[0].timeSec)}.`,
-    );
+    if (language === "tr") {
+      lines.push(
+        `En guclu prefire sinyali ${formatTime(prefire.evidence[0].timeSec)} civari.`,
+      );
+    } else {
+      lines.push(
+        `Strongest prefire proxy around ${formatTime(prefire.evidence[0].timeSec)}.`,
+      );
+    }
   }
 
   if (wallhack.evidence[0]) {
-    lines.push(
-      `Strongest wallhack proxy around ${formatTime(wallhack.evidence[0].timeSec)}.`,
-    );
+    if (language === "tr") {
+      lines.push(
+        `En guclu wallhack sinyali ${formatTime(wallhack.evidence[0].timeSec)} civari.`,
+      );
+    } else {
+      lines.push(
+        `Strongest wallhack proxy around ${formatTime(wallhack.evidence[0].timeSec)}.`,
+      );
+    }
   }
 
   return lines;

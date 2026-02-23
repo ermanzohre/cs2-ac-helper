@@ -3,6 +3,7 @@
 import { Command, InvalidArgumentError } from "commander";
 import path from "path";
 import fs from "fs";
+import type { Locale } from "../domain/types";
 import { analyzeDemo } from "../core/analyze";
 import { ensureDirectory } from "../utils/fs";
 import { writeJsonReport } from "../report/json-writer";
@@ -37,6 +38,7 @@ program
     10,
   )
   .option("--parser <name>", "Parser backend: auto|demofile|demoparser2", "auto")
+  .option("--lang <code>", "Report language: tr|en", parseLocale, "tr")
   .option("--pretty", "Pretty print JSON output", true)
   .option("--no-pretty", "Disable JSON pretty printing")
   .option("--verbose", "Verbose logs", false)
@@ -59,6 +61,7 @@ program
         minSamples: options.minSamples as number,
         minRounds: options.minRounds as number,
         parser: options.parser as string,
+        language: options.lang as Locale,
         verbose: Boolean(options.verbose),
       });
 
@@ -74,8 +77,13 @@ program
         writeTimelineCsv(outDir, report);
       }
 
-      console.log(`[OK] Analysis completed: ${absoluteDemo}`);
-      console.log(`[OK] Outputs written to: ${outDir}`);
+      if ((options.lang as Locale) === "tr") {
+        console.log(`[OK] Analiz tamamlandi: ${absoluteDemo}`);
+        console.log(`[OK] Ciktilar yazildi: ${outDir}`);
+      } else {
+        console.log(`[OK] Analysis completed: ${absoluteDemo}`);
+        console.log(`[OK] Outputs written to: ${outDir}`);
+      }
       process.exit(EXIT_SUCCESS);
     } catch (error) {
       if (error instanceof InvalidArgumentError) {
@@ -100,6 +108,17 @@ function parsePositiveInt(value: string): number {
   }
 
   return parsed;
+}
+
+function parseLocale(value: string): Locale {
+  const normalized = value.trim().toLowerCase();
+  if (normalized === "tr" || normalized === "en") {
+    return normalized;
+  }
+
+  throw new InvalidArgumentError(
+    `Unsupported language: ${value}. Use tr or en.`,
+  );
 }
 
 function parseFormats(raw: string, csvFlag: boolean): Set<string> {

@@ -18,6 +18,7 @@ node dist/cli/index.js analyze .\match.dem --out .\reports
 - `--min-samples <n>` default `8`
 - `--min-rounds <n>` default `10`
 - `--parser <name>` `auto|demofile|demoparser2`, default `auto`
+- `--lang <code>` `tr|en`, default `tr`
 - `--pretty` / `--no-pretty` JSON indentation toggle
 - `--verbose` include parser diagnostics in warnings
 
@@ -34,3 +35,12 @@ node dist/cli/index.js analyze .\match.dem --out .\reports
 - `report.json`
 - `report.html`
 - `timeline.csv` (only when `--csv` is provided)
+
+## Verdict labels
+
+Each player includes a verdict label for easier reading:
+
+- `Temiz / Clean`
+- `Izlenmeli / Watch`
+- `Supheli / Suspicious`
+- `Yuksek suphe / High Suspicion`
