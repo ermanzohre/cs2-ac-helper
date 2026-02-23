@@ -33,7 +33,7 @@ const wallhack_1 = require("../features/wallhack");
             headshot: true,
         },
     ];
-    const score = (0, wallhack_1.computeWallhackMetric)({ name: "tester", slot: 1, team: "CT" }, kills, 64);
+    const score = (0, wallhack_1.computeWallhackMetric)({ name: "tester", slot: 1, team: "CT" }, kills, [], 64);
     strict_1.default.ok(score.value > 0.4);
     strict_1.default.equal(score.samples, 2);
     strict_1.default.ok(score.evidence.length >= 1);
@@ -53,7 +53,7 @@ const wallhack_1 = require("../features/wallhack");
             headshot: false,
         },
     ];
-    const score = (0, wallhack_1.computeWallhackMetric)({ name: "tester", slot: 1, team: "CT" }, kills, 64);
+    const score = (0, wallhack_1.computeWallhackMetric)({ name: "tester", slot: 1, team: "CT" }, kills, [], 64);
     strict_1.default.ok(score.value < 0.3);
     strict_1.default.equal(score.evidence.length, 0);
 });
@@ -74,7 +74,7 @@ const wallhack_1 = require("../features/wallhack");
             attackerVictimDistance: 1200,
         },
     ];
-    const score = (0, wallhack_1.computeWallhackMetric)({ name: "tester", slot: 1, team: "CT" }, kills, 64);
+    const score = (0, wallhack_1.computeWallhackMetric)({ name: "tester", slot: 1, team: "CT" }, kills, [], 64);
     strict_1.default.ok(score.value >= 0.8);
     strict_1.default.equal(score.evidence.length, 1);
 });
@@ -93,7 +93,52 @@ const wallhack_1 = require("../features/wallhack");
             headshot: false,
         },
     ];
-    const score = (0, wallhack_1.computeWallhackMetric)({ name: "clean", slot: 4, team: "T" }, kills, 64);
+    const score = (0, wallhack_1.computeWallhackMetric)({ name: "clean", slot: 4, team: "T" }, kills, [], 64);
     strict_1.default.equal(score.value, 0);
     strict_1.default.equal(score.evidence.length, 0);
+});
+(0, node_test_1.default)("wallhack metric detects unspotted aim tracking before kill", () => {
+    const kills = [
+        {
+            tick: 1000,
+            round: 3,
+            attackerSlot: 1,
+            victimSlot: 2,
+            weapon: "ak47",
+            weaponClass: "rifle",
+            throughSmoke: false,
+            penetrated: 0,
+            attackerBlind: false,
+            headshot: false,
+            victimSpottedByAttacker: false,
+        },
+    ];
+    const frames = [];
+    for (let tick = 940; tick <= 1000; tick += 1) {
+        frames.push({
+            tick,
+            round: 3,
+            playerSlot: 1,
+            yaw: 0.8,
+            pitch: 0.2,
+            steamId: "attacker",
+            x: 0,
+            y: 0,
+            z: 0,
+        });
+        frames.push({
+            tick,
+            round: 3,
+            playerSlot: 2,
+            yaw: 180,
+            pitch: 0,
+            steamId: "victim",
+            x: 1200,
+            y: 0,
+            z: 0,
+            spottedByMask: [],
+        });
+    }
+    const score = (0, wallhack_1.computeWallhackMetric)({ name: "tracker", slot: 1, team: "T", steamId: "attacker" }, kills, frames, 64);
+    strict_1.default.ok(score.value >= 0.35);
 });

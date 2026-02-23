@@ -72,6 +72,7 @@ These are still behavioral proxies from demo events, not direct cheat proof by t
 
 Each player includes a verdict label for easier reading:
 
+- `Belirsiz / Inconclusive`
 - `Temiz / Clean`
 - `Izlenmeli / Watch`
 - `Supheli / Suspicious`

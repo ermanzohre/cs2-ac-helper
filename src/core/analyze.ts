@@ -67,7 +67,12 @@ export async function analyzeDemo(input: AnalyzeInput): Promise<MatchReport> {
       playerFrames,
       parsed.tickRate,
     );
-    const wallhack = computeWallhackMetric(player, playerKills, parsed.tickRate);
+    const wallhack = computeWallhackMetric(
+      player,
+      playerKills,
+      parsed.frames,
+      parsed.tickRate,
+    );
     const combat = computePlayerCombatSummary(
       player.slot,
       parsed.kills,
@@ -114,14 +119,10 @@ export async function analyzeDemo(input: AnalyzeInput): Promise<MatchReport> {
       scoreRaw = Math.min(scoreRaw, 0.05);
       scoreFinal = Math.min(scoreFinal, 5);
       confidence = Math.max(confidence, 0.8);
-      verdict = computeVerdict(
-        {
-          scoreFinal: 0,
-          confidence,
-          wallhack,
-        },
-        input.language,
-      );
+      verdict = {
+        code: "clean",
+        label: input.language === "tr" ? "Temiz" : "Clean",
+      };
       labelNote =
         input.language === "tr"
           ? "Geri bildirim etiketi uygulandi: bilinen temiz oyuncu."

@@ -133,6 +133,9 @@ export async function parseDemoWithDemofile(
         if (yaw === undefined || pitch === undefined) {
           continue;
         }
+        const x = safeNumber(player.position?.x);
+        const y = safeNumber(player.position?.y);
+        const z = safeNumber(player.position?.z);
 
         frames.push({
           tick: currentTick,
@@ -140,6 +143,10 @@ export async function parseDemoWithDemofile(
           playerSlot: Number(player.slot ?? 0),
           yaw,
           pitch,
+          steamId: player.steamId ? String(player.steamId) : undefined,
+          x,
+          y,
+          z,
         });
       }
     });

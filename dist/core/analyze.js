@@ -26,7 +26,7 @@ async function analyzeDemo(input) {
         const playerFrames = parsed.frames.filter((frame) => frame.playerSlot === player.slot);
         const flick = (0, flick_1.computeFlickMetric)(player, playerKills, playerFrames, parsed.tickRate);
         const prefire = (0, prefire_1.computePrefireMetric)(player, playerKills, playerShots, playerFrames, parsed.tickRate);
-        const wallhack = (0, wallhack_1.computeWallhackMetric)(player, playerKills, parsed.tickRate);
+        const wallhack = (0, wallhack_1.computeWallhackMetric)(player, playerKills, parsed.frames, parsed.tickRate);
         const combat = (0, combat_1.computePlayerCombatSummary)(player.slot, parsed.kills, parsed.damages, parsed.rounds);
         const guardrail = (0, guardrails_1.computeGuardrails)({
             flick,
@@ -61,11 +61,10 @@ async function analyzeDemo(input) {
             scoreRaw = Math.min(scoreRaw, 0.05);
             scoreFinal = Math.min(scoreFinal, 5);
             confidence = Math.max(confidence, 0.8);
-            verdict = (0, verdict_1.computeVerdict)({
-                scoreFinal: 0,
-                confidence,
-                wallhack,
-            }, input.language);
+            verdict = {
+                code: "clean",
+                label: input.language === "tr" ? "Temiz" : "Clean",
+            };
             labelNote =
                 input.language === "tr"
                     ? "Geri bildirim etiketi uygulandi: bilinen temiz oyuncu."

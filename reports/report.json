@@ -1,7 +1,7 @@
 {
   "meta": {
     "inputDemo": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Counter-Strike Global Offensive\\game\\csgo\\replays\\match730_003804891835101348763_1889459580_390.dem",
-    "generatedAt": "2026-02-23T13:53:54.069Z",
+    "generatedAt": "2026-02-23T14:12:24.820Z",
     "parser": "demoparser2",
     "language": "tr",
     "rounds": 20,
@@ -54,7 +54,7 @@
         "wallhack": {
           "value": 0.5309166666666667,
           "samples": 8,
-          "confidence": 0.3416666666666666,
+          "confidence": 0.32499999999999996,
           "stats": {
             "min": 0,
             "avg": 0.32500000000000007,
@@ -90,7 +90,7 @@
       },
       "verdict": {
         "code": "suspicious",
-        "label": "Şüpheli"
+        "label": "Supheli"
       },
       "guardrails": {
         "samplePenalty": 0,
@@ -163,7 +163,7 @@
         "wallhack": {
           "value": 0.42879999999999996,
           "samples": 15,
-          "confidence": 0.435,
+          "confidence": 0.41,
           "stats": {
             "min": 0,
             "avg": 0.21733333333333338,
@@ -199,7 +199,7 @@
       },
       "verdict": {
         "code": "suspicious",
-        "label": "Şüpheli"
+        "label": "Supheli"
       },
       "guardrails": {
         "samplePenalty": 0,
@@ -273,7 +273,7 @@
         "wallhack": {
           "value": 0.25354999999999994,
           "samples": 10,
-          "confidence": 0.3104166666666666,
+          "confidence": 0.3,
           "stats": {
             "min": 0,
             "avg": 0.14899999999999997,
@@ -297,7 +297,7 @@
       },
       "verdict": {
         "code": "watch",
-        "label": "İzlenmeli"
+        "label": "Izlenmeli"
       },
       "guardrails": {
         "samplePenalty": 0,
@@ -370,7 +370,7 @@
         "wallhack": {
           "value": 0.26221794871794873,
           "samples": 26,
-          "confidence": 0.3586538461538461,
+          "confidence": 0.34615384615384615,
           "stats": {
             "min": 0,
             "avg": 0.09307692307692308,
@@ -394,7 +394,7 @@
       },
       "verdict": {
         "code": "watch",
-        "label": "İzlenmeli"
+        "label": "Izlenmeli"
       },
       "guardrails": {
         "samplePenalty": 0,
@@ -455,7 +455,7 @@
         "wallhack": {
           "value": 0.3217280701754386,
           "samples": 19,
-          "confidence": 0.3559210526315789,
+          "confidence": 0.34342105263157896,
           "stats": {
             "min": 0,
             "avg": 0.1242105263157895,
@@ -479,7 +479,7 @@
       },
       "verdict": {
         "code": "suspicious",
-        "label": "Şüpheli"
+        "label": "Supheli"
       },
       "guardrails": {
         "samplePenalty": 0,
@@ -552,7 +552,7 @@
         "wallhack": {
           "value": 0.2608333333333333,
           "samples": 6,
-          "confidence": 0.21458333333333332,
+          "confidence": 0.20833333333333334,
           "stats": {
             "min": 0,
             "avg": 0.18333333333333335,
@@ -576,7 +576,7 @@
       },
       "verdict": {
         "code": "watch",
-        "label": "İzlenmeli"
+        "label": "Izlenmeli"
       },
       "guardrails": {
         "samplePenalty": 0.25,
@@ -650,7 +650,7 @@
         "wallhack": {
           "value": 0.16660606060606062,
           "samples": 11,
-          "confidence": 0.3552083333333333,
+          "confidence": 0.34375,
           "stats": {
             "min": 0,
             "avg": 0.06727272727272728,
@@ -674,7 +674,7 @@
       },
       "verdict": {
         "code": "watch",
-        "label": "İzlenmeli"
+        "label": "Izlenmeli"
       },
       "guardrails": {
         "samplePenalty": 0,
@@ -744,8 +744,8 @@
         }
       },
       "verdict": {
-        "code": "clean",
-        "label": "Temiz"
+        "code": "inconclusive",
+        "label": "Belirsiz"
       },
       "guardrails": {
         "samplePenalty": 0,
@@ -813,8 +813,8 @@
         }
       },
       "verdict": {
-        "code": "clean",
-        "label": "Temiz"
+        "code": "inconclusive",
+        "label": "Belirsiz"
       },
       "guardrails": {
         "samplePenalty": 0,
@@ -883,8 +883,8 @@
         }
       },
       "verdict": {
-        "code": "clean",
-        "label": "Temiz"
+        "code": "inconclusive",
+        "label": "Belirsiz"
       },
       "guardrails": {
         "samplePenalty": 0,

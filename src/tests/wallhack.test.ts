@@ -34,6 +34,7 @@ test("wallhack metric increases on smoke and wallbang kills", () => {
   const score = computeWallhackMetric(
     { name: "tester", slot: 1, team: "CT" },
     kills,
+    [],
     64,
   );
 
@@ -61,6 +62,7 @@ test("wallhack metric keeps non-headshot smoke spam at lower signal", () => {
   const score = computeWallhackMetric(
     { name: "tester", slot: 1, team: "CT" },
     kills,
+    [],
     64,
   );
 
@@ -89,6 +91,7 @@ test("wallhack metric boosts unspotted occluded kills", () => {
   const score = computeWallhackMetric(
     { name: "tester", slot: 1, team: "CT" },
     kills,
+    [],
     64,
   );
 
@@ -115,9 +118,64 @@ test("wallhack metric remains low with clean kills", () => {
   const score = computeWallhackMetric(
     { name: "clean", slot: 4, team: "T" },
     kills,
+    [],
     64,
   );
 
   assert.equal(score.value, 0);
   assert.equal(score.evidence.length, 0);
+});
+
+test("wallhack metric detects unspotted aim tracking before kill", () => {
+  const kills: ParsedKill[] = [
+    {
+      tick: 1000,
+      round: 3,
+      attackerSlot: 1,
+      victimSlot: 2,
+      weapon: "ak47",
+      weaponClass: "rifle",
+      throughSmoke: false,
+      penetrated: 0,
+      attackerBlind: false,
+      headshot: false,
+      victimSpottedByAttacker: false,
+    },
+  ];
+
+  const frames = [];
+  for (let tick = 940; tick <= 1000; tick += 1) {
+    frames.push({
+      tick,
+      round: 3,
+      playerSlot: 1,
+      yaw: 0.8,
+      pitch: 0.2,
+      steamId: "attacker",
+      x: 0,
+      y: 0,
+      z: 0,
+    });
+    frames.push({
+      tick,
+      round: 3,
+      playerSlot: 2,
+      yaw: 180,
+      pitch: 0,
+      steamId: "victim",
+      x: 1200,
+      y: 0,
+      z: 0,
+      spottedByMask: [],
+    });
+  }
+
+  const score = computeWallhackMetric(
+    { name: "tracker", slot: 1, team: "T", steamId: "attacker" },
+    kills,
+    frames,
+    64,
+  );
+
+  assert.ok(score.value >= 0.35);
 });

@@ -107,3 +107,16 @@ test("verdict marks strong wall-only profile as suspicious", () => {
 
   assert.equal(verdict.code, "suspicious");
 });
+
+test("verdict marks low-signal single-demo profiles as inconclusive", () => {
+  const verdict = computeVerdict(
+    {
+      scoreFinal: 14,
+      confidence: 1,
+      wallhack: metric(0.1),
+    },
+    "tr",
+  );
+
+  assert.equal(verdict.code, "inconclusive");
+});

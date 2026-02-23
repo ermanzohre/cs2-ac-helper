@@ -39,17 +39,32 @@ function resolveVerdictCode(input) {
             input.confidence >= 0.75)) {
         return "watch";
     }
+    const ultraCleanProfile = input.scoreFinal < 12 &&
+        input.wallhack.value < 0.05 &&
+        wallEvidenceCount === 0 &&
+        input.confidence >= 0.85;
+    if (ultraCleanProfile) {
+        return "clean";
+    }
+    const inconclusiveProfile = input.scoreFinal < 30 &&
+        input.wallhack.value < 0.18 &&
+        wallEvidenceCount === 0;
+    if (inconclusiveProfile) {
+        return "inconclusive";
+    }
     return "clean";
 }
 function localizeVerdict(code, language) {
     if (language === "tr") {
         switch (code) {
             case "high_suspicion":
-                return "Yüksek şüphe";
+                return "Yuksek suphe";
             case "suspicious":
-                return "Şüpheli";
+                return "Supheli";
             case "watch":
-                return "İzlenmeli";
+                return "Izlenmeli";
+            case "inconclusive":
+                return "Belirsiz";
             case "clean":
             default:
                 return "Temiz";
@@ -62,6 +77,8 @@ function localizeVerdict(code, language) {
             return "Suspicious";
         case "watch":
             return "Watch";
+        case "inconclusive":
+            return "Inconclusive";
         case "clean":
         default:
             return "Clean";

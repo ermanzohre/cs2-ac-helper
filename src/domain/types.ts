@@ -1,6 +1,11 @@
 export type TeamSide = "T" | "CT" | "SPEC";
 export type Locale = "tr" | "en";
-export type VerdictCode = "clean" | "watch" | "suspicious" | "high_suspicion";
+export type VerdictCode =
+  | "inconclusive"
+  | "clean"
+  | "watch"
+  | "suspicious"
+  | "high_suspicion";
 
 export interface PlayerIdentity {
   steamId?: string;

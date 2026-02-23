@@ -101,12 +101,19 @@ async function parseDemoWithDemofile(demoPath, verbose) {
                 if (yaw === undefined || pitch === undefined) {
                     continue;
                 }
+                const x = safeNumber(player.position?.x);
+                const y = safeNumber(player.position?.y);
+                const z = safeNumber(player.position?.z);
                 frames.push({
                     tick: currentTick,
                     round: currentRound,
                     playerSlot: Number(player.slot ?? 0),
                     yaw,
                     pitch,
+                    steamId: player.steamId ? String(player.steamId) : undefined,
+                    x,
+                    y,
+                    z,
                 });
             }
         });

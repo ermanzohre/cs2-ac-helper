@@ -6,10 +6,16 @@ const EVIDENCE_WINDOW_MS = 300;
 const STRONG_SIGNAL_THRESHOLD = 0.58;
 const BURST_EVENT_TARGET = 4;
 const TOP_SIGNAL_WINDOW = 3;
-function computeWallhackMetric(player, kills, tickRate) {
+const TRACK_WINDOW_MS = 900;
+const TRACK_LOCK_ERROR_DEG = 7;
+const TRACK_MIN_UNSPOTTED_SAMPLES = 8;
+const TRACK_STREAK_TARGET_MS = 240;
+function computeWallhackMetric(player, kills, frames, tickRate) {
     const playerKills = kills.filter((kill) => kill.attackerSlot === player.slot);
+    const frameIndex = buildFrameIndex(frames);
     const signalScores = [];
     const evidence = [];
+    let trackingHits = 0;
     for (const kill of playerKills) {
         let signalScore = 0;
         const reasons = [];
@@ -55,6 +61,16 @@ function computeWallhackMetric(player, kills, tickRate) {
             signalScore += 0.08;
             reasons.push("long-range unspotted headshot");
         }
+        const tracking = computeUnspottedTrackingSignal(kill, player, frameIndex, tickRate);
+        if (tracking.score >= 0.5) {
+            signalScore += 0.28;
+            reasons.push(`unspotted aim tracking ${tracking.maxTrackMs.toFixed(0)} ms`);
+            trackingHits += 1;
+        }
+        if (tracking.score >= 0.72) {
+            signalScore += 0.12;
+            reasons.push("persistent tracking streak");
+        }
         if (kill.throughSmoke && kill.penetrated > 0) {
             signalScore += 0.1;
             reasons.push("smoke + wallbang overlap");
@@ -96,11 +112,13 @@ function computeWallhackMetric(player, kills, tickRate) {
         ? playerKills.filter((kill) => kill.throughSmoke && kill.headshot).length /
             playerKills.length
         : 0;
+    const trackingRatio = playerKills.length ? trackingHits / playerKills.length : 0;
     const confidence = (0, shared_1.clamp01)(Math.min(signalScores.length / 12, 1) *
         (0.3 +
             0.35 * suspiciousRatio +
             0.2 * smokeHeadshotRatio +
-            0.15 * burstFactor));
+            0.1 * burstFactor +
+            0.05 * trackingRatio));
     return {
         value: (0, shared_1.clamp01)(value),
         samples: signalScores.length,
@@ -108,4 +126,86 @@ function computeWallhackMetric(player, kills, tickRate) {
         stats: (0, shared_1.buildStats)(signalScores),
         evidence: evidence.slice(0, 5),
     };
+}
+function buildFrameIndex(frames) {
+    const bySlot = new Map();
+    for (const frame of frames) {
+        let byTick = bySlot.get(frame.playerSlot);
+        if (!byTick) {
+            byTick = new Map();
+            bySlot.set(frame.playerSlot, byTick);
+        }
+        byTick.set(frame.tick, frame);
+    }
+    return bySlot;
+}
+function computeUnspottedTrackingSignal(kill, player, frameIndex, tickRate) {
+    const attackerFramesByTick = frameIndex.get(kill.attackerSlot);
+    const victimFramesByTick = frameIndex.get(kill.victimSlot);
+    if (!attackerFramesByTick || !victimFramesByTick) {
+        return { score: 0, maxTrackMs: 0 };
+    }
+    const startTick = Math.max(0, kill.tick - Math.floor((TRACK_WINDOW_MS / 1000) * tickRate));
+    let unspottedSamples = 0;
+    let lockedSamples = 0;
+    let currentStreak = 0;
+    let maxStreak = 0;
+    for (let tick = startTick; tick <= kill.tick; tick += 1) {
+        const attackerFrame = attackerFramesByTick.get(tick);
+        const victimFrame = victimFramesByTick.get(tick);
+        if (!attackerFrame || !victimFrame) {
+            continue;
+        }
+        if (attackerFrame.x === undefined ||
+            attackerFrame.y === undefined ||
+            attackerFrame.z === undefined ||
+            victimFrame.x === undefined ||
+            victimFrame.y === undefined ||
+            victimFrame.z === undefined) {
+            continue;
+        }
+        const victimSeenByAttacker = Array.isArray(victimFrame.spottedByMask) &&
+            player.steamId !== undefined &&
+            victimFrame.spottedByMask.includes(player.steamId);
+        const isUnspotted = victimSeenByAttacker === false ||
+            (victimFrame.spottedByMask === undefined &&
+                kill.victimSpottedByAttacker === false);
+        if (!isUnspotted) {
+            currentStreak = 0;
+            continue;
+        }
+        unspottedSamples += 1;
+        const targetAngles = computeTargetAngles(attackerFrame.x, attackerFrame.y, attackerFrame.z, victimFrame.x, victimFrame.y, victimFrame.z);
+        const yawError = Math.abs((0, shared_1.angleDelta)(attackerFrame.yaw, targetAngles.yaw));
+        const pitchError = Math.abs((0, shared_1.angleDelta)(attackerFrame.pitch, targetAngles.pitch));
+        const error = Math.sqrt(yawError * yawError + pitchError * pitchError);
+        if (error <= TRACK_LOCK_ERROR_DEG) {
+            lockedSamples += 1;
+            currentStreak += 1;
+            maxStreak = Math.max(maxStreak, currentStreak);
+        }
+        else {
+            currentStreak = 0;
+        }
+    }
+    if (unspottedSamples < TRACK_MIN_UNSPOTTED_SAMPLES) {
+        return { score: 0, maxTrackMs: 0 };
+    }
+    const streakTargetSamples = Math.max(1, Math.floor((TRACK_STREAK_TARGET_MS / 1000) * tickRate));
+    const lockRatio = lockedSamples / unspottedSamples;
+    const streakRatio = (0, shared_1.clamp01)(maxStreak / streakTargetSamples);
+    const score = (0, shared_1.clamp01)(0.6 * lockRatio + 0.4 * streakRatio);
+    return {
+        score,
+        maxTrackMs: (maxStreak / tickRate) * 1000,
+    };
+}
+function computeTargetAngles(fromX, fromY, fromZ, toX, toY, toZ) {
+    const dx = toX - fromX;
+    const dy = toY - fromY;
+    const dz = toZ - fromZ;
+    const yaw = (Math.atan2(dy, dx) * 180) / Math.PI;
+    const horizontal = Math.sqrt(dx * dx + dy * dy);
+    const pitch = (Math.atan2(-dz, horizontal) * 180) / Math.PI;
+    return { yaw, pitch };
 }

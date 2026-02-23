@@ -85,3 +85,11 @@ function metric(value) {
     }, "tr");
     strict_1.default.equal(verdict.code, "suspicious");
 });
+(0, node_test_1.default)("verdict marks low-signal single-demo profiles as inconclusive", () => {
+    const verdict = (0, verdict_1.computeVerdict)({
+        scoreFinal: 14,
+        confidence: 1,
+        wallhack: metric(0.1),
+    }, "tr");
+    strict_1.default.equal(verdict.code, "inconclusive");
+});
