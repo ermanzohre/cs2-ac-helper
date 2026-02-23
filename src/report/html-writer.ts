@@ -23,7 +23,7 @@ function renderHtml(report: MatchReport): string {
   const events = report.topEvents
     .map(
       (event) =>
-        `<tr><td>${event.round}</td><td>${event.tickStart}-${event.tickEnd}</td><td>${formatTime(event.timeSec)}</td><td>${escapeHtml(event.reason)}</td></tr>`,
+        `<tr><td>${escapeHtml(event.playerName ?? "-")}</td><td>${event.round}</td><td>${event.tickStart}-${event.tickEnd}</td><td>${formatTime(event.timeSec)}</td><td>${escapeHtml(event.reason)}</td></tr>`,
     )
     .join("\n");
 
@@ -135,6 +135,7 @@ th {
   <table>
     <thead>
       <tr>
+        <th>${labels.player}</th>
         <th>${labels.round}</th>
         <th>${labels.tickRange}</th>
         <th>${labels.time}</th>
@@ -142,7 +143,7 @@ th {
       </tr>
     </thead>
     <tbody>
-      ${events || `<tr><td colspan="4">${labels.noEvents}</td></tr>`}
+      ${events || `<tr><td colspan="5">${labels.noEvents}</td></tr>`}
     </tbody>
   </table>
 </section>
@@ -199,29 +200,29 @@ function getLabels(language: Locale): {
 } {
   if (language === "tr") {
     return {
-      pageTitle: "CS2 AC Yardimci Raporu",
-      title: "CS2 Anti-Cheat Yardimci Raporu",
+      pageTitle: "CS2 AC Yardımcı Raporu",
+      title: "CS2 Anti-Cheat Yardımcı Raporu",
       demo: "Demo",
       parser: "Parser",
       rounds: "Round",
       ticks: "Tick",
-      generated: "Olusturulma",
-      topPlayers: "En Supheli Oyuncular",
+      generated: "Oluşturulma",
+      topPlayers: "En Şüpheli Oyuncular",
       player: "Oyuncu",
       verdict: "Yorum",
       score: "Skor",
-      confidence: "Guven",
-      samples: "Ornek",
-      why: "Neden Supheli?",
-      noSuspicious: "Yuksek guvenli supheli oyuncu bulunamadi.",
-      topEvents: "Ilk 5 Kanit Ani",
+      confidence: "Güven",
+      samples: "Örnek",
+      why: "Neden Şüpheli?",
+      noSuspicious: "Yüksek güvenli şüpheli oyuncu bulunamadı.",
+      topEvents: "İlk 5 Kanıt Anı",
       round: "Round",
-      tickRange: "Tick Araligi",
+      tickRange: "Tick Aralığı",
       time: "Zaman",
       reason: "Neden",
-      noEvents: "Kanit ani yok.",
-      warnings: "Uyarilar",
-      noWarnings: "Uyari yok.",
+      noEvents: "Kanıt anı yok.",
+      warnings: "Uyarılar",
+      noWarnings: "Uyarı yok.",
     };
   }
 

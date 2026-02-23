@@ -10,6 +10,7 @@ export interface PlayerIdentity {
 }
 
 export interface EvidenceMoment {
+  playerName?: string;
   round: number;
   tickStart: number;
   tickEnd: number;

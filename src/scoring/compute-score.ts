@@ -34,7 +34,16 @@ export function computeSuspicionScore(input: ScoreInput): ScoreOutput {
     0.6 * input.guardrail.sampleConfidence + 0.4 * input.guardrail.roundConfidence,
   );
 
-  const scoreRaw = aimComponent + infoComponent + wallhackComponent + guardrailComponent;
+  let scoreRaw = aimComponent + infoComponent + wallhackComponent + guardrailComponent;
+
+  const cleanPlayProfile =
+    input.wallhack.value < 0.08 &&
+    input.flick.value < 0.08 &&
+    input.prefire.value < 0.45;
+  if (cleanPlayProfile) {
+    scoreRaw -= 0.08;
+  }
+
   const scoreFinal = Math.round(clamp01(scoreRaw) * 100 * confidence);
 
   return {

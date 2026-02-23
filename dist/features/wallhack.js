@@ -32,6 +32,7 @@ function computeWallhackMetric(player, kills, tickRate) {
         signalScores.push(normalized);
         if (normalized >= 0.5) {
             evidence.push({
+                playerName: player.name,
                 round: kill.round,
                 tickStart: Math.max(0, kill.tick - Math.floor((EVIDENCE_WINDOW_MS / 1000) * tickRate)),
                 tickEnd: kill.tick,

@@ -79,7 +79,7 @@ async function analyzeDemo(input) {
     const topEvents = collectTopEvents(players);
     if (parsed.rounds < input.minRounds) {
         if (input.language === "tr") {
-            warnings.push(`Round sayisi dusuk (${parsed.rounds}), minimum deger (${input.minRounds}) altinda. Guven sinirlandi.`);
+            warnings.push(`Round sayısı düşük (${parsed.rounds}), minimum değer (${input.minRounds}) altında. Güven sınırlandı.`);
         }
         else {
             warnings.push(`Low round count (${parsed.rounds}) below configured minimum (${input.minRounds}). Confidence is capped.`);
@@ -114,14 +114,14 @@ function localizeWarning(warning, language) {
         return warning;
     }
     if (warning === "Parser returned no players. Demo may be unsupported or incomplete.") {
-        return "Parser oyuncu verisi cikarmadi. Demo desteklenmiyor veya eksik olabilir.";
+        return "Parser oyuncu verisi çıkarmadı. Demo desteklenmiyor veya eksik olabilir.";
     }
     if (warning ===
         "No frame samples available. Flick metric confidence will be reduced.") {
-        return "Frame ornekleri bulunamadi. Flick metriği guveni dusurulecek.";
+        return "Frame örnekleri bulunamadı. Flick metriği güveni düşürülecek.";
     }
     if (warning.startsWith("[verbose] Parsed events:")) {
-        return warning.replace("[verbose] Parsed events:", "[verbose] Cozumlenen eventler:");
+        return warning.replace("[verbose] Parsed events:", "[verbose] Çözümlenen eventler:");
     }
     return warning;
 }

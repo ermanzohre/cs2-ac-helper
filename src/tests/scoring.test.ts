@@ -95,3 +95,27 @@ test("prefire metric detects short shot-to-kill windows", () => {
 
   assert.ok(result.value > 0);
 });
+
+test("prefire metric does not mark same-tick shot+kill as suspicious alone", () => {
+  const result = computePrefireMetric(
+    { name: "tester", slot: 1, team: "CT" },
+    [
+      {
+        tick: 200,
+        round: 2,
+        attackerSlot: 1,
+        victimSlot: 2,
+        weapon: "ak47",
+        weaponClass: "rifle",
+        throughSmoke: false,
+        penetrated: 0,
+        attackerBlind: false,
+      },
+    ],
+    [{ tick: 200, round: 2, shooterSlot: 1, weapon: "ak47" }],
+    64,
+  );
+
+  assert.equal(result.value, 0);
+  assert.equal(result.evidence.length, 0);
+});

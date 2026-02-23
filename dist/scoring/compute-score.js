@@ -12,7 +12,13 @@ function computeSuspicionScore(input) {
         input.guardrail.weaponAdjustment);
     const guardrailComponent = -weights_1.SCORE_WEIGHTS.guardrail * guardrailPenalty;
     const confidence = (0, shared_1.clamp01)(0.6 * input.guardrail.sampleConfidence + 0.4 * input.guardrail.roundConfidence);
-    const scoreRaw = aimComponent + infoComponent + wallhackComponent + guardrailComponent;
+    let scoreRaw = aimComponent + infoComponent + wallhackComponent + guardrailComponent;
+    const cleanPlayProfile = input.wallhack.value < 0.08 &&
+        input.flick.value < 0.08 &&
+        input.prefire.value < 0.45;
+    if (cleanPlayProfile) {
+        scoreRaw -= 0.08;
+    }
     const scoreFinal = Math.round((0, shared_1.clamp01)(scoreRaw) * 100 * confidence);
     return {
         scoreRaw,

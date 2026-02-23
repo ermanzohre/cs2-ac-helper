@@ -47,6 +47,7 @@ export function computeFlickMetric(
 
     if (maxSpeed >= SUSPICIOUS_FLICK_SPEED) {
       evidence.push({
+        playerName: player.name,
         round: kill.round,
         tickStart: kill.tick - windowStart,
         tickEnd: kill.tick + windowEnd,

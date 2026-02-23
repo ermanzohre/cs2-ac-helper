@@ -4,13 +4,16 @@ import type { MatchReport } from "../domain/types";
 
 export function writeTimelineCsv(outDir: string, report: MatchReport): void {
   const targetPath = path.join(outDir, "timeline.csv");
-  const lines: string[] = ["round,tick_start,tick_end,time_sec,reason,tags"];
+  const lines: string[] = [
+    "player_name,round,tick_start,tick_end,time_sec,reason,tags",
+  ];
 
   for (const event of report.topEvents) {
+    const playerName = csvEscape(event.playerName ?? "");
     const reason = csvEscape(event.reason);
     const tags = csvEscape(event.tags.join("|"));
     lines.push(
-      `${event.round},${event.tickStart},${event.tickEnd},${event.timeSec.toFixed(3)},${reason},${tags}`,
+      `${playerName},${event.round},${event.tickStart},${event.tickEnd},${event.timeSec.toFixed(3)},${reason},${tags}`,
     );
   }
 

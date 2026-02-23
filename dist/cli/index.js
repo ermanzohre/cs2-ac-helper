@@ -59,8 +59,8 @@ program
             (0, csv_writer_1.writeTimelineCsv)(outDir, report);
         }
         if (options.lang === "tr") {
-            console.log(`[OK] Analiz tamamlandi: ${absoluteDemo}`);
-            console.log(`[OK] Ciktilar yazildi: ${outDir}`);
+            console.log(`[OK] Analiz tamamlandı: ${absoluteDemo}`);
+            console.log(`[OK] Çıktılar yazıldı: ${outDir}`);
         }
         else {
             console.log(`[OK] Analysis completed: ${absoluteDemo}`);

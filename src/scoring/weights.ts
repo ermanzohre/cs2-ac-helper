@@ -1,9 +1,9 @@
 import type { Locale } from "../domain/types";
 
 export const SCORE_WEIGHTS = {
-  aim: 0.35,
-  info: 0.35,
-  wallhack: 0.2,
+  aim: 0.4,
+  info: 0.2,
+  wallhack: 0.3,
   guardrail: 0.1,
 };
 
@@ -20,10 +20,10 @@ export function summarizeExplanation(
 
   if (language === "tr") {
     lines.push(
-      `Suphe skoru ${score.scoreFinal}/100, guven ${(score.confidence * 100).toFixed(0)}%.`,
+      `Şüphe skoru ${score.scoreFinal}/100, güven ${(score.confidence * 100).toFixed(0)}%.`,
     );
     lines.push(
-      `Flick ${(flick.value * 100).toFixed(1)}% (${flick.samples} ornek), prefire ${(prefire.value * 100).toFixed(1)}% (${prefire.samples} kill), wallhack proxy ${(wallhack.value * 100).toFixed(1)}% (${wallhack.samples} kill).`,
+      `Flick ${(flick.value * 100).toFixed(1)}% (${flick.samples} örnek), prefire ${(prefire.value * 100).toFixed(1)}% (${prefire.samples} kill), wallhack proxy ${(wallhack.value * 100).toFixed(1)}% (${wallhack.samples} kill).`,
     );
   } else {
     lines.push(
@@ -41,7 +41,7 @@ export function summarizeExplanation(
   ) {
     if (language === "tr") {
       lines.push(
-        `Koruma katsayisi uygulandi (ornek=${guardrail.samplePenalty.toFixed(2)}, round=${guardrail.roundPenalty.toFixed(2)}, silah=${guardrail.weaponAdjustment.toFixed(2)}).`,
+        `Koruma katsayısı uygulandı (örnek=${guardrail.samplePenalty.toFixed(2)}, round=${guardrail.roundPenalty.toFixed(2)}, silah=${guardrail.weaponAdjustment.toFixed(2)}).`,
       );
     } else {
       lines.push(
@@ -52,7 +52,7 @@ export function summarizeExplanation(
 
   if (flick.evidence[0]) {
     if (language === "tr") {
-      lines.push(`En yuksek aim anomali zamani ${formatTime(flick.evidence[0].timeSec)}.`);
+      lines.push(`En yüksek aim anomali zamanı ${formatTime(flick.evidence[0].timeSec)}.`);
     } else {
       lines.push(`Peak aim anomaly around ${formatTime(flick.evidence[0].timeSec)}.`);
     }
@@ -61,7 +61,7 @@ export function summarizeExplanation(
   if (prefire.evidence[0]) {
     if (language === "tr") {
       lines.push(
-        `En guclu prefire sinyali ${formatTime(prefire.evidence[0].timeSec)} civari.`,
+        `En güçlü prefire sinyali ${formatTime(prefire.evidence[0].timeSec)} civarı.`,
       );
     } else {
       lines.push(
@@ -73,7 +73,7 @@ export function summarizeExplanation(
   if (wallhack.evidence[0]) {
     if (language === "tr") {
       lines.push(
-        `En guclu wallhack sinyali ${formatTime(wallhack.evidence[0].timeSec)} civari.`,
+        `En güçlü wallhack sinyali ${formatTime(wallhack.evidence[0].timeSec)} civarı.`,
       );
     } else {
       lines.push(

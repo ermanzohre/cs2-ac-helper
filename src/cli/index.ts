@@ -78,8 +78,8 @@ program
       }
 
       if ((options.lang as Locale) === "tr") {
-        console.log(`[OK] Analiz tamamlandi: ${absoluteDemo}`);
-        console.log(`[OK] Ciktilar yazildi: ${outDir}`);
+        console.log(`[OK] Analiz tamamlandı: ${absoluteDemo}`);
+        console.log(`[OK] Çıktılar yazıldı: ${outDir}`);
       } else {
         console.log(`[OK] Analysis completed: ${absoluteDemo}`);
         console.log(`[OK] Outputs written to: ${outDir}`);

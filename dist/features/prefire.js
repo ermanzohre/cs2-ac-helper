@@ -2,13 +2,15 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.computePrefireMetric = computePrefireMetric;
 const shared_1 = require("./shared");
-const PREFIRE_SHOT_WINDOW_MS = 120;
+const PREFIRE_MIN_LEAD_MS = 20;
+const PREFIRE_MAX_LEAD_MS = 140;
+const INSTANT_SHOT_THRESHOLD_MS = 12;
 function computePrefireMetric(player, kills, shots, tickRate) {
     const playerKills = kills.filter((kill) => kill.attackerSlot === player.slot);
     const playerShots = shots
         .filter((shot) => shot.shooterSlot === player.slot)
         .sort((a, b) => a.tick - b.tick);
-    const suspiciousSamples = [];
+    const signalSamples = [];
     const confidenceSamples = [];
     const evidence = [];
     for (const kill of playerKills) {
@@ -16,37 +18,66 @@ function computePrefireMetric(player, kills, shots, tickRate) {
         const leadMs = previousShot
             ? ((kill.tick - previousShot.tick) / tickRate) * 1000
             : Number.POSITIVE_INFINITY;
-        const prefireSignal = (Number.isFinite(leadMs) && leadMs >= 0 && leadMs <= PREFIRE_SHOT_WINDOW_MS) ||
-            kill.throughSmoke ||
-            kill.penetrated > 0;
-        if (prefireSignal) {
-            suspiciousSamples.push(1);
+        let signal = 0;
+        const reasons = [];
+        const hasLeadSignal = Number.isFinite(leadMs) &&
+            leadMs >= PREFIRE_MIN_LEAD_MS &&
+            leadMs <= PREFIRE_MAX_LEAD_MS;
+        if (hasLeadSignal) {
+            signal += 0.35;
+            reasons.push(`shot-to-kill ${leadMs.toFixed(1)} ms`);
+        }
+        if (kill.throughSmoke) {
+            signal += 0.4;
+            reasons.push("through smoke");
+        }
+        if (kill.penetrated > 0) {
+            signal += Math.min(0.35, 0.15 + kill.penetrated * 0.07);
+            reasons.push(kill.penetrated === 1
+                ? "single wall penetration"
+                : `${kill.penetrated} wall penetrations`);
+        }
+        if (kill.attackerBlind) {
+            signal += 0.1;
+            reasons.push("attacker blind");
+        }
+        // Same-tick shot+kill is often normal and should not be treated as prefire by itself.
+        if (Number.isFinite(leadMs) &&
+            leadMs >= 0 &&
+            leadMs <= INSTANT_SHOT_THRESHOLD_MS &&
+            signal <= 0.35) {
+            signal = 0;
+        }
+        const normalized = (0, shared_1.clamp01)(signal);
+        signalSamples.push(normalized);
+        if (normalized >= 0.5) {
             evidence.push({
+                playerName: player.name,
                 round: kill.round,
                 tickStart: Math.max(0, kill.tick - Math.floor((250 / 1000) * tickRate)),
                 tickEnd: kill.tick,
                 timeSec: kill.tick / tickRate,
-                reason: formatPrefireReason(leadMs, kill),
+                reason: `Prefire proxy hit (${reasons.join(", ")})`,
                 tags: ["info", "prefire"],
             });
         }
-        else {
-            suspiciousSamples.push(0);
-        }
         confidenceSamples.push(Number.isFinite(leadMs) ? 1 : 0.6);
     }
-    const totalKills = playerKills.length;
-    const suspiciousCount = suspiciousSamples.reduce((acc, value) => acc + value, 0);
-    const value = totalKills > 0 ? suspiciousCount / totalKills : 0;
+    const value = signalSamples.length
+        ? signalSamples.reduce((acc, valueItem) => acc + valueItem, 0) / signalSamples.length
+        : 0;
     const availability = confidenceSamples.length
         ? confidenceSamples.reduce((acc, item) => acc + item, 0) / confidenceSamples.length
         : 0;
-    const confidence = (0, shared_1.clamp01)(Math.min(totalKills / 12, 1) * availability);
+    const suspiciousRatio = signalSamples.length
+        ? signalSamples.filter((item) => item >= 0.45).length / signalSamples.length
+        : 0;
+    const confidence = (0, shared_1.clamp01)(Math.min(playerKills.length / 12, 1) * availability * (0.45 + 0.55 * suspiciousRatio));
     return {
         value: (0, shared_1.clamp01)(value),
-        samples: totalKills,
+        samples: playerKills.length,
         confidence,
-        stats: (0, shared_1.buildStats)(suspiciousSamples),
+        stats: (0, shared_1.buildStats)(signalSamples),
         evidence: evidence.slice(0, 5),
     };
 }
@@ -57,16 +88,4 @@ function findLastShotBeforeTick(shots, tick) {
         }
     }
     return undefined;
-}
-function formatPrefireReason(leadMs, kill) {
-    if (kill.throughSmoke) {
-        return "Kill through smoke shortly after firing";
-    }
-    if (kill.penetrated > 0) {
-        return `Wall-penetration kill (penetrations=${kill.penetrated})`;
-    }
-    if (Number.isFinite(leadMs)) {
-        return `Shot-to-kill lead time ${leadMs.toFixed(1)} ms`;
-    }
-    return "Prefire proxy signal detected";
 }

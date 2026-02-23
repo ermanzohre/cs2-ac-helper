@@ -8,11 +8,14 @@ const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 function writeTimelineCsv(outDir, report) {
     const targetPath = path_1.default.join(outDir, "timeline.csv");
-    const lines = ["round,tick_start,tick_end,time_sec,reason,tags"];
+    const lines = [
+        "player_name,round,tick_start,tick_end,time_sec,reason,tags",
+    ];
     for (const event of report.topEvents) {
+        const playerName = csvEscape(event.playerName ?? "");
         const reason = csvEscape(event.reason);
         const tags = csvEscape(event.tags.join("|"));
-        lines.push(`${event.round},${event.tickStart},${event.tickEnd},${event.timeSec.toFixed(3)},${reason},${tags}`);
+        lines.push(`${playerName},${event.round},${event.tickStart},${event.tickEnd},${event.timeSec.toFixed(3)},${reason},${tags}`);
     }
     fs_1.default.writeFileSync(targetPath, `${lines.join("\n")}\n`, "utf8");
 }

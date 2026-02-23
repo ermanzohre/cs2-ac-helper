@@ -46,6 +46,7 @@ export function computeWallhackMetric(
 
     if (normalized >= 0.5) {
       evidence.push({
+        playerName: player.name,
         round: kill.round,
         tickStart: Math.max(
           0,

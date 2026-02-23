@@ -1,7 +1,7 @@
 {
   "meta": {
     "inputDemo": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Counter-Strike Global Offensive\\game\\csgo\\replays\\match730_003804891835101348763_1889459580_390.dem",
-    "generatedAt": "2026-02-23T12:28:51.141Z",
+    "generatedAt": "2026-02-23T12:46:17.186Z",
     "parser": "demoparser2",
     "language": "tr",
     "rounds": 20,
@@ -28,71 +28,15 @@
           "evidence": []
         },
         "prefire": {
-          "value": 1,
+          "value": 0.15000000000000002,
           "samples": 8,
-          "confidence": 0.6666666666666666,
+          "confidence": 0.3,
           "stats": {
-            "min": 1,
-            "avg": 1,
-            "p95": 1
+            "min": 0,
+            "avg": 0.15000000000000002,
+            "p95": 0.4
           },
-          "evidence": [
-            {
-              "round": 2,
-              "tickStart": 6725,
-              "tickEnd": 6741,
-              "timeSec": 105.328125,
-              "reason": "Shot-to-kill lead time 0.0 ms",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            },
-            {
-              "round": 4,
-              "tickStart": 22415,
-              "tickEnd": 22431,
-              "timeSec": 350.484375,
-              "reason": "Shot-to-kill lead time 0.0 ms",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            },
-            {
-              "round": 5,
-              "tickStart": 28101,
-              "tickEnd": 28117,
-              "timeSec": 439.328125,
-              "reason": "Kill through smoke shortly after firing",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            },
-            {
-              "round": 5,
-              "tickStart": 29583,
-              "tickEnd": 29599,
-              "timeSec": 462.484375,
-              "reason": "Kill through smoke shortly after firing",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            },
-            {
-              "round": 10,
-              "tickStart": 62290,
-              "tickEnd": 62306,
-              "timeSec": 973.53125,
-              "reason": "Shot-to-kill lead time 0.0 ms",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            }
-          ]
+          "evidence": []
         },
         "wallhack": {
           "value": 0.20625000000000002,
@@ -105,6 +49,7 @@
           },
           "evidence": [
             {
+              "playerName": "MAG",
               "round": 5,
               "tickStart": 28098,
               "tickEnd": 28117,
@@ -116,6 +61,7 @@
               ]
             },
             {
+              "playerName": "MAG",
               "round": 5,
               "tickStart": 29580,
               "tickEnd": 29599,
@@ -127,6 +73,7 @@
               ]
             },
             {
+              "playerName": "MAG",
               "round": 15,
               "tickStart": 90642,
               "tickEnd": 90661,
@@ -142,892 +89,19 @@
       },
       "verdict": {
         "code": "suspicious",
-        "label": "Supheli"
+        "label": "Şüpheli"
       },
       "guardrails": {
         "samplePenalty": 0,
         "weaponAdjustment": 0
       },
-      "scoreRaw": 0.40196351754207443,
-      "scoreFinal": 40,
+      "scoreRaw": 0.10411902004808507,
+      "scoreFinal": 10,
       "confidence": 1,
       "explanation": [
-        "Suphe skoru 40/100, guven 100%.",
-        "Flick 3.1% (8 ornek), prefire 100.0% (8 kill), wallhack proxy 20.6% (8 kill).",
-        "En guclu prefire sinyali 01:45 civari.",
-        "En guclu wallhack sinyali 07:19 civari."
-      ]
-    },
-    {
-      "player": {
-        "slot": 8,
-        "name": "Morpheus",
-        "steamId": "76561197994583429",
-        "team": "CT"
-      },
-      "metrics": {
-        "flick": {
-          "value": 0.03790280582735483,
-          "samples": 8,
-          "confidence": 0.8,
-          "stats": {
-            "min": 34.178177338290034,
-            "avg": 75.80561165470968,
-            "p95": 90.92401373314944
-          },
-          "evidence": []
-        },
-        "prefire": {
-          "value": 1,
-          "samples": 8,
-          "confidence": 0.6666666666666666,
-          "stats": {
-            "min": 1,
-            "avg": 1,
-            "p95": 1
-          },
-          "evidence": [
-            {
-              "round": 2,
-              "tickStart": 8334,
-              "tickEnd": 8350,
-              "timeSec": 130.46875,
-              "reason": "Shot-to-kill lead time 0.0 ms",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            },
-            {
-              "round": 3,
-              "tickStart": 11141,
-              "tickEnd": 11157,
-              "timeSec": 174.328125,
-              "reason": "Shot-to-kill lead time 0.0 ms",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            },
-            {
-              "round": 8,
-              "tickStart": 51057,
-              "tickEnd": 51073,
-              "timeSec": 798.015625,
-              "reason": "Shot-to-kill lead time 0.0 ms",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            },
-            {
-              "round": 9,
-              "tickStart": 54419,
-              "tickEnd": 54435,
-              "timeSec": 850.546875,
-              "reason": "Shot-to-kill lead time 0.0 ms",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            },
-            {
-              "round": 15,
-              "tickStart": 89744,
-              "tickEnd": 89760,
-              "timeSec": 1402.5,
-              "reason": "Shot-to-kill lead time 0.0 ms",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            }
-          ]
-        },
-        "wallhack": {
-          "value": 0.0375,
-          "samples": 8,
-          "confidence": 0.26666666666666666,
-          "stats": {
-            "min": 0,
-            "avg": 0.0375,
-            "p95": 0
-          },
-          "evidence": []
-        }
-      },
-      "verdict": {
-        "code": "clean",
-        "label": "Temiz"
-      },
-      "guardrails": {
-        "samplePenalty": 0,
-        "weaponAdjustment": 0
-      },
-      "scoreRaw": 0.37076598203957417,
-      "scoreFinal": 37,
-      "confidence": 1,
-      "explanation": [
-        "Suphe skoru 37/100, guven 100%.",
-        "Flick 3.8% (8 ornek), prefire 100.0% (8 kill), wallhack proxy 3.8% (8 kill).",
-        "En guclu prefire sinyali 02:10 civari."
-      ]
-    },
-    {
-      "player": {
-        "slot": 7,
-        "name": "aKs--",
-        "steamId": "76561198211732671",
-        "team": "CT"
-      },
-      "metrics": {
-        "flick": {
-          "value": 0.034121055415476886,
-          "samples": 11,
-          "confidence": 1,
-          "stats": {
-            "min": 22.05118588396461,
-            "avg": 68.24211083095379,
-            "p95": 86.70514190852279
-          },
-          "evidence": []
-        },
-        "prefire": {
-          "value": 1,
-          "samples": 11,
-          "confidence": 0.9166666666666666,
-          "stats": {
-            "min": 1,
-            "avg": 1,
-            "p95": 1
-          },
-          "evidence": [
-            {
-              "round": 5,
-              "tickStart": 25188,
-              "tickEnd": 25204,
-              "timeSec": 393.8125,
-              "reason": "Shot-to-kill lead time 0.0 ms",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            },
-            {
-              "round": 7,
-              "tickStart": 40127,
-              "tickEnd": 40143,
-              "timeSec": 627.234375,
-              "reason": "Shot-to-kill lead time 0.0 ms",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            },
-            {
-              "round": 11,
-              "tickStart": 66880,
-              "tickEnd": 66896,
-              "timeSec": 1045.25,
-              "reason": "Shot-to-kill lead time 0.0 ms",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            },
-            {
-              "round": 13,
-              "tickStart": 79176,
-              "tickEnd": 79192,
-              "timeSec": 1237.375,
-              "reason": "Shot-to-kill lead time 0.0 ms",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            },
-            {
-              "round": 13,
-              "tickStart": 79519,
-              "tickEnd": 79535,
-              "timeSec": 1242.734375,
-              "reason": "Shot-to-kill lead time 0.0 ms",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            }
-          ]
-        },
-        "wallhack": {
-          "value": 0,
-          "samples": 11,
-          "confidence": 0.3666666666666667,
-          "stats": {
-            "min": 0,
-            "avg": 0,
-            "p95": 0
-          },
-          "evidence": []
-        }
-      },
-      "verdict": {
-        "code": "clean",
-        "label": "Temiz"
-      },
-      "guardrails": {
-        "samplePenalty": 0,
-        "weaponAdjustment": 0.05454545454545454
-      },
-      "scoreRaw": 0.3564878239408715,
-      "scoreFinal": 36,
-      "confidence": 1,
-      "explanation": [
-        "Suphe skoru 36/100, guven 100%.",
-        "Flick 3.4% (11 ornek), prefire 100.0% (11 kill), wallhack proxy 0.0% (11 kill).",
-        "Koruma katsayisi uygulandi (ornek=0.00, round=0.00, silah=0.05).",
-        "En guclu prefire sinyali 06:33 civari."
-      ]
-    },
-    {
-      "player": {
-        "slot": 1,
-        "name": "DJAZAIRI",
-        "steamId": "76561199132263155",
-        "team": "T"
-      },
-      "metrics": {
-        "flick": {
-          "value": 0.035239665827064226,
-          "samples": 19,
-          "confidence": 1,
-          "stats": {
-            "min": 11.135077005932864,
-            "avg": 70.47933165412843,
-            "p95": 149.2647868487996
-          },
-          "evidence": []
-        },
-        "prefire": {
-          "value": 0.9473684210526315,
-          "samples": 19,
-          "confidence": 1,
-          "stats": {
-            "min": 0,
-            "avg": 0.9473684210526315,
-            "p95": 1
-          },
-          "evidence": [
-            {
-              "round": 1,
-              "tickStart": 3086,
-              "tickEnd": 3102,
-              "timeSec": 48.46875,
-              "reason": "Shot-to-kill lead time 0.0 ms",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            },
-            {
-              "round": 1,
-              "tickStart": 3153,
-              "tickEnd": 3169,
-              "timeSec": 49.515625,
-              "reason": "Shot-to-kill lead time 0.0 ms",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            },
-            {
-              "round": 2,
-              "tickStart": 7038,
-              "tickEnd": 7054,
-              "timeSec": 110.21875,
-              "reason": "Shot-to-kill lead time 0.0 ms",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            },
-            {
-              "round": 2,
-              "tickStart": 7212,
-              "tickEnd": 7228,
-              "timeSec": 112.9375,
-              "reason": "Shot-to-kill lead time 0.0 ms",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            },
-            {
-              "round": 3,
-              "tickStart": 11216,
-              "tickEnd": 11232,
-              "timeSec": 175.5,
-              "reason": "Wall-penetration kill (penetrations=1)",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            }
-          ]
-        },
-        "wallhack": {
-          "value": 0.08947368421052633,
-          "samples": 19,
-          "confidence": 0.4631578947368421,
-          "stats": {
-            "min": 0,
-            "avg": 0.08947368421052633,
-            "p95": 0.55
-          },
-          "evidence": [
-            {
-              "round": 12,
-              "tickStart": 73803,
-              "tickEnd": 73822,
-              "timeSec": 1153.46875,
-              "reason": "Visibility proxy hit (through smoke)",
-              "tags": [
-                "info",
-                "wallhack"
-              ]
-            },
-            {
-              "round": 18,
-              "tickStart": 108753,
-              "tickEnd": 108772,
-              "timeSec": 1699.5625,
-              "reason": "Visibility proxy hit (through smoke)",
-              "tags": [
-                "info",
-                "wallhack"
-              ]
-            }
-          ]
-        }
-      },
-      "verdict": {
-        "code": "clean",
-        "label": "Temiz"
-      },
-      "guardrails": {
-        "samplePenalty": 0,
-        "weaponAdjustment": 0.09473684210526315
-      },
-      "scoreRaw": 0.35233388303947244,
-      "scoreFinal": 35,
-      "confidence": 1,
-      "explanation": [
-        "Suphe skoru 35/100, guven 100%.",
-        "Flick 3.5% (19 ornek), prefire 94.7% (19 kill), wallhack proxy 8.9% (19 kill).",
-        "Koruma katsayisi uygulandi (ornek=0.00, round=0.00, silah=0.09).",
-        "En guclu prefire sinyali 00:48 civari.",
-        "En guclu wallhack sinyali 19:13 civari."
-      ]
-    },
-    {
-      "player": {
-        "slot": 9,
-        "name": "INSPIRING",
-        "steamId": "76561198200643875",
-        "team": "CT"
-      },
-      "metrics": {
-        "flick": {
-          "value": 0.03072890099806807,
-          "samples": 26,
-          "confidence": 1,
-          "stats": {
-            "min": 0,
-            "avg": 61.457801996136155,
-            "p95": 138.87728628959954
-          },
-          "evidence": []
-        },
-        "prefire": {
-          "value": 0.9230769230769231,
-          "samples": 26,
-          "confidence": 1,
-          "stats": {
-            "min": 0,
-            "avg": 0.9230769230769231,
-            "p95": 1
-          },
-          "evidence": [
-            {
-              "round": 2,
-              "tickStart": 6726,
-              "tickEnd": 6742,
-              "timeSec": 105.34375,
-              "reason": "Shot-to-kill lead time 0.0 ms",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            },
-            {
-              "round": 2,
-              "tickStart": 7935,
-              "tickEnd": 7951,
-              "timeSec": 124.234375,
-              "reason": "Shot-to-kill lead time 0.0 ms",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            },
-            {
-              "round": 4,
-              "tickStart": 20003,
-              "tickEnd": 20019,
-              "timeSec": 312.796875,
-              "reason": "Shot-to-kill lead time 0.0 ms",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            },
-            {
-              "round": 4,
-              "tickStart": 21845,
-              "tickEnd": 21861,
-              "timeSec": 341.578125,
-              "reason": "Shot-to-kill lead time 0.0 ms",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            },
-            {
-              "round": 5,
-              "tickStart": 29887,
-              "tickEnd": 29903,
-              "timeSec": 467.234375,
-              "reason": "Shot-to-kill lead time 0.0 ms",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            }
-          ]
-        },
-        "wallhack": {
-          "value": 0.032692307692307694,
-          "samples": 26,
-          "confidence": 0.42307692307692313,
-          "stats": {
-            "min": 0,
-            "avg": 0.032692307692307694,
-            "p95": 0
-          },
-          "evidence": [
-            {
-              "round": 11,
-              "tickStart": 67472,
-              "tickEnd": 67491,
-              "timeSec": 1054.546875,
-              "reason": "Visibility proxy hit (through smoke)",
-              "tags": [
-                "info",
-                "wallhack"
-              ]
-            }
-          ]
-        }
-      },
-      "verdict": {
-        "code": "clean",
-        "label": "Temiz"
-      },
-      "guardrails": {
-        "samplePenalty": 0,
-        "weaponAdjustment": 0.046153846153846156
-      },
-      "scoreRaw": 0.33575511534932384,
-      "scoreFinal": 34,
-      "confidence": 1,
-      "explanation": [
-        "Suphe skoru 34/100, guven 100%.",
-        "Flick 3.1% (26 ornek), prefire 92.3% (26 kill), wallhack proxy 3.3% (26 kill).",
-        "Koruma katsayisi uygulandi (ornek=0.00, round=0.00, silah=0.05).",
-        "En guclu prefire sinyali 01:45 civari.",
-        "En guclu wallhack sinyali 17:34 civari."
-      ]
-    },
-    {
-      "player": {
-        "slot": 2,
-        "name": "Chikamatsu",
-        "steamId": "76561199490910330",
-        "team": "T"
-      },
-      "metrics": {
-        "flick": {
-          "value": 0.06608529660011137,
-          "samples": 23,
-          "confidence": 1,
-          "stats": {
-            "min": 3.930588241698849,
-            "avg": 132.17059320022275,
-            "p95": 297.44072855018595
-          },
-          "evidence": []
-        },
-        "prefire": {
-          "value": 0.9130434782608695,
-          "samples": 23,
-          "confidence": 1,
-          "stats": {
-            "min": 0,
-            "avg": 0.9130434782608695,
-            "p95": 1
-          },
-          "evidence": [
-            {
-              "round": 1,
-              "tickStart": 3302,
-              "tickEnd": 3318,
-              "timeSec": 51.84375,
-              "reason": "Shot-to-kill lead time 0.0 ms",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            },
-            {
-              "round": 1,
-              "tickStart": 3416,
-              "tickEnd": 3432,
-              "timeSec": 53.625,
-              "reason": "Shot-to-kill lead time 0.0 ms",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            },
-            {
-              "round": 2,
-              "tickStart": 8251,
-              "tickEnd": 8267,
-              "timeSec": 129.171875,
-              "reason": "Shot-to-kill lead time 0.0 ms",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            },
-            {
-              "round": 3,
-              "tickStart": 13348,
-              "tickEnd": 13364,
-              "timeSec": 208.8125,
-              "reason": "Shot-to-kill lead time 0.0 ms",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            },
-            {
-              "round": 4,
-              "tickStart": 20691,
-              "tickEnd": 20707,
-              "timeSec": 323.546875,
-              "reason": "Shot-to-kill lead time 0.0 ms",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            }
-          ]
-        },
-        "wallhack": {
-          "value": 0,
-          "samples": 23,
-          "confidence": 0.4,
-          "stats": {
-            "min": 0,
-            "avg": 0,
-            "p95": 0
-          },
-          "evidence": []
-        }
-      },
-      "verdict": {
-        "code": "clean",
-        "label": "Temiz"
-      },
-      "guardrails": {
-        "samplePenalty": 0,
-        "weaponAdjustment": 0
-      },
-      "scoreRaw": 0.3426950712013433,
-      "scoreFinal": 34,
-      "confidence": 1,
-      "explanation": [
-        "Suphe skoru 34/100, guven 100%.",
-        "Flick 6.6% (23 ornek), prefire 91.3% (23 kill), wallhack proxy 0.0% (23 kill).",
-        "En guclu prefire sinyali 00:51 civari."
-      ]
-    },
-    {
-      "player": {
-        "slot": 3,
-        "name": "JynX!",
-        "steamId": "76561199260916661",
-        "team": "T"
-      },
-      "metrics": {
-        "flick": {
-          "value": 0.04639965831599555,
-          "samples": 11,
-          "confidence": 1,
-          "stats": {
-            "min": 21.316093007715708,
-            "avg": 92.79931663199112,
-            "p95": 135.4899466891884
-          },
-          "evidence": []
-        },
-        "prefire": {
-          "value": 0.8181818181818182,
-          "samples": 11,
-          "confidence": 0.9166666666666666,
-          "stats": {
-            "min": 0,
-            "avg": 0.8181818181818182,
-            "p95": 1
-          },
-          "evidence": [
-            {
-              "round": 1,
-              "tickStart": 2965,
-              "tickEnd": 2981,
-              "timeSec": 46.578125,
-              "reason": "Shot-to-kill lead time 0.0 ms",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            },
-            {
-              "round": 6,
-              "tickStart": 36028,
-              "tickEnd": 36044,
-              "timeSec": 563.1875,
-              "reason": "Shot-to-kill lead time 0.0 ms",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            },
-            {
-              "round": 6,
-              "tickStart": 36854,
-              "tickEnd": 36870,
-              "timeSec": 576.09375,
-              "reason": "Shot-to-kill lead time 0.0 ms",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            },
-            {
-              "round": 8,
-              "tickStart": 51464,
-              "tickEnd": 51480,
-              "timeSec": 804.375,
-              "reason": "Shot-to-kill lead time 0.0 ms",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            },
-            {
-              "round": 8,
-              "tickStart": 51552,
-              "tickEnd": 51568,
-              "timeSec": 805.75,
-              "reason": "Shot-to-kill lead time 0.0 ms",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            }
-          ]
-        },
-        "wallhack": {
-          "value": 0.05,
-          "samples": 11,
-          "confidence": 0.4166666666666667,
-          "stats": {
-            "min": 0,
-            "avg": 0.05,
-            "p95": 0
-          },
-          "evidence": [
-            {
-              "round": 19,
-              "tickStart": 116549,
-              "tickEnd": 116568,
-              "timeSec": 1821.375,
-              "reason": "Visibility proxy hit (through smoke)",
-              "tags": [
-                "info",
-                "wallhack"
-              ]
-            }
-          ]
-        }
-      },
-      "verdict": {
-        "code": "clean",
-        "label": "Temiz"
-      },
-      "guardrails": {
-        "samplePenalty": 0,
-        "weaponAdjustment": 0
-      },
-      "scoreRaw": 0.3126035167742348,
-      "scoreFinal": 31,
-      "confidence": 1,
-      "explanation": [
-        "Suphe skoru 31/100, guven 100%.",
-        "Flick 4.6% (11 ornek), prefire 81.8% (11 kill), wallhack proxy 5.0% (11 kill).",
-        "En guclu prefire sinyali 00:46 civari.",
-        "En guclu wallhack sinyali 30:21 civari."
-      ]
-    },
-    {
-      "player": {
-        "slot": 6,
-        "name": "Mmt",
-        "steamId": "76561198857901135",
-        "team": "CT"
-      },
-      "metrics": {
-        "flick": {
-          "value": 0.016285992895381875,
-          "samples": 6,
-          "confidence": 0.6,
-          "stats": {
-            "min": 12.957909633337271,
-            "avg": 32.571985790763755,
-            "p95": 46.82953988637128
-          },
-          "evidence": []
-        },
-        "prefire": {
-          "value": 1,
-          "samples": 6,
-          "confidence": 0.5,
-          "stats": {
-            "min": 1,
-            "avg": 1,
-            "p95": 1
-          },
-          "evidence": [
-            {
-              "round": 1,
-              "tickStart": 3014,
-              "tickEnd": 3030,
-              "timeSec": 47.34375,
-              "reason": "Shot-to-kill lead time 0.0 ms",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            },
-            {
-              "round": 4,
-              "tickStart": 22151,
-              "tickEnd": 22167,
-              "timeSec": 346.359375,
-              "reason": "Shot-to-kill lead time 0.0 ms",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            },
-            {
-              "round": 10,
-              "tickStart": 62059,
-              "tickEnd": 62075,
-              "timeSec": 969.921875,
-              "reason": "Shot-to-kill lead time 0.0 ms",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            },
-            {
-              "round": 15,
-              "tickStart": 90468,
-              "tickEnd": 90484,
-              "timeSec": 1413.8125,
-              "reason": "Kill through smoke shortly after firing",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            },
-            {
-              "round": 15,
-              "tickStart": 93209,
-              "tickEnd": 93225,
-              "timeSec": 1456.640625,
-              "reason": "Shot-to-kill lead time 0.0 ms",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            }
-          ]
-        },
-        "wallhack": {
-          "value": 0.09166666666666667,
-          "samples": 6,
-          "confidence": 0.25,
-          "stats": {
-            "min": 0,
-            "avg": 0.09166666666666667,
-            "p95": 0
-          },
-          "evidence": [
-            {
-              "round": 15,
-              "tickStart": 90465,
-              "tickEnd": 90484,
-              "timeSec": 1413.8125,
-              "reason": "Visibility proxy hit (through smoke)",
-              "tags": [
-                "info",
-                "wallhack"
-              ]
-            }
-          ]
-        }
-      },
-      "verdict": {
-        "code": "clean",
-        "label": "Temiz"
-      },
-      "guardrails": {
-        "samplePenalty": 0.25,
-        "weaponAdjustment": 0
-      },
-      "scoreRaw": 0.3490334308467169,
-      "scoreFinal": 30,
-      "confidence": 0.85,
-      "explanation": [
-        "Suphe skoru 30/100, guven 85%.",
-        "Flick 1.6% (6 ornek), prefire 100.0% (6 kill), wallhack proxy 9.2% (6 kill).",
-        "Koruma katsayisi uygulandi (ornek=0.25, round=0.00, silah=0.00).",
-        "En guclu prefire sinyali 00:47 civari.",
-        "En guclu wallhack sinyali 23:33 civari."
+        "Şüphe skoru 10/100, güven 100%.",
+        "Flick 3.1% (8 örnek), prefire 15.0% (8 kill), wallhack proxy 20.6% (8 kill).",
+        "En güçlü wallhack sinyali 07:19 civarı."
       ]
     },
     {
@@ -1050,65 +124,22 @@
           "evidence": []
         },
         "prefire": {
-          "value": 0.7,
+          "value": 0.062,
           "samples": 10,
-          "confidence": 0.8333333333333334,
+          "confidence": 0.42083333333333334,
           "stats": {
             "min": 0,
-            "avg": 0.7,
-            "p95": 1
+            "avg": 0.062,
+            "p95": 0
           },
           "evidence": [
             {
-              "round": 5,
-              "tickStart": 25323,
-              "tickEnd": 25339,
-              "timeSec": 395.921875,
-              "reason": "Shot-to-kill lead time 0.0 ms",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            },
-            {
-              "round": 7,
-              "tickStart": 46167,
-              "tickEnd": 46183,
-              "timeSec": 721.609375,
-              "reason": "Shot-to-kill lead time 0.0 ms",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            },
-            {
+              "playerName": "DANDE",
               "round": 9,
               "tickStart": 54991,
               "tickEnd": 55007,
               "timeSec": 859.484375,
-              "reason": "Kill through smoke shortly after firing",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            },
-            {
-              "round": 11,
-              "tickStart": 66920,
-              "tickEnd": 66936,
-              "timeSec": 1045.875,
-              "reason": "Shot-to-kill lead time 0.0 ms",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            },
-            {
-              "round": 13,
-              "tickStart": 78897,
-              "tickEnd": 78913,
-              "timeSec": 1233.015625,
-              "reason": "Shot-to-kill lead time 0.0 ms",
+              "reason": "Prefire proxy hit (through smoke, single wall penetration)",
               "tags": [
                 "info",
                 "prefire"
@@ -1127,6 +158,7 @@
           },
           "evidence": [
             {
+              "playerName": "DANDE",
               "round": 9,
               "tickStart": 54988,
               "tickEnd": 55007,
@@ -1142,20 +174,20 @@
       },
       "verdict": {
         "code": "watch",
-        "label": "Izlenmeli"
+        "label": "İzlenmeli"
       },
       "guardrails": {
         "samplePenalty": 0,
         "weaponAdjustment": 0
       },
-      "scoreRaw": 0.2769257355471814,
-      "scoreFinal": 28,
+      "scoreRaw": 0.05602941205392162,
+      "scoreFinal": 6,
       "confidence": 1,
       "explanation": [
-        "Suphe skoru 28/100, guven 100%.",
-        "Flick 3.4% (10 ornek), prefire 70.0% (10 kill), wallhack proxy 10.0% (10 kill).",
-        "En guclu prefire sinyali 06:35 civari.",
-        "En guclu wallhack sinyali 14:19 civari."
+        "Şüphe skoru 6/100, güven 100%.",
+        "Flick 3.4% (10 örnek), prefire 6.2% (10 kill), wallhack proxy 10.0% (10 kill).",
+        "En güçlü prefire sinyali 14:19 civarı.",
+        "En güçlü wallhack sinyali 14:19 civarı."
       ]
     },
     {
@@ -1178,65 +210,22 @@
           "evidence": []
         },
         "prefire": {
-          "value": 0.6666666666666666,
+          "value": 0.068,
           "samples": 15,
-          "confidence": 1,
+          "confidence": 0.4866666666666667,
           "stats": {
             "min": 0,
-            "avg": 0.6666666666666666,
-            "p95": 1
+            "avg": 0.068,
+            "p95": 0.4
           },
           "evidence": [
             {
-              "round": 5,
-              "tickStart": 26570,
-              "tickEnd": 26586,
-              "timeSec": 415.40625,
-              "reason": "Shot-to-kill lead time 0.0 ms",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            },
-            {
-              "round": 11,
-              "tickStart": 67064,
-              "tickEnd": 67080,
-              "timeSec": 1048.125,
-              "reason": "Shot-to-kill lead time 0.0 ms",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            },
-            {
-              "round": 11,
-              "tickStart": 68974,
-              "tickEnd": 68990,
-              "timeSec": 1077.96875,
-              "reason": "Wall-penetration kill (penetrations=1)",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            },
-            {
+              "playerName": "7berdeg™",
               "round": 11,
               "tickStart": 70116,
               "tickEnd": 70132,
               "timeSec": 1095.8125,
-              "reason": "Kill through smoke shortly after firing",
-              "tags": [
-                "info",
-                "prefire"
-              ]
-            },
-            {
-              "round": 12,
-              "tickStart": 74721,
-              "tickEnd": 74737,
-              "timeSec": 1167.765625,
-              "reason": "Shot-to-kill lead time 0.0 ms",
+              "reason": "Prefire proxy hit (through smoke, single wall penetration)",
               "tags": [
                 "info",
                 "prefire"
@@ -1255,6 +244,7 @@
           },
           "evidence": [
             {
+              "playerName": "7berdeg™",
               "round": 11,
               "tickStart": 70113,
               "tickEnd": 70132,
@@ -1266,6 +256,7 @@
               ]
             },
             {
+              "playerName": "7berdeg™",
               "round": 17,
               "tickStart": 103428,
               "tickEnd": 103447,
@@ -1281,26 +272,505 @@
       },
       "verdict": {
         "code": "watch",
-        "label": "Izlenmeli"
+        "label": "İzlenmeli"
       },
       "guardrails": {
         "samplePenalty": 0,
         "weaponAdjustment": 0.16
       },
-      "scoreRaw": 0.25941060681394673,
-      "scoreFinal": 26,
+      "scoreRaw": 0.05449783635879628,
+      "scoreFinal": 5,
       "confidence": 1,
       "explanation": [
-        "Suphe skoru 26/100, guven 100%.",
-        "Flick 5.0% (15 ornek), prefire 66.7% (15 kill), wallhack proxy 12.3% (15 kill).",
-        "Koruma katsayisi uygulandi (ornek=0.00, round=0.00, silah=0.16).",
-        "En guclu prefire sinyali 06:55 civari.",
-        "En guclu wallhack sinyali 18:15 civari."
+        "Şüphe skoru 5/100, güven 100%.",
+        "Flick 5.0% (15 örnek), prefire 6.8% (15 kill), wallhack proxy 12.3% (15 kill).",
+        "Koruma katsayısı uygulandı (örnek=0.00, round=0.00, silah=0.16).",
+        "En güçlü prefire sinyali 18:15 civarı.",
+        "En güçlü wallhack sinyali 18:15 civarı."
+      ]
+    },
+    {
+      "player": {
+        "slot": 1,
+        "name": "DJAZAIRI",
+        "steamId": "76561199132263155",
+        "team": "T"
+      },
+      "metrics": {
+        "flick": {
+          "value": 0.035239665827064226,
+          "samples": 19,
+          "confidence": 1,
+          "stats": {
+            "min": 11.135077005932864,
+            "avg": 70.47933165412843,
+            "p95": 149.2647868487996
+          },
+          "evidence": []
+        },
+        "prefire": {
+          "value": 0.042105263157894736,
+          "samples": 19,
+          "confidence": 0.45,
+          "stats": {
+            "min": 0,
+            "avg": 0.042105263157894736,
+            "p95": 0.4
+          },
+          "evidence": []
+        },
+        "wallhack": {
+          "value": 0.08947368421052633,
+          "samples": 19,
+          "confidence": 0.4631578947368421,
+          "stats": {
+            "min": 0,
+            "avg": 0.08947368421052633,
+            "p95": 0.55
+          },
+          "evidence": [
+            {
+              "playerName": "DJAZAIRI",
+              "round": 12,
+              "tickStart": 73803,
+              "tickEnd": 73822,
+              "timeSec": 1153.46875,
+              "reason": "Visibility proxy hit (through smoke)",
+              "tags": [
+                "info",
+                "wallhack"
+              ]
+            },
+            {
+              "playerName": "DJAZAIRI",
+              "round": 18,
+              "tickStart": 108753,
+              "tickEnd": 108772,
+              "timeSec": 1699.5625,
+              "reason": "Visibility proxy hit (through smoke)",
+              "tags": [
+                "info",
+                "wallhack"
+              ]
+            }
+          ]
+        }
+      },
+      "verdict": {
+        "code": "clean",
+        "label": "Temiz"
+      },
+      "guardrails": {
+        "samplePenalty": 0,
+        "weaponAdjustment": 0.09473684210526315
+      },
+      "scoreRaw": 0.03988534001503623,
+      "scoreFinal": 4,
+      "confidence": 1,
+      "explanation": [
+        "Şüphe skoru 4/100, güven 100%.",
+        "Flick 3.5% (19 örnek), prefire 4.2% (19 kill), wallhack proxy 8.9% (19 kill).",
+        "Koruma katsayısı uygulandı (örnek=0.00, round=0.00, silah=0.09).",
+        "En güçlü wallhack sinyali 19:13 civarı."
+      ]
+    },
+    {
+      "player": {
+        "slot": 6,
+        "name": "Mmt",
+        "steamId": "76561198857901135",
+        "team": "CT"
+      },
+      "metrics": {
+        "flick": {
+          "value": 0.016285992895381875,
+          "samples": 6,
+          "confidence": 0.6,
+          "stats": {
+            "min": 12.957909633337271,
+            "avg": 32.571985790763755,
+            "p95": 46.82953988637128
+          },
+          "evidence": []
+        },
+        "prefire": {
+          "value": 0.06666666666666667,
+          "samples": 6,
+          "confidence": 0.225,
+          "stats": {
+            "min": 0,
+            "avg": 0.06666666666666667,
+            "p95": 0
+          },
+          "evidence": []
+        },
+        "wallhack": {
+          "value": 0.09166666666666667,
+          "samples": 6,
+          "confidence": 0.25,
+          "stats": {
+            "min": 0,
+            "avg": 0.09166666666666667,
+            "p95": 0
+          },
+          "evidence": [
+            {
+              "playerName": "Mmt",
+              "round": 15,
+              "tickStart": 90465,
+              "tickEnd": 90484,
+              "timeSec": 1413.8125,
+              "reason": "Visibility proxy hit (through smoke)",
+              "tags": [
+                "info",
+                "wallhack"
+              ]
+            }
+          ]
+        }
+      },
+      "verdict": {
+        "code": "clean",
+        "label": "Temiz"
+      },
+      "guardrails": {
+        "samplePenalty": 0.25,
+        "weaponAdjustment": 0
+      },
+      "scoreRaw": 0.022347730491486084,
+      "scoreFinal": 2,
+      "confidence": 0.85,
+      "explanation": [
+        "Şüphe skoru 2/100, güven 85%.",
+        "Flick 1.6% (6 örnek), prefire 6.7% (6 kill), wallhack proxy 9.2% (6 kill).",
+        "Koruma katsayısı uygulandı (örnek=0.25, round=0.00, silah=0.00).",
+        "En güçlü wallhack sinyali 23:33 civarı."
+      ]
+    },
+    {
+      "player": {
+        "slot": 9,
+        "name": "INSPIRING",
+        "steamId": "76561198200643875",
+        "team": "CT"
+      },
+      "metrics": {
+        "flick": {
+          "value": 0.03072890099806807,
+          "samples": 26,
+          "confidence": 1,
+          "stats": {
+            "min": 0,
+            "avg": 61.457801996136155,
+            "p95": 138.87728628959954
+          },
+          "evidence": []
+        },
+        "prefire": {
+          "value": 0.019230769230769232,
+          "samples": 26,
+          "confidence": 0.45,
+          "stats": {
+            "min": 0,
+            "avg": 0.019230769230769232,
+            "p95": 0
+          },
+          "evidence": []
+        },
+        "wallhack": {
+          "value": 0.032692307692307694,
+          "samples": 26,
+          "confidence": 0.42307692307692313,
+          "stats": {
+            "min": 0,
+            "avg": 0.032692307692307694,
+            "p95": 0
+          },
+          "evidence": [
+            {
+              "playerName": "INSPIRING",
+              "round": 11,
+              "tickStart": 67472,
+              "tickEnd": 67491,
+              "timeSec": 1054.546875,
+              "reason": "Visibility proxy hit (through smoke)",
+              "tags": [
+                "info",
+                "wallhack"
+              ]
+            }
+          ]
+        }
+      },
+      "verdict": {
+        "code": "clean",
+        "label": "Temiz"
+      },
+      "guardrails": {
+        "samplePenalty": 0,
+        "weaponAdjustment": 0.046153846153846156
+      },
+      "scoreRaw": -0.05866997806231124,
+      "scoreFinal": 0,
+      "confidence": 1,
+      "explanation": [
+        "Şüphe skoru 0/100, güven 100%.",
+        "Flick 3.1% (26 örnek), prefire 1.9% (26 kill), wallhack proxy 3.3% (26 kill).",
+        "Koruma katsayısı uygulandı (örnek=0.00, round=0.00, silah=0.05).",
+        "En güçlü wallhack sinyali 17:34 civarı."
+      ]
+    },
+    {
+      "player": {
+        "slot": 2,
+        "name": "Chikamatsu",
+        "steamId": "76561199490910330",
+        "team": "T"
+      },
+      "metrics": {
+        "flick": {
+          "value": 0.06608529660011137,
+          "samples": 23,
+          "confidence": 1,
+          "stats": {
+            "min": 3.930588241698849,
+            "avg": 132.17059320022275,
+            "p95": 297.44072855018595
+          },
+          "evidence": []
+        },
+        "prefire": {
+          "value": 0,
+          "samples": 23,
+          "confidence": 0.45,
+          "stats": {
+            "min": 0,
+            "avg": 0,
+            "p95": 0
+          },
+          "evidence": []
+        },
+        "wallhack": {
+          "value": 0,
+          "samples": 23,
+          "confidence": 0.4,
+          "stats": {
+            "min": 0,
+            "avg": 0,
+            "p95": 0
+          },
+          "evidence": []
+        }
+      },
+      "verdict": {
+        "code": "clean",
+        "label": "Temiz"
+      },
+      "guardrails": {
+        "samplePenalty": 0,
+        "weaponAdjustment": 0
+      },
+      "scoreRaw": -0.05356588135995545,
+      "scoreFinal": 0,
+      "confidence": 1,
+      "explanation": [
+        "Şüphe skoru 0/100, güven 100%.",
+        "Flick 6.6% (23 örnek), prefire 0.0% (23 kill), wallhack proxy 0.0% (23 kill)."
+      ]
+    },
+    {
+      "player": {
+        "slot": 3,
+        "name": "JynX!",
+        "steamId": "76561199260916661",
+        "team": "T"
+      },
+      "metrics": {
+        "flick": {
+          "value": 0.04639965831599555,
+          "samples": 11,
+          "confidence": 1,
+          "stats": {
+            "min": 21.316093007715708,
+            "avg": 92.79931663199112,
+            "p95": 135.4899466891884
+          },
+          "evidence": []
+        },
+        "prefire": {
+          "value": 0.03636363636363637,
+          "samples": 11,
+          "confidence": 0.4125,
+          "stats": {
+            "min": 0,
+            "avg": 0.03636363636363637,
+            "p95": 0
+          },
+          "evidence": []
+        },
+        "wallhack": {
+          "value": 0.05,
+          "samples": 11,
+          "confidence": 0.4166666666666667,
+          "stats": {
+            "min": 0,
+            "avg": 0.05,
+            "p95": 0
+          },
+          "evidence": [
+            {
+              "playerName": "JynX!",
+              "round": 19,
+              "tickStart": 116549,
+              "tickEnd": 116568,
+              "timeSec": 1821.375,
+              "reason": "Visibility proxy hit (through smoke)",
+              "tags": [
+                "info",
+                "wallhack"
+              ]
+            }
+          ]
+        }
+      },
+      "verdict": {
+        "code": "clean",
+        "label": "Temiz"
+      },
+      "guardrails": {
+        "samplePenalty": 0,
+        "weaponAdjustment": 0
+      },
+      "scoreRaw": -0.03916740940087451,
+      "scoreFinal": 0,
+      "confidence": 1,
+      "explanation": [
+        "Şüphe skoru 0/100, güven 100%.",
+        "Flick 4.6% (11 örnek), prefire 3.6% (11 kill), wallhack proxy 5.0% (11 kill).",
+        "En güçlü wallhack sinyali 30:21 civarı."
+      ]
+    },
+    {
+      "player": {
+        "slot": 7,
+        "name": "aKs--",
+        "steamId": "76561198211732671",
+        "team": "CT"
+      },
+      "metrics": {
+        "flick": {
+          "value": 0.034121055415476886,
+          "samples": 11,
+          "confidence": 1,
+          "stats": {
+            "min": 22.05118588396461,
+            "avg": 68.24211083095379,
+            "p95": 86.70514190852279
+          },
+          "evidence": []
+        },
+        "prefire": {
+          "value": 0,
+          "samples": 11,
+          "confidence": 0.4125,
+          "stats": {
+            "min": 0,
+            "avg": 0,
+            "p95": 0
+          },
+          "evidence": []
+        },
+        "wallhack": {
+          "value": 0,
+          "samples": 11,
+          "confidence": 0.3666666666666667,
+          "stats": {
+            "min": 0,
+            "avg": 0,
+            "p95": 0
+          },
+          "evidence": []
+        }
+      },
+      "verdict": {
+        "code": "clean",
+        "label": "Temiz"
+      },
+      "guardrails": {
+        "samplePenalty": 0,
+        "weaponAdjustment": 0.05454545454545454
+      },
+      "scoreRaw": -0.0718061232883547,
+      "scoreFinal": 0,
+      "confidence": 1,
+      "explanation": [
+        "Şüphe skoru 0/100, güven 100%.",
+        "Flick 3.4% (11 örnek), prefire 0.0% (11 kill), wallhack proxy 0.0% (11 kill).",
+        "Koruma katsayısı uygulandı (örnek=0.00, round=0.00, silah=0.05)."
+      ]
+    },
+    {
+      "player": {
+        "slot": 8,
+        "name": "Morpheus",
+        "steamId": "76561197994583429",
+        "team": "CT"
+      },
+      "metrics": {
+        "flick": {
+          "value": 0.03790280582735483,
+          "samples": 8,
+          "confidence": 0.8,
+          "stats": {
+            "min": 34.178177338290034,
+            "avg": 75.80561165470968,
+            "p95": 90.92401373314944
+          },
+          "evidence": []
+        },
+        "prefire": {
+          "value": 0.056249999999999994,
+          "samples": 8,
+          "confidence": 0.3,
+          "stats": {
+            "min": 0,
+            "avg": 0.056249999999999994,
+            "p95": 0
+          },
+          "evidence": []
+        },
+        "wallhack": {
+          "value": 0.0375,
+          "samples": 8,
+          "confidence": 0.26666666666666666,
+          "stats": {
+            "min": 0,
+            "avg": 0.0375,
+            "p95": 0
+          },
+          "evidence": []
+        }
+      },
+      "verdict": {
+        "code": "clean",
+        "label": "Temiz"
+      },
+      "guardrails": {
+        "samplePenalty": 0,
+        "weaponAdjustment": 0
+      },
+      "scoreRaw": -0.04233887766905807,
+      "scoreFinal": 0,
+      "confidence": 1,
+      "explanation": [
+        "Şüphe skoru 0/100, güven 100%.",
+        "Flick 3.8% (8 örnek), prefire 5.6% (8 kill), wallhack proxy 3.8% (8 kill)."
       ]
     }
   ],
   "topEvents": [
     {
+      "playerName": "JynX!",
       "round": 19,
       "tickStart": 116549,
       "tickEnd": 116568,
@@ -1312,6 +782,7 @@
       ]
     },
     {
+      "playerName": "DJAZAIRI",
       "round": 18,
       "tickStart": 108753,
       "tickEnd": 108772,
@@ -1323,6 +794,7 @@
       ]
     },
     {
+      "playerName": "7berdeg™",
       "round": 17,
       "tickStart": 103428,
       "tickEnd": 103447,
@@ -1334,17 +806,7 @@
       ]
     },
     {
-      "round": 15,
-      "tickStart": 93209,
-      "tickEnd": 93225,
-      "timeSec": 1456.640625,
-      "reason": "Shot-to-kill lead time 0.0 ms",
-      "tags": [
-        "info",
-        "prefire"
-      ]
-    },
-    {
+      "playerName": "MAG",
       "round": 15,
       "tickStart": 90642,
       "tickEnd": 90661,
@@ -1354,9 +816,21 @@
         "info",
         "wallhack"
       ]
+    },
+    {
+      "playerName": "Mmt",
+      "round": 15,
+      "tickStart": 90465,
+      "tickEnd": 90484,
+      "timeSec": 1413.8125,
+      "reason": "Visibility proxy hit (through smoke)",
+      "tags": [
+        "info",
+        "wallhack"
+      ]
     }
   ],
   "warnings": [
-    "[verbose] Cozumlenen eventler: players=10, kills=137, shots=3101, frames=26880, roundEnds=20"
+    "[verbose] Çözümlenen eventler: players=10, kills=137, shots=3101, frames=26880, roundEnds=20"
   ]
 }

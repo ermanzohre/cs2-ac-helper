@@ -51,11 +51,11 @@ function localizeVerdict(code: VerdictCode, language: Locale): string {
   if (language === "tr") {
     switch (code) {
       case "high_suspicion":
-        return "Yuksek suphe";
+        return "Yüksek şüphe";
       case "suspicious":
-        return "Supheli";
+        return "Şüpheli";
       case "watch":
-        return "Izlenmeli";
+        return "İzlenmeli";
       case "clean":
       default:
         return "Temiz";
