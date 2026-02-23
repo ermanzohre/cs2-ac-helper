@@ -162,6 +162,11 @@ async function parseDemoWithDemoparser2(demoPath, verbose) {
                 playerSlot: slot,
                 yaw,
                 pitch,
+                steamId,
+                x: px,
+                y: py,
+                z: pz,
+                spottedByMask,
             });
         }
         augmentKillContext(kills, playersBySlot, tickPlayerStates);
