@@ -50,6 +50,11 @@ export interface FrameSample {
   playerSlot: number;
   yaw: number;
   pitch: number;
+  steamId?: string;
+  x?: number;
+  y?: number;
+  z?: number;
+  spottedByMask?: string[];
 }
 
 export interface ParsedMatch {

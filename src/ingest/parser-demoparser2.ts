@@ -233,6 +233,11 @@ export async function parseDemoWithDemoparser2(
         playerSlot: slot,
         yaw,
         pitch,
+        steamId,
+        x: px,
+        y: py,
+        z: pz,
+        spottedByMask,
       });
     }
 
