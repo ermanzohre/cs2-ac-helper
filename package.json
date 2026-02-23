@@ -1,0 +1,33 @@
+{
+  "name": "cs2-ac-helper",
+  "version": "1.0.0",
+  "description": "CS2 demo analyzer for suspicion scoring",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "ts-node src/cli/index.ts",
+    "test": "npm run build && node --test dist/tests/**/*.test.js"
+  },
+  "keywords": [
+    "cs2",
+    "anti-cheat",
+    "demo",
+    "cli"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@types/node": "^25.3.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@laihoe/demoparser2": "^0.41.1",
+    "commander": "^14.0.3",
+    "demofile": "^2.10.0"
+  },
+  "bin": {
+    "cs2ac": "./dist/cli/index.js"
+  }
+}

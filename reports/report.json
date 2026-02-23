@@ -1,0 +1,1321 @@
+{
+  "meta": {
+    "inputDemo": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Counter-Strike Global Offensive\\game\\csgo\\replays\\match730_003804891835101348763_1889459580_390.dem",
+    "generatedAt": "2026-02-23T12:03:37.107Z",
+    "parser": "demoparser2",
+    "rounds": 20,
+    "ticks": 124671
+  },
+  "ranking": [
+    {
+      "player": {
+        "slot": 5,
+        "name": "MAG",
+        "steamId": "76561198951122217",
+        "team": "CT"
+      },
+      "metrics": {
+        "flick": {
+          "value": 0.030610050120212676,
+          "samples": 8,
+          "confidence": 0.8,
+          "stats": {
+            "min": 12.326876887778896,
+            "avg": 61.22010024042536,
+            "p95": 108.33475882008065
+          },
+          "evidence": []
+        },
+        "prefire": {
+          "value": 1,
+          "samples": 8,
+          "confidence": 0.6666666666666666,
+          "stats": {
+            "min": 1,
+            "avg": 1,
+            "p95": 1
+          },
+          "evidence": [
+            {
+              "round": 2,
+              "tickStart": 6725,
+              "tickEnd": 6741,
+              "timeSec": 105.328125,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            },
+            {
+              "round": 4,
+              "tickStart": 22415,
+              "tickEnd": 22431,
+              "timeSec": 350.484375,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            },
+            {
+              "round": 5,
+              "tickStart": 28101,
+              "tickEnd": 28117,
+              "timeSec": 439.328125,
+              "reason": "Kill through smoke shortly after firing",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            },
+            {
+              "round": 5,
+              "tickStart": 29583,
+              "tickEnd": 29599,
+              "timeSec": 462.484375,
+              "reason": "Kill through smoke shortly after firing",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            },
+            {
+              "round": 10,
+              "tickStart": 62290,
+              "tickEnd": 62306,
+              "timeSec": 973.53125,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            }
+          ]
+        },
+        "wallhack": {
+          "value": 0.20625000000000002,
+          "samples": 8,
+          "confidence": 0.41666666666666663,
+          "stats": {
+            "min": 0,
+            "avg": 0.20625000000000002,
+            "p95": 0.55
+          },
+          "evidence": [
+            {
+              "round": 5,
+              "tickStart": 28098,
+              "tickEnd": 28117,
+              "timeSec": 439.328125,
+              "reason": "Visibility proxy hit (through smoke)",
+              "tags": [
+                "info",
+                "wallhack"
+              ]
+            },
+            {
+              "round": 5,
+              "tickStart": 29580,
+              "tickEnd": 29599,
+              "timeSec": 462.484375,
+              "reason": "Visibility proxy hit (through smoke)",
+              "tags": [
+                "info",
+                "wallhack"
+              ]
+            },
+            {
+              "round": 15,
+              "tickStart": 90642,
+              "tickEnd": 90661,
+              "timeSec": 1416.578125,
+              "reason": "Visibility proxy hit (through smoke)",
+              "tags": [
+                "info",
+                "wallhack"
+              ]
+            }
+          ]
+        }
+      },
+      "guardrails": {
+        "samplePenalty": 0,
+        "weaponAdjustment": 0
+      },
+      "scoreRaw": 0.40196351754207443,
+      "scoreFinal": 40,
+      "confidence": 1,
+      "explanation": [
+        "Suspicion score 40/100 with confidence 100%.",
+        "Flick 3.1% (8 samples), prefire 100.0% (8 kills), wallhack proxy 20.6% (8 kills).",
+        "Strongest prefire proxy around 01:45.",
+        "Strongest wallhack proxy around 07:19."
+      ]
+    },
+    {
+      "player": {
+        "slot": 8,
+        "name": "Morpheus",
+        "steamId": "76561197994583429",
+        "team": "CT"
+      },
+      "metrics": {
+        "flick": {
+          "value": 0.03790280582735483,
+          "samples": 8,
+          "confidence": 0.8,
+          "stats": {
+            "min": 34.178177338290034,
+            "avg": 75.80561165470968,
+            "p95": 90.92401373314944
+          },
+          "evidence": []
+        },
+        "prefire": {
+          "value": 1,
+          "samples": 8,
+          "confidence": 0.6666666666666666,
+          "stats": {
+            "min": 1,
+            "avg": 1,
+            "p95": 1
+          },
+          "evidence": [
+            {
+              "round": 2,
+              "tickStart": 8334,
+              "tickEnd": 8350,
+              "timeSec": 130.46875,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            },
+            {
+              "round": 3,
+              "tickStart": 11141,
+              "tickEnd": 11157,
+              "timeSec": 174.328125,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            },
+            {
+              "round": 8,
+              "tickStart": 51057,
+              "tickEnd": 51073,
+              "timeSec": 798.015625,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            },
+            {
+              "round": 9,
+              "tickStart": 54419,
+              "tickEnd": 54435,
+              "timeSec": 850.546875,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            },
+            {
+              "round": 15,
+              "tickStart": 89744,
+              "tickEnd": 89760,
+              "timeSec": 1402.5,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            }
+          ]
+        },
+        "wallhack": {
+          "value": 0.0375,
+          "samples": 8,
+          "confidence": 0.26666666666666666,
+          "stats": {
+            "min": 0,
+            "avg": 0.0375,
+            "p95": 0
+          },
+          "evidence": []
+        }
+      },
+      "guardrails": {
+        "samplePenalty": 0,
+        "weaponAdjustment": 0
+      },
+      "scoreRaw": 0.37076598203957417,
+      "scoreFinal": 37,
+      "confidence": 1,
+      "explanation": [
+        "Suspicion score 37/100 with confidence 100%.",
+        "Flick 3.8% (8 samples), prefire 100.0% (8 kills), wallhack proxy 3.8% (8 kills).",
+        "Strongest prefire proxy around 02:10."
+      ]
+    },
+    {
+      "player": {
+        "slot": 7,
+        "name": "aKs--",
+        "steamId": "76561198211732671",
+        "team": "CT"
+      },
+      "metrics": {
+        "flick": {
+          "value": 0.034121055415476886,
+          "samples": 11,
+          "confidence": 1,
+          "stats": {
+            "min": 22.05118588396461,
+            "avg": 68.24211083095379,
+            "p95": 86.70514190852279
+          },
+          "evidence": []
+        },
+        "prefire": {
+          "value": 1,
+          "samples": 11,
+          "confidence": 0.9166666666666666,
+          "stats": {
+            "min": 1,
+            "avg": 1,
+            "p95": 1
+          },
+          "evidence": [
+            {
+              "round": 5,
+              "tickStart": 25188,
+              "tickEnd": 25204,
+              "timeSec": 393.8125,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            },
+            {
+              "round": 7,
+              "tickStart": 40127,
+              "tickEnd": 40143,
+              "timeSec": 627.234375,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            },
+            {
+              "round": 11,
+              "tickStart": 66880,
+              "tickEnd": 66896,
+              "timeSec": 1045.25,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            },
+            {
+              "round": 13,
+              "tickStart": 79176,
+              "tickEnd": 79192,
+              "timeSec": 1237.375,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            },
+            {
+              "round": 13,
+              "tickStart": 79519,
+              "tickEnd": 79535,
+              "timeSec": 1242.734375,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            }
+          ]
+        },
+        "wallhack": {
+          "value": 0,
+          "samples": 11,
+          "confidence": 0.3666666666666667,
+          "stats": {
+            "min": 0,
+            "avg": 0,
+            "p95": 0
+          },
+          "evidence": []
+        }
+      },
+      "guardrails": {
+        "samplePenalty": 0,
+        "weaponAdjustment": 0.05454545454545454
+      },
+      "scoreRaw": 0.3564878239408715,
+      "scoreFinal": 36,
+      "confidence": 1,
+      "explanation": [
+        "Suspicion score 36/100 with confidence 100%.",
+        "Flick 3.4% (11 samples), prefire 100.0% (11 kills), wallhack proxy 0.0% (11 kills).",
+        "Guardrails applied (sample=0.00, rounds=0.00, weapon=0.05).",
+        "Strongest prefire proxy around 06:33."
+      ]
+    },
+    {
+      "player": {
+        "slot": 1,
+        "name": "DJAZAIRI",
+        "steamId": "76561199132263155",
+        "team": "T"
+      },
+      "metrics": {
+        "flick": {
+          "value": 0.035239665827064226,
+          "samples": 19,
+          "confidence": 1,
+          "stats": {
+            "min": 11.135077005932864,
+            "avg": 70.47933165412843,
+            "p95": 149.2647868487996
+          },
+          "evidence": []
+        },
+        "prefire": {
+          "value": 0.9473684210526315,
+          "samples": 19,
+          "confidence": 1,
+          "stats": {
+            "min": 0,
+            "avg": 0.9473684210526315,
+            "p95": 1
+          },
+          "evidence": [
+            {
+              "round": 1,
+              "tickStart": 3086,
+              "tickEnd": 3102,
+              "timeSec": 48.46875,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            },
+            {
+              "round": 1,
+              "tickStart": 3153,
+              "tickEnd": 3169,
+              "timeSec": 49.515625,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            },
+            {
+              "round": 2,
+              "tickStart": 7038,
+              "tickEnd": 7054,
+              "timeSec": 110.21875,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            },
+            {
+              "round": 2,
+              "tickStart": 7212,
+              "tickEnd": 7228,
+              "timeSec": 112.9375,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            },
+            {
+              "round": 3,
+              "tickStart": 11216,
+              "tickEnd": 11232,
+              "timeSec": 175.5,
+              "reason": "Wall-penetration kill (penetrations=1)",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            }
+          ]
+        },
+        "wallhack": {
+          "value": 0.08947368421052633,
+          "samples": 19,
+          "confidence": 0.4631578947368421,
+          "stats": {
+            "min": 0,
+            "avg": 0.08947368421052633,
+            "p95": 0.55
+          },
+          "evidence": [
+            {
+              "round": 12,
+              "tickStart": 73803,
+              "tickEnd": 73822,
+              "timeSec": 1153.46875,
+              "reason": "Visibility proxy hit (through smoke)",
+              "tags": [
+                "info",
+                "wallhack"
+              ]
+            },
+            {
+              "round": 18,
+              "tickStart": 108753,
+              "tickEnd": 108772,
+              "timeSec": 1699.5625,
+              "reason": "Visibility proxy hit (through smoke)",
+              "tags": [
+                "info",
+                "wallhack"
+              ]
+            }
+          ]
+        }
+      },
+      "guardrails": {
+        "samplePenalty": 0,
+        "weaponAdjustment": 0.09473684210526315
+      },
+      "scoreRaw": 0.35233388303947244,
+      "scoreFinal": 35,
+      "confidence": 1,
+      "explanation": [
+        "Suspicion score 35/100 with confidence 100%.",
+        "Flick 3.5% (19 samples), prefire 94.7% (19 kills), wallhack proxy 8.9% (19 kills).",
+        "Guardrails applied (sample=0.00, rounds=0.00, weapon=0.09).",
+        "Strongest prefire proxy around 00:48.",
+        "Strongest wallhack proxy around 19:13."
+      ]
+    },
+    {
+      "player": {
+        "slot": 9,
+        "name": "INSPIRING",
+        "steamId": "76561198200643875",
+        "team": "CT"
+      },
+      "metrics": {
+        "flick": {
+          "value": 0.03072890099806807,
+          "samples": 26,
+          "confidence": 1,
+          "stats": {
+            "min": 0,
+            "avg": 61.457801996136155,
+            "p95": 138.87728628959954
+          },
+          "evidence": []
+        },
+        "prefire": {
+          "value": 0.9230769230769231,
+          "samples": 26,
+          "confidence": 1,
+          "stats": {
+            "min": 0,
+            "avg": 0.9230769230769231,
+            "p95": 1
+          },
+          "evidence": [
+            {
+              "round": 2,
+              "tickStart": 6726,
+              "tickEnd": 6742,
+              "timeSec": 105.34375,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            },
+            {
+              "round": 2,
+              "tickStart": 7935,
+              "tickEnd": 7951,
+              "timeSec": 124.234375,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            },
+            {
+              "round": 4,
+              "tickStart": 20003,
+              "tickEnd": 20019,
+              "timeSec": 312.796875,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            },
+            {
+              "round": 4,
+              "tickStart": 21845,
+              "tickEnd": 21861,
+              "timeSec": 341.578125,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            },
+            {
+              "round": 5,
+              "tickStart": 29887,
+              "tickEnd": 29903,
+              "timeSec": 467.234375,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            }
+          ]
+        },
+        "wallhack": {
+          "value": 0.032692307692307694,
+          "samples": 26,
+          "confidence": 0.42307692307692313,
+          "stats": {
+            "min": 0,
+            "avg": 0.032692307692307694,
+            "p95": 0
+          },
+          "evidence": [
+            {
+              "round": 11,
+              "tickStart": 67472,
+              "tickEnd": 67491,
+              "timeSec": 1054.546875,
+              "reason": "Visibility proxy hit (through smoke)",
+              "tags": [
+                "info",
+                "wallhack"
+              ]
+            }
+          ]
+        }
+      },
+      "guardrails": {
+        "samplePenalty": 0,
+        "weaponAdjustment": 0.046153846153846156
+      },
+      "scoreRaw": 0.33575511534932384,
+      "scoreFinal": 34,
+      "confidence": 1,
+      "explanation": [
+        "Suspicion score 34/100 with confidence 100%.",
+        "Flick 3.1% (26 samples), prefire 92.3% (26 kills), wallhack proxy 3.3% (26 kills).",
+        "Guardrails applied (sample=0.00, rounds=0.00, weapon=0.05).",
+        "Strongest prefire proxy around 01:45.",
+        "Strongest wallhack proxy around 17:34."
+      ]
+    },
+    {
+      "player": {
+        "slot": 2,
+        "name": "Chikamatsu",
+        "steamId": "76561199490910330",
+        "team": "T"
+      },
+      "metrics": {
+        "flick": {
+          "value": 0.06608529660011137,
+          "samples": 23,
+          "confidence": 1,
+          "stats": {
+            "min": 3.930588241698849,
+            "avg": 132.17059320022275,
+            "p95": 297.44072855018595
+          },
+          "evidence": []
+        },
+        "prefire": {
+          "value": 0.9130434782608695,
+          "samples": 23,
+          "confidence": 1,
+          "stats": {
+            "min": 0,
+            "avg": 0.9130434782608695,
+            "p95": 1
+          },
+          "evidence": [
+            {
+              "round": 1,
+              "tickStart": 3302,
+              "tickEnd": 3318,
+              "timeSec": 51.84375,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            },
+            {
+              "round": 1,
+              "tickStart": 3416,
+              "tickEnd": 3432,
+              "timeSec": 53.625,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            },
+            {
+              "round": 2,
+              "tickStart": 8251,
+              "tickEnd": 8267,
+              "timeSec": 129.171875,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            },
+            {
+              "round": 3,
+              "tickStart": 13348,
+              "tickEnd": 13364,
+              "timeSec": 208.8125,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            },
+            {
+              "round": 4,
+              "tickStart": 20691,
+              "tickEnd": 20707,
+              "timeSec": 323.546875,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            }
+          ]
+        },
+        "wallhack": {
+          "value": 0,
+          "samples": 23,
+          "confidence": 0.4,
+          "stats": {
+            "min": 0,
+            "avg": 0,
+            "p95": 0
+          },
+          "evidence": []
+        }
+      },
+      "guardrails": {
+        "samplePenalty": 0,
+        "weaponAdjustment": 0
+      },
+      "scoreRaw": 0.3426950712013433,
+      "scoreFinal": 34,
+      "confidence": 1,
+      "explanation": [
+        "Suspicion score 34/100 with confidence 100%.",
+        "Flick 6.6% (23 samples), prefire 91.3% (23 kills), wallhack proxy 0.0% (23 kills).",
+        "Strongest prefire proxy around 00:51."
+      ]
+    },
+    {
+      "player": {
+        "slot": 3,
+        "name": "JynX!",
+        "steamId": "76561199260916661",
+        "team": "T"
+      },
+      "metrics": {
+        "flick": {
+          "value": 0.04639965831599555,
+          "samples": 11,
+          "confidence": 1,
+          "stats": {
+            "min": 21.316093007715708,
+            "avg": 92.79931663199112,
+            "p95": 135.4899466891884
+          },
+          "evidence": []
+        },
+        "prefire": {
+          "value": 0.8181818181818182,
+          "samples": 11,
+          "confidence": 0.9166666666666666,
+          "stats": {
+            "min": 0,
+            "avg": 0.8181818181818182,
+            "p95": 1
+          },
+          "evidence": [
+            {
+              "round": 1,
+              "tickStart": 2965,
+              "tickEnd": 2981,
+              "timeSec": 46.578125,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            },
+            {
+              "round": 6,
+              "tickStart": 36028,
+              "tickEnd": 36044,
+              "timeSec": 563.1875,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            },
+            {
+              "round": 6,
+              "tickStart": 36854,
+              "tickEnd": 36870,
+              "timeSec": 576.09375,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            },
+            {
+              "round": 8,
+              "tickStart": 51464,
+              "tickEnd": 51480,
+              "timeSec": 804.375,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            },
+            {
+              "round": 8,
+              "tickStart": 51552,
+              "tickEnd": 51568,
+              "timeSec": 805.75,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            }
+          ]
+        },
+        "wallhack": {
+          "value": 0.05,
+          "samples": 11,
+          "confidence": 0.4166666666666667,
+          "stats": {
+            "min": 0,
+            "avg": 0.05,
+            "p95": 0
+          },
+          "evidence": [
+            {
+              "round": 19,
+              "tickStart": 116549,
+              "tickEnd": 116568,
+              "timeSec": 1821.375,
+              "reason": "Visibility proxy hit (through smoke)",
+              "tags": [
+                "info",
+                "wallhack"
+              ]
+            }
+          ]
+        }
+      },
+      "guardrails": {
+        "samplePenalty": 0,
+        "weaponAdjustment": 0
+      },
+      "scoreRaw": 0.3126035167742348,
+      "scoreFinal": 31,
+      "confidence": 1,
+      "explanation": [
+        "Suspicion score 31/100 with confidence 100%.",
+        "Flick 4.6% (11 samples), prefire 81.8% (11 kills), wallhack proxy 5.0% (11 kills).",
+        "Strongest prefire proxy around 00:46.",
+        "Strongest wallhack proxy around 30:21."
+      ]
+    },
+    {
+      "player": {
+        "slot": 6,
+        "name": "Mmt",
+        "steamId": "76561198857901135",
+        "team": "CT"
+      },
+      "metrics": {
+        "flick": {
+          "value": 0.016285992895381875,
+          "samples": 6,
+          "confidence": 0.6,
+          "stats": {
+            "min": 12.957909633337271,
+            "avg": 32.571985790763755,
+            "p95": 46.82953988637128
+          },
+          "evidence": []
+        },
+        "prefire": {
+          "value": 1,
+          "samples": 6,
+          "confidence": 0.5,
+          "stats": {
+            "min": 1,
+            "avg": 1,
+            "p95": 1
+          },
+          "evidence": [
+            {
+              "round": 1,
+              "tickStart": 3014,
+              "tickEnd": 3030,
+              "timeSec": 47.34375,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            },
+            {
+              "round": 4,
+              "tickStart": 22151,
+              "tickEnd": 22167,
+              "timeSec": 346.359375,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            },
+            {
+              "round": 10,
+              "tickStart": 62059,
+              "tickEnd": 62075,
+              "timeSec": 969.921875,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            },
+            {
+              "round": 15,
+              "tickStart": 90468,
+              "tickEnd": 90484,
+              "timeSec": 1413.8125,
+              "reason": "Kill through smoke shortly after firing",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            },
+            {
+              "round": 15,
+              "tickStart": 93209,
+              "tickEnd": 93225,
+              "timeSec": 1456.640625,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            }
+          ]
+        },
+        "wallhack": {
+          "value": 0.09166666666666667,
+          "samples": 6,
+          "confidence": 0.25,
+          "stats": {
+            "min": 0,
+            "avg": 0.09166666666666667,
+            "p95": 0
+          },
+          "evidence": [
+            {
+              "round": 15,
+              "tickStart": 90465,
+              "tickEnd": 90484,
+              "timeSec": 1413.8125,
+              "reason": "Visibility proxy hit (through smoke)",
+              "tags": [
+                "info",
+                "wallhack"
+              ]
+            }
+          ]
+        }
+      },
+      "guardrails": {
+        "samplePenalty": 0.25,
+        "weaponAdjustment": 0
+      },
+      "scoreRaw": 0.3490334308467169,
+      "scoreFinal": 30,
+      "confidence": 0.85,
+      "explanation": [
+        "Suspicion score 30/100 with confidence 85%.",
+        "Flick 1.6% (6 samples), prefire 100.0% (6 kills), wallhack proxy 9.2% (6 kills).",
+        "Guardrails applied (sample=0.25, rounds=0.00, weapon=0.00).",
+        "Strongest prefire proxy around 00:47.",
+        "Strongest wallhack proxy around 23:33."
+      ]
+    },
+    {
+      "player": {
+        "slot": 0,
+        "name": "DANDE",
+        "steamId": "76561199439086897",
+        "team": "T"
+      },
+      "metrics": {
+        "flick": {
+          "value": 0.03407353013480404,
+          "samples": 10,
+          "confidence": 1,
+          "stats": {
+            "min": 0,
+            "avg": 68.14706026960809,
+            "p95": 145.2421764353963
+          },
+          "evidence": []
+        },
+        "prefire": {
+          "value": 0.7,
+          "samples": 10,
+          "confidence": 0.8333333333333334,
+          "stats": {
+            "min": 0,
+            "avg": 0.7,
+            "p95": 1
+          },
+          "evidence": [
+            {
+              "round": 5,
+              "tickStart": 25323,
+              "tickEnd": 25339,
+              "timeSec": 395.921875,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            },
+            {
+              "round": 7,
+              "tickStart": 46167,
+              "tickEnd": 46183,
+              "timeSec": 721.609375,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            },
+            {
+              "round": 9,
+              "tickStart": 54991,
+              "tickEnd": 55007,
+              "timeSec": 859.484375,
+              "reason": "Kill through smoke shortly after firing",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            },
+            {
+              "round": 11,
+              "tickStart": 66920,
+              "tickEnd": 66936,
+              "timeSec": 1045.875,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            },
+            {
+              "round": 13,
+              "tickStart": 78897,
+              "tickEnd": 78913,
+              "timeSec": 1233.015625,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            }
+          ]
+        },
+        "wallhack": {
+          "value": 0.1,
+          "samples": 10,
+          "confidence": 0.38333333333333336,
+          "stats": {
+            "min": 0,
+            "avg": 0.1,
+            "p95": 0
+          },
+          "evidence": [
+            {
+              "round": 9,
+              "tickStart": 54988,
+              "tickEnd": 55007,
+              "timeSec": 859.484375,
+              "reason": "Visibility proxy hit (through smoke, single wall penetration, smoke + wallbang overlap)",
+              "tags": [
+                "info",
+                "wallhack"
+              ]
+            }
+          ]
+        }
+      },
+      "guardrails": {
+        "samplePenalty": 0,
+        "weaponAdjustment": 0
+      },
+      "scoreRaw": 0.2769257355471814,
+      "scoreFinal": 28,
+      "confidence": 1,
+      "explanation": [
+        "Suspicion score 28/100 with confidence 100%.",
+        "Flick 3.4% (10 samples), prefire 70.0% (10 kills), wallhack proxy 10.0% (10 kills).",
+        "Strongest prefire proxy around 06:35.",
+        "Strongest wallhack proxy around 14:19."
+      ]
+    },
+    {
+      "player": {
+        "slot": 4,
+        "name": "7berdeg™",
+        "steamId": "76561198313026571",
+        "team": "T"
+      },
+      "metrics": {
+        "flick": {
+          "value": 0.049744590896990695,
+          "samples": 15,
+          "confidence": 1,
+          "stats": {
+            "min": 16.023241448284107,
+            "avg": 99.48918179398137,
+            "p95": 372.99113071829595
+          },
+          "evidence": []
+        },
+        "prefire": {
+          "value": 0.6666666666666666,
+          "samples": 15,
+          "confidence": 1,
+          "stats": {
+            "min": 0,
+            "avg": 0.6666666666666666,
+            "p95": 1
+          },
+          "evidence": [
+            {
+              "round": 5,
+              "tickStart": 26570,
+              "tickEnd": 26586,
+              "timeSec": 415.40625,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            },
+            {
+              "round": 11,
+              "tickStart": 67064,
+              "tickEnd": 67080,
+              "timeSec": 1048.125,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            },
+            {
+              "round": 11,
+              "tickStart": 68974,
+              "tickEnd": 68990,
+              "timeSec": 1077.96875,
+              "reason": "Wall-penetration kill (penetrations=1)",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            },
+            {
+              "round": 11,
+              "tickStart": 70116,
+              "tickEnd": 70132,
+              "timeSec": 1095.8125,
+              "reason": "Kill through smoke shortly after firing",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            },
+            {
+              "round": 12,
+              "tickStart": 74721,
+              "tickEnd": 74737,
+              "timeSec": 1167.765625,
+              "reason": "Shot-to-kill lead time 0.0 ms",
+              "tags": [
+                "info",
+                "prefire"
+              ]
+            }
+          ]
+        },
+        "wallhack": {
+          "value": 0.12333333333333334,
+          "samples": 15,
+          "confidence": 0.48000000000000004,
+          "stats": {
+            "min": 0,
+            "avg": 0.12333333333333334,
+            "p95": 0.55
+          },
+          "evidence": [
+            {
+              "round": 11,
+              "tickStart": 70113,
+              "tickEnd": 70132,
+              "timeSec": 1095.8125,
+              "reason": "Visibility proxy hit (through smoke, single wall penetration, smoke + wallbang overlap)",
+              "tags": [
+                "info",
+                "wallhack"
+              ]
+            },
+            {
+              "round": 17,
+              "tickStart": 103428,
+              "tickEnd": 103447,
+              "timeSec": 1616.359375,
+              "reason": "Visibility proxy hit (through smoke)",
+              "tags": [
+                "info",
+                "wallhack"
+              ]
+            }
+          ]
+        }
+      },
+      "guardrails": {
+        "samplePenalty": 0,
+        "weaponAdjustment": 0.16
+      },
+      "scoreRaw": 0.25941060681394673,
+      "scoreFinal": 26,
+      "confidence": 1,
+      "explanation": [
+        "Suspicion score 26/100 with confidence 100%.",
+        "Flick 5.0% (15 samples), prefire 66.7% (15 kills), wallhack proxy 12.3% (15 kills).",
+        "Guardrails applied (sample=0.00, rounds=0.00, weapon=0.16).",
+        "Strongest prefire proxy around 06:55.",
+        "Strongest wallhack proxy around 18:15."
+      ]
+    }
+  ],
+  "topEvents": [
+    {
+      "round": 19,
+      "tickStart": 116549,
+      "tickEnd": 116568,
+      "timeSec": 1821.375,
+      "reason": "Visibility proxy hit (through smoke)",
+      "tags": [
+        "info",
+        "wallhack"
+      ]
+    },
+    {
+      "round": 18,
+      "tickStart": 108753,
+      "tickEnd": 108772,
+      "timeSec": 1699.5625,
+      "reason": "Visibility proxy hit (through smoke)",
+      "tags": [
+        "info",
+        "wallhack"
+      ]
+    },
+    {
+      "round": 17,
+      "tickStart": 103428,
+      "tickEnd": 103447,
+      "timeSec": 1616.359375,
+      "reason": "Visibility proxy hit (through smoke)",
+      "tags": [
+        "info",
+        "wallhack"
+      ]
+    },
+    {
+      "round": 15,
+      "tickStart": 93209,
+      "tickEnd": 93225,
+      "timeSec": 1456.640625,
+      "reason": "Shot-to-kill lead time 0.0 ms",
+      "tags": [
+        "info",
+        "prefire"
+      ]
+    },
+    {
+      "round": 15,
+      "tickStart": 90642,
+      "tickEnd": 90661,
+      "timeSec": 1416.578125,
+      "reason": "Visibility proxy hit (through smoke)",
+      "tags": [
+        "info",
+        "wallhack"
+      ]
+    }
+  ],
+  "warnings": [
+    "[verbose] Parsed events: players=10, kills=137, shots=3101, frames=26880, roundEnds=20"
+  ]
+}
