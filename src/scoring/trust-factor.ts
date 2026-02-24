@@ -10,8 +10,12 @@ export function buildTeamTrustSnapshot(
   ranking: PlayerSuspicion[],
   focusPlayer: string,
   language: Locale,
+  knownLowTrustNames: string[] = [],
 ): TeamTrustSnapshot {
   const normalizedFocus = normalizePlayerName(focusPlayer);
+  const knownLowTrust = new Set(
+    knownLowTrustNames.map((name) => normalizePlayerName(name)).filter(Boolean),
+  );
   const focus = ranking.find(
     (entry) => normalizePlayerName(entry.player.name) === normalizedFocus,
   );
@@ -26,7 +30,13 @@ export function buildTeamTrustSnapshot(
 
   const rows = ranking
     .filter((entry) => entry.player.team === focus.player.team)
-    .map((entry) => toTrustFactorEntry(entry, language))
+    .map((entry) =>
+      toTrustFactorEntry(
+        entry,
+        language,
+        knownLowTrust.has(normalizePlayerName(entry.player.name)),
+      ),
+    )
     .sort((a, b) => b.trustFactor - a.trustFactor);
 
   return {
@@ -39,29 +49,63 @@ export function buildTeamTrustSnapshot(
 function toTrustFactorEntry(
   player: PlayerSuspicion,
   language: Locale,
+  isKnownLowTrust: boolean,
 ): TrustFactorEntry {
-  const trustFactor = computeTrustFactor(player);
+  const trustFactor = computeTrustFactor(player, isKnownLowTrust);
   return {
     playerName: player.player.name,
     team: player.player.team,
     trustFactor,
     trustLabel: trustLabel(trustFactor, language),
-    improvementPlan: buildImprovementPlan(player, language),
+    improvementPlan: buildImprovementPlan(
+      player,
+      trustFactor,
+      language,
+      isKnownLowTrust,
+    ),
   };
 }
 
-function computeTrustFactor(player: PlayerSuspicion): number {
-  const base = 100 - player.scoreFinal;
-  const uncertaintyBuffer = Math.round((1 - player.confidence) * 8);
-  return clamp(Math.round(base + uncertaintyBuffer), 0, 100);
+function computeTrustFactor(
+  player: PlayerSuspicion,
+  isKnownLowTrust: boolean,
+): number {
+  const metricRisk =
+    (0.4 * player.metrics.flick.value +
+      0.3 * player.metrics.prefire.value +
+      0.3 * player.metrics.wallhack.value) *
+    100;
+  const suspicionRisk = player.scoreFinal;
+  const evidenceRisk = Math.min(
+    player.metrics.flick.evidence.length +
+      player.metrics.prefire.evidence.length +
+      player.metrics.wallhack.evidence.length,
+    6,
+  );
+  const uncertaintyPenalty = Math.round((1 - player.confidence) * 18);
+  const verdictPenalty = verdictRiskPenalty(player.verdict.code);
+  const knownLowTrustPenalty = isKnownLowTrust ? 18 : 0;
+  const cleanBonus = player.verdict.code === "clean" ? 4 : 0;
+
+  const trust =
+    84 -
+    suspicionRisk * 0.45 -
+    metricRisk * 0.55 -
+    evidenceRisk * 2 -
+    uncertaintyPenalty -
+    verdictPenalty +
+    cleanBonus -
+    knownLowTrustPenalty;
+
+  return clamp(Math.round(trust), 0, 100);
 }
 
 function trustLabel(trustFactor: number, language: Locale): string {
-  if (trustFactor >= 85) {
+  if (trustFactor >= 80) {
     return language === "tr" ? "Yuksek" : "High";
   }
 
-  if (trustFactor >= 70) {
+  if (trustFactor >= 65) {
     return language === "tr" ? "Iyi" : "Good";
   }
 
@@ -74,7 +118,9 @@ function trustLabel(trustFactor: number, language: Locale): string {
 
 function buildImprovementPlan(
   player: PlayerSuspicion,
+  trustFactor: number,
   language: Locale,
+  isKnownLowTrust: boolean,
 ): string[] {
   const plan: string[] = [];
 
@@ -121,6 +167,22 @@ function buildImprovementPlan(
     );
   }
 
+  if (trustFactor < 70) {
+    plan.push(
+      language === "tr"
+        ? "Matchmaking Trust icin toxic chat/report tetikleyen davranislardan kacin; temiz davranis ve istikrarli hesap kullanimi onemli."
+        : "For matchmaking trust, avoid report-triggering toxic behavior and keep account/device usage consistent.",
+    );
+  }
+
+  if (isKnownLowTrust) {
+    plan.push(
+      language === "tr"
+        ? "Bu oyuncu icin low-trust geri bildirimi var; report sayisini arttiran toxic/afk/grief davranislarini net sekilde azaltin."
+        : "This player is marked as low-trust; reduce toxic/AFK/grief behavior that can increase report volume.",
+    );
+  }
+
   if (plan.length === 0) {
     return [
       language === "tr"
@@ -130,6 +192,26 @@ function buildImprovementPlan(
   }
 
   return plan.slice(0, 3);
+}
+
+function verdictRiskPenalty(code: PlayerSuspicion["verdict"]["code"]): number {
+  if (code === "high_suspicion") {
+    return 15;
+  }
+
+  if (code === "suspicious") {
+    return 10;
+  }
+
+  if (code === "watch") {
+    return 6;
+  }
+
+  if (code === "inconclusive") {
+    return 3;
+  }
+
+  return 0;
 }
 
 function clamp(value: number, min: number, max: number): number {

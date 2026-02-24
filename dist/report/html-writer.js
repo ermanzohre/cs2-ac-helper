@@ -29,6 +29,12 @@ function renderHtml(report) {
     const teamTrustInfo = report.teamTrust?.focusTeam && report.teamTrust.focusTeam !== "SPEC"
         ? `${escapeHtml(report.teamTrust.focusPlayer)} (${escapeHtml(report.teamTrust.focusTeam)})`
         : escapeHtml(report.teamTrust?.focusPlayer ?? "-");
+    const steamInsightRow = report.externalInsights?.steam
+        ? renderSteamInsightRow(report.externalInsights.steam)
+        : "";
+    const faceitInsightRow = report.externalInsights?.faceit
+        ? renderFaceitInsightRow(report.externalInsights.faceit)
+        : "";
     return `<!doctype html>
 <html lang="${language}">
 <head>
@@ -133,6 +139,7 @@ th {
 </section>
 <section>
   <h2>${labels.teamTrust}</h2>
+  <p>${labels.trustDisclaimer}</p>
   <p><strong>${labels.focusPlayer}:</strong> ${teamTrustInfo}</p>
   <table>
     <thead>
@@ -146,6 +153,55 @@ th {
     </thead>
     <tbody>
       ${teamTrustRows || `<tr><td colspan="5">${labels.noTeamTrustRows}</td></tr>`}
+    </tbody>
+  </table>
+</section>
+<section>
+  <h2>${labels.steamApi}</h2>
+  <p>${labels.steamApiDesc}</p>
+  <table>
+    <thead>
+      <tr>
+        <th>${labels.player}</th>
+        <th>SteamID</th>
+        <th>${labels.accountAgeYears}</th>
+        <th>${labels.steamLevel}</th>
+        <th>${labels.cs2Hours}</th>
+        <th>VAC</th>
+        <th>${labels.gameBans}</th>
+        <th>${labels.communityBanned}</th>
+        <th>${labels.economyBan}</th>
+        <th>${labels.reputation}</th>
+        <th>${labels.analysis}</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${steamInsightRow || `<tr><td colspan="11">${labels.noSteamApiData}</td></tr>`}
+    </tbody>
+  </table>
+</section>
+<section>
+  <h2>${labels.faceitApi}</h2>
+  <p>${labels.faceitApiDesc}</p>
+  <table>
+    <thead>
+      <tr>
+        <th>${labels.player}</th>
+        <th>${labels.nickname}</th>
+        <th>${labels.faceitPlayerId}</th>
+        <th>${labels.region}</th>
+        <th>${labels.skillLevel}</th>
+        <th>ELO</th>
+        <th>${labels.matches}</th>
+        <th>${labels.winRate}</th>
+        <th>${labels.kd}</th>
+        <th>${labels.hsRate}</th>
+        <th>${labels.reputation}</th>
+        <th>${labels.analysis}</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${faceitInsightRow || `<tr><td colspan="12">${labels.noFaceitApiData}</td></tr>`}
     </tbody>
   </table>
 </section>
@@ -209,6 +265,37 @@ function renderTeamTrustRow(entry) {
 <td>${escapeHtml(entry.improvementPlan.join(" "))}</td>
 </tr>`;
 }
+function renderSteamInsightRow(entry) {
+    return `<tr>
+<td>${escapeHtml(entry.playerName)}</td>
+<td>${escapeHtml(entry.steamId)}</td>
+<td>${formatOptionalNumber(entry.accountAgeYears, 1)}</td>
+<td>${formatOptionalNumber(entry.steamLevel, 0)}</td>
+<td>${formatOptionalNumber(entry.cs2Hours, 1)}</td>
+<td>${formatOptionalNumber(entry.vacBans, 0)}</td>
+<td>${formatOptionalNumber(entry.gameBans, 0)}</td>
+<td>${entry.communityBanned ? "yes" : "no"}</td>
+<td>${escapeHtml(entry.economyBan ?? "none")}</td>
+<td><span class="badge">${entry.reputationScore}</span> ${escapeHtml(entry.reputationLabel)}</td>
+<td>${escapeHtml(entry.analysis.join(" "))}</td>
+</tr>`;
+}
+function renderFaceitInsightRow(entry) {
+    return `<tr>
+<td>${escapeHtml(entry.playerName)}</td>
+<td>${escapeHtml(entry.nickname)}</td>
+<td>${escapeHtml(entry.playerId)}</td>
+<td>${escapeHtml(entry.region ?? "-")}</td>
+<td>${formatOptionalNumber(entry.skillLevel, 0)}</td>
+<td>${formatOptionalNumber(entry.elo, 0)}</td>
+<td>${formatOptionalNumber(entry.matches, 0)}</td>
+<td>${formatOptionalPercent(entry.winRatePct, 1)}</td>
+<td>${formatOptionalNumber(entry.kdRatio, 2)}</td>
+<td>${formatOptionalPercent(entry.hsPct, 1)}</td>
+<td><span class="badge">${entry.reputationScore}</span> ${escapeHtml(entry.reputationLabel)}</td>
+<td>${escapeHtml(entry.analysis.join(" "))}</td>
+</tr>`;
+}
 function getLabels(language) {
     if (language === "tr") {
         return {
@@ -239,6 +326,27 @@ function getLabels(language) {
             trustLevel: "Seviye",
             improvementPlan: "Puani Artirma Plani",
             noTeamTrustRows: "Odak oyuncu veya takim bilgisi bulunamadigi icin satir yok.",
+            trustDisclaimer: "Not: Bu deger demo-olcumlu bir trust proxy skorudur; Valve'in gercek Trust Factor degeri degildir.",
+            steamApi: "Steam API Guven Analizi",
+            steamApiDesc: "Resmi Steam API sinyalleri (hesap olgunlugu, ban gecmisi, oyun saati) ile olusturulan ek tablo.",
+            noSteamApiData: "Steam API verisi yok (key eksik veya endpoint ulasilamadi).",
+            faceitApi: "FACEIT API Rekabet Analizi",
+            faceitApiDesc: "FACEIT Data API uzerinden oyuncu seviyesi ve performans sinyalleri.",
+            noFaceitApiData: "FACEIT API verisi yok (key eksik veya oyuncu eslesmedi).",
+            accountAgeYears: "Hesap Yasi (yil)",
+            steamLevel: "Steam Seviye",
+            cs2Hours: "CS2 Saat",
+            gameBans: "Game Ban",
+            communityBanned: "Community Ban",
+            economyBan: "Economy Ban",
+            reputation: "Itibar Skoru",
+            analysis: "Analiz",
+            nickname: "Nickname",
+            faceitPlayerId: "FACEIT ID",
+            region: "Bolge",
+            skillLevel: "Seviye",
+            matches: "Mac",
+            winRate: "Win Rate",
             why: "Ayrintili Aciklama",
             noSuspicious: "Yuksek guvenli supheli oyuncu bulunamadi.",
             topEvents: "Ilk 5 Kanit Ani",
@@ -279,6 +387,27 @@ function getLabels(language) {
         trustLevel: "Level",
         improvementPlan: "How To Increase",
         noTeamTrustRows: "No rows because focus player/team information is unavailable.",
+        trustDisclaimer: "Note: This is a demo-based trust proxy score, not Valve's real Trust Factor.",
+        steamApi: "Steam API Trust Analysis",
+        steamApiDesc: "Additional table built from official Steam API signals (account maturity, bans, playtime).",
+        noSteamApiData: "No Steam API data (missing key or endpoint unavailable).",
+        faceitApi: "FACEIT API Competitive Analysis",
+        faceitApiDesc: "FACEIT Data API based competitive profile and performance signals.",
+        noFaceitApiData: "No FACEIT API data (missing key or player not resolved).",
+        accountAgeYears: "Account Age (Years)",
+        steamLevel: "Steam Level",
+        cs2Hours: "CS2 Hours",
+        gameBans: "Game Bans",
+        communityBanned: "Community Banned",
+        economyBan: "Economy Ban",
+        reputation: "Reputation Score",
+        analysis: "Analysis",
+        nickname: "Nickname",
+        faceitPlayerId: "FACEIT ID",
+        region: "Region",
+        skillLevel: "Skill Level",
+        matches: "Matches",
+        winRate: "Win Rate",
         why: "Detailed Explanation",
         noSuspicious: "No high-confidence suspicious players detected.",
         topEvents: "Top 5 Evidence Moments",
@@ -290,6 +419,18 @@ function getLabels(language) {
         warnings: "Warnings",
         noWarnings: "No warnings.",
     };
+}
+function formatOptionalNumber(value, precision) {
+    if (typeof value !== "number" || !Number.isFinite(value)) {
+        return "-";
+    }
+    return value.toFixed(precision);
+}
+function formatOptionalPercent(value, precision) {
+    if (typeof value !== "number" || !Number.isFinite(value)) {
+        return "-";
+    }
+    return `${value.toFixed(precision)}%`;
 }
 function formatTime(seconds) {
     if (!Number.isFinite(seconds) || seconds < 0) {

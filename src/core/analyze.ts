@@ -2,6 +2,7 @@ import { parseDemo, validateDemoExtension } from "../ingest/parser-adapter";
 import type {
   AnalyzeInput,
   EvidenceMoment,
+  ExternalInsights,
   Locale,
   MatchReport,
   PlayerSuspicion,
@@ -15,10 +16,12 @@ import { computeSuspicionScore } from "../scoring/compute-score";
 import {
   buildKnownPlayerFeedback,
   buildUnmatchedKnownNameWarnings,
+  normalizePlayerName,
   resolveKnownPlayerLabel,
 } from "../scoring/feedback";
 import { computeVerdict } from "../scoring/verdict";
 import { buildTeamTrustSnapshot } from "../scoring/trust-factor";
+import { fetchExternalInsights } from "../enrichment/external";
 import { summarizeExplanation } from "../scoring/weights";
 import { currentIsoTimestamp } from "../utils/time";
 
@@ -203,7 +206,30 @@ export async function analyzeDemo(input: AnalyzeInput): Promise<MatchReport> {
     players,
     input.focusPlayer,
     input.language,
+    input.knownLowTrustNames,
   );
+  const focusEntry = players.find(
+    (player) =>
+      normalizePlayerName(player.player.name) ===
+      normalizePlayerName(input.focusPlayer),
+  );
+  const resolvedFocusPlayer = focusEntry?.player.name ?? input.focusPlayer;
+  const resolvedFocusSteamId = input.focusSteamId || focusEntry?.player.steamId;
+  let externalInsights: ExternalInsights | undefined;
+
+  if (input.steamApiKey || input.faceitApiKey) {
+    const external = await fetchExternalInsights({
+      focusPlayer: resolvedFocusPlayer,
+      focusSteamId: resolvedFocusSteamId,
+      language: input.language,
+      steamApiKey: input.steamApiKey,
+      faceitApiKey: input.faceitApiKey,
+      faceitPlayerId: input.faceitPlayerId,
+      faceitNickname: input.faceitNickname,
+    });
+    externalInsights = external.insights;
+    warnings.push(...external.warnings);
+  }
 
   if (teamTrust.rows.length === 0) {
     warnings.push(localizeTeamTrustWarning(input.focusPlayer, input.language));
@@ -232,6 +258,7 @@ export async function analyzeDemo(input: AnalyzeInput): Promise<MatchReport> {
     },
     ranking: players,
     teamTrust,
+    externalInsights,
     topEvents,
     warnings,
   };

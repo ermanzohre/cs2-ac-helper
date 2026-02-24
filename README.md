@@ -22,7 +22,13 @@ node dist/cli/index.js analyze .\match.dem --out .\reports
 - `--known-clean <list>` comma-separated known clean players (name matching is normalized)
 - `--known-suspicious <list>` comma-separated known suspicious players
 - `--known-cheat <list>` alias of `--known-suspicious`
+- `--known-low-trust <list>` comma-separated players that are known to receive low Trust warning (manual calibration)
 - `--focus-player <name>` builds team-only Trust Factor table for this player and teammates (default `Morpheus`)
+- `--focus-steam-id <id>` focus SteamID64 for API enrichment (default `76561197994583429`)
+- `--steam-api-key <key>` Steam Web API key (or `STEAM_API_KEY`)
+- `--faceit-api-key <key>` FACEIT Data API key (or `FACEIT_API_KEY`)
+- `--faceit-player-id <id>` optional FACEIT player id override
+- `--faceit-nickname <name>` optional FACEIT nickname override
 - `--pretty` / `--no-pretty` JSON indentation toggle
 - `--verbose` include parser diagnostics in warnings
 
@@ -61,8 +67,15 @@ Each player row now includes combat context:
 
 `report.html` and `report.json` also include a team-only Trust Factor table for `--focus-player`:
 - includes only the focus player and same-team teammates
-- computes a per-player Trust Factor (0-100)
+- computes a per-player Trust Factor proxy score (0-100, demo-based)
 - provides actionable "how to increase" recommendations for each player
+
+If API keys are provided, reports also include separate external analysis tables:
+- Steam API table: account age, steam level, CS2 hours, ban and profile risk signals
+- FACEIT API table: skill level, elo, match sample, win rate, K/D and HS% signals
+
+Important:
+- This table is a demo-derived proxy and cannot read Valve's internal Trust Factor value.
 
 ## Detection notes
 

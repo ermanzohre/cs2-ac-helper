@@ -31,7 +31,13 @@ program
     .option("--known-clean <list>", "Comma-separated known clean player names", parseNameList, [])
     .option("--known-suspicious <list>", "Comma-separated known suspicious player names", parseNameList, [])
     .option("--known-cheat <list>", "Alias of --known-suspicious", parseNameList, [])
+    .option("--known-low-trust <list>", "Comma-separated players known to receive low Trust warnings", parseNameList, [])
     .option("--focus-player <name>", "Build Trust Factor table for this player and teammates", "Morpheus")
+    .option("--focus-steam-id <id>", "Focus SteamID64 used for Steam/FACEIT API enrichment", "76561197994583429")
+    .option("--steam-api-key <key>", "Steam Web API key (or use STEAM_API_KEY env)", process.env.STEAM_API_KEY ?? "")
+    .option("--faceit-api-key <key>", "FACEIT Data API key (or use FACEIT_API_KEY env)", process.env.FACEIT_API_KEY ?? "")
+    .option("--faceit-player-id <id>", "Optional FACEIT player_id override for enrichment")
+    .option("--faceit-nickname <name>", "Optional FACEIT nickname override for enrichment")
     .option("--pretty", "Pretty print JSON output", true)
     .option("--no-pretty", "Disable JSON pretty printing")
     .option("--verbose", "Verbose logs", false)
@@ -58,7 +64,13 @@ program
             verbose: Boolean(options.verbose),
             knownCleanNames: options.knownClean,
             knownSuspiciousNames,
+            knownLowTrustNames: options.knownLowTrust,
             focusPlayer: String(options.focusPlayer ?? "Morpheus"),
+            focusSteamId: String(options.focusSteamId ?? "76561197994583429"),
+            steamApiKey: optionalString(options.steamApiKey),
+            faceitApiKey: optionalString(options.faceitApiKey),
+            faceitPlayerId: optionalString(options.faceitPlayerId),
+            faceitNickname: optionalString(options.faceitNickname),
         });
         if (formatSet.has("json")) {
             (0, json_writer_1.writeJsonReport)(outDir, report, Boolean(options.pretty));
@@ -129,4 +141,11 @@ function parseNameList(raw, previous = []) {
         .map((name) => name.trim())
         .filter(Boolean);
     return [...previous, ...names];
+}
+function optionalString(value) {
+    if (typeof value !== "string") {
+        return undefined;
+    }
+    const trimmed = value.trim();
+    return trimmed ? trimmed : undefined;
 }

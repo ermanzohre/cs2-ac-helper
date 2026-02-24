@@ -90,3 +90,9 @@ function player(name, team, scoreFinal, confidence, overrides) {
     strict_1.default.equal(snapshot.rows.length, 0);
     strict_1.default.equal(snapshot.focusPlayer, "Morpheus");
 });
+(0, node_test_1.default)("known low trust list applies extra penalty", () => {
+    const ranking = [player("Morpheus", "T", 8, 0.9)];
+    const baseline = (0, trust_factor_1.buildTeamTrustSnapshot)(ranking, "Morpheus", "tr");
+    const calibrated = (0, trust_factor_1.buildTeamTrustSnapshot)(ranking, "Morpheus", "tr", ["Morpheus"]);
+    strict_1.default.ok(calibrated.rows[0].trustFactor < baseline.rows[0].trustFactor);
+});

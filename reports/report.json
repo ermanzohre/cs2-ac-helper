@@ -1,7 +1,7 @@
 {
   "meta": {
     "inputDemo": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Counter-Strike Global Offensive\\game\\csgo\\replays\\match730_003805084698460291191_0144960510_274.dem",
-    "generatedAt": "2026-02-23T22:04:44.723Z",
+    "generatedAt": "2026-02-24T15:20:21.062Z",
     "parser": "demoparser2",
     "language": "tr",
     "rounds": 16,
@@ -775,6 +775,59 @@
       ]
     }
   ],
+  "teamTrust": {
+    "focusPlayer": "Morpheus",
+    "focusTeam": "T",
+    "rows": [
+      {
+        "playerName": "Neo",
+        "team": "T",
+        "trustFactor": 87,
+        "trustLabel": "Yuksek",
+        "improvementPlan": [
+          "Mevcut temiz oyun disiplinini koruyun; tutarli oyun Trust Factor'u yuksek tutar."
+        ]
+      },
+      {
+        "playerName": "MAG",
+        "team": "T",
+        "trustFactor": 87,
+        "trustLabel": "Yuksek",
+        "improvementPlan": [
+          "Mevcut temiz oyun disiplinini koruyun; tutarli oyun Trust Factor'u yuksek tutar."
+        ]
+      },
+      {
+        "playerName": "Mmt",
+        "team": "T",
+        "trustFactor": 86,
+        "trustLabel": "Yuksek",
+        "improvementPlan": [
+          "Mevcut temiz oyun disiplinini koruyun; tutarli oyun Trust Factor'u yuksek tutar."
+        ]
+      },
+      {
+        "playerName": "Morpheus",
+        "team": "T",
+        "trustFactor": 59,
+        "trustLabel": "Orta",
+        "improvementPlan": [
+          "Matchmaking Trust icin toxic chat/report tetikleyen davranislardan kacin; temiz davranis ve istikrarli hesap kullanimi onemli.",
+          "Bu oyuncu icin low-trust geri bildirimi var; report sayisini arttiran toxic/afk/grief davranislarini net sekilde azaltin."
+        ]
+      },
+      {
+        "playerName": "aKs--",
+        "team": "T",
+        "trustFactor": 58,
+        "trustLabel": "Orta",
+        "improvementPlan": [
+          "Matchmaking Trust icin toxic chat/report tetikleyen davranislardan kacin; temiz davranis ve istikrarli hesap kullanimi onemli.",
+          "Bu oyuncu icin low-trust geri bildirimi var; report sayisini arttiran toxic/afk/grief davranislarini net sekilde azaltin."
+        ]
+      }
+    ]
+  },
   "topEvents": [
     {
       "playerName": "whoami–¦–aWe",

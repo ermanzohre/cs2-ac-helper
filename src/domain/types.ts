@@ -85,6 +85,47 @@ export interface TeamTrustSnapshot {
   rows: TrustFactorEntry[];
 }
 
+export interface SteamAccountInsight {
+  playerName: string;
+  steamId: string;
+  profileUrl?: string;
+  accountAgeYears?: number;
+  steamLevel?: number;
+  cs2Hours?: number;
+  vacBans?: number;
+  gameBans?: number;
+  daysSinceLastBan?: number;
+  communityBanned?: boolean;
+  economyBan?: string;
+  reputationScore: number;
+  reputationLabel: string;
+  analysis: string[];
+}
+
+export interface FaceitAccountInsight {
+  playerName: string;
+  steamId?: string;
+  playerId: string;
+  nickname: string;
+  region?: string;
+  skillLevel?: number;
+  elo?: number;
+  matches?: number;
+  winRatePct?: number;
+  kdRatio?: number;
+  hsPct?: number;
+  reputationScore: number;
+  reputationLabel: string;
+  analysis: string[];
+}
+
+export interface ExternalInsights {
+  focusPlayer: string;
+  focusSteamId?: string;
+  steam?: SteamAccountInsight;
+  faceit?: FaceitAccountInsight;
+}
+
 export interface MatchReport {
   meta: {
     inputDemo: string;
@@ -96,6 +137,7 @@ export interface MatchReport {
   };
   ranking: PlayerSuspicion[];
   teamTrust?: TeamTrustSnapshot;
+  externalInsights?: ExternalInsights;
   topEvents: EvidenceMoment[];
   warnings: string[];
 }
@@ -109,5 +151,11 @@ export interface AnalyzeInput {
   verbose: boolean;
   knownCleanNames: string[];
   knownSuspiciousNames: string[];
+  knownLowTrustNames: string[];
   focusPlayer: string;
+  focusSteamId: string;
+  steamApiKey?: string;
+  faceitApiKey?: string;
+  faceitPlayerId?: string;
+  faceitNickname?: string;
 }

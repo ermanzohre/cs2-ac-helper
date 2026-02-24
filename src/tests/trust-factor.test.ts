@@ -103,3 +103,16 @@ test("team trust snapshot is empty when focus player is missing", () => {
   assert.equal(snapshot.rows.length, 0);
   assert.equal(snapshot.focusPlayer, "Morpheus");
 });
+
+test("known low trust list applies extra penalty", () => {
+  const ranking: PlayerSuspicion[] = [player("Morpheus", "T", 8, 0.9)];
+  const baseline = buildTeamTrustSnapshot(ranking, "Morpheus", "tr");
+  const calibrated = buildTeamTrustSnapshot(
+    ranking,
+    "Morpheus",
+    "tr",
+    ["Morpheus"],
+  );
+
+  assert.ok(calibrated.rows[0].trustFactor < baseline.rows[0].trustFactor);
+});

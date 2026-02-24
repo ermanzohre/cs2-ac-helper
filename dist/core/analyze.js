@@ -11,6 +11,7 @@ const compute_score_1 = require("../scoring/compute-score");
 const feedback_1 = require("../scoring/feedback");
 const verdict_1 = require("../scoring/verdict");
 const trust_factor_1 = require("../scoring/trust-factor");
+const external_1 = require("../enrichment/external");
 const weights_1 = require("../scoring/weights");
 const time_1 = require("../utils/time");
 async function analyzeDemo(input) {
@@ -121,7 +122,25 @@ async function analyzeDemo(input) {
         return bSamples - aSamples;
     });
     const topEvents = collectTopEvents(players);
-    const teamTrust = (0, trust_factor_1.buildTeamTrustSnapshot)(players, input.focusPlayer, input.language);
+    const teamTrust = (0, trust_factor_1.buildTeamTrustSnapshot)(players, input.focusPlayer, input.language, input.knownLowTrustNames);
+    const focusEntry = players.find((player) => (0, feedback_1.normalizePlayerName)(player.player.name) ===
+        (0, feedback_1.normalizePlayerName)(input.focusPlayer));
+    const resolvedFocusPlayer = focusEntry?.player.name ?? input.focusPlayer;
+    const resolvedFocusSteamId = input.focusSteamId || focusEntry?.player.steamId;
+    let externalInsights;
+    if (input.steamApiKey || input.faceitApiKey) {
+        const external = await (0, external_1.fetchExternalInsights)({
+            focusPlayer: resolvedFocusPlayer,
+            focusSteamId: resolvedFocusSteamId,
+            language: input.language,
+            steamApiKey: input.steamApiKey,
+            faceitApiKey: input.faceitApiKey,
+            faceitPlayerId: input.faceitPlayerId,
+            faceitNickname: input.faceitNickname,
+        });
+        externalInsights = external.insights;
+        warnings.push(...external.warnings);
+    }
     if (teamTrust.rows.length === 0) {
         warnings.push(localizeTeamTrustWarning(input.focusPlayer, input.language));
     }
@@ -144,6 +163,7 @@ async function analyzeDemo(input) {
         },
         ranking: players,
         teamTrust,
+        externalInsights,
         topEvents,
         warnings,
     };
