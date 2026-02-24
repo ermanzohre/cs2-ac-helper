@@ -57,6 +57,11 @@ program
     parseNameList,
     [],
   )
+  .option(
+    "--focus-player <name>",
+    "Build Trust Factor table for this player and teammates",
+    "Morpheus",
+  )
   .option("--pretty", "Pretty print JSON output", true)
   .option("--no-pretty", "Disable JSON pretty printing")
   .option("--verbose", "Verbose logs", false)
@@ -87,6 +92,7 @@ program
         verbose: Boolean(options.verbose),
         knownCleanNames: options.knownClean as string[],
         knownSuspiciousNames,
+        focusPlayer: String(options.focusPlayer ?? "Morpheus"),
       });
 
       if (formatSet.has("json")) {

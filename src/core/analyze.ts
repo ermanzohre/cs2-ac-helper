@@ -18,6 +18,7 @@ import {
   resolveKnownPlayerLabel,
 } from "../scoring/feedback";
 import { computeVerdict } from "../scoring/verdict";
+import { buildTeamTrustSnapshot } from "../scoring/trust-factor";
 import { summarizeExplanation } from "../scoring/weights";
 import { currentIsoTimestamp } from "../utils/time";
 
@@ -198,6 +199,15 @@ export async function analyzeDemo(input: AnalyzeInput): Promise<MatchReport> {
   });
 
   const topEvents = collectTopEvents(players);
+  const teamTrust = buildTeamTrustSnapshot(
+    players,
+    input.focusPlayer,
+    input.language,
+  );
+
+  if (teamTrust.rows.length === 0) {
+    warnings.push(localizeTeamTrustWarning(input.focusPlayer, input.language));
+  }
 
   if (parsed.rounds < input.minRounds) {
     if (input.language === "tr") {
@@ -221,6 +231,7 @@ export async function analyzeDemo(input: AnalyzeInput): Promise<MatchReport> {
       ticks: parsed.totalTicks,
     },
     ranking: players,
+    teamTrust,
     topEvents,
     warnings,
   };
@@ -280,4 +291,12 @@ function localizeWarning(warning: string, language: Locale): string {
   }
 
   return warning;
+}
+
+function localizeTeamTrustWarning(focusPlayer: string, language: Locale): string {
+  if (language === "tr") {
+    return `Trust Factor tablosu olusturulamadi: odak oyuncu bulunamadi veya takim bilgisi eksik (${focusPlayer}).`;
+  }
+
+  return `Trust Factor table could not be generated: focus player was not found or team data is missing (${focusPlayer}).`;
 }

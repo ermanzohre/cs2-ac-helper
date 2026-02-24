@@ -1,6 +1,11 @@
 import fs from "fs";
 import path from "path";
-import type { Locale, MatchReport, PlayerSuspicion } from "../domain/types";
+import type {
+  Locale,
+  MatchReport,
+  PlayerSuspicion,
+  TrustFactorEntry,
+} from "../domain/types";
 
 export function writeHtmlReport(outDir: string, report: MatchReport): void {
   const targetPath = path.join(outDir, "report.html");
@@ -30,6 +35,12 @@ function renderHtml(report: MatchReport): string {
   const warnings = report.warnings.length
     ? `<ul>${report.warnings.map((warning) => `<li>${escapeHtml(warning)}</li>`).join("\n")}</ul>`
     : `<p>${labels.noWarnings}</p>`;
+  const teamTrustRows =
+    report.teamTrust?.rows.map(renderTeamTrustRow).join("\n") ?? "";
+  const teamTrustInfo =
+    report.teamTrust?.focusTeam && report.teamTrust.focusTeam !== "SPEC"
+      ? `${escapeHtml(report.teamTrust.focusPlayer)} (${escapeHtml(report.teamTrust.focusTeam)})`
+      : escapeHtml(report.teamTrust?.focusPlayer ?? "-");
 
   return `<!doctype html>
 <html lang="${language}">
@@ -134,6 +145,24 @@ th {
   </table>
 </section>
 <section>
+  <h2>${labels.teamTrust}</h2>
+  <p><strong>${labels.focusPlayer}:</strong> ${teamTrustInfo}</p>
+  <table>
+    <thead>
+      <tr>
+        <th>${labels.player}</th>
+        <th>${labels.team}</th>
+        <th>${labels.trustFactor}</th>
+        <th>${labels.trustLevel}</th>
+        <th>${labels.improvementPlan}</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${teamTrustRows || `<tr><td colspan="5">${labels.noTeamTrustRows}</td></tr>`}
+    </tbody>
+  </table>
+</section>
+<section>
   <h2>${labels.why}</h2>
   <ul>${reasons || `<li>${labels.noSuspicious}</li>`}</ul>
 </section>
@@ -187,6 +216,16 @@ function renderPlayerRow(player: PlayerSuspicion): string {
 </tr>`;
 }
 
+function renderTeamTrustRow(entry: TrustFactorEntry): string {
+  return `<tr>
+<td>${escapeHtml(entry.playerName)}</td>
+<td>${escapeHtml(entry.team ?? "-")}</td>
+<td><span class="badge">${entry.trustFactor}</span></td>
+<td>${escapeHtml(entry.trustLabel)}</td>
+<td>${escapeHtml(entry.improvementPlan.join(" "))}</td>
+</tr>`;
+}
+
 function getLabels(language: Locale): {
   pageTitle: string;
   title: string;
@@ -200,6 +239,7 @@ function getLabels(language: Locale): {
   verdict: string;
   score: string;
   confidence: string;
+  team: string;
   kills: string;
   deaths: string;
   kd: string;
@@ -208,6 +248,12 @@ function getLabels(language: Locale): {
   adr: string;
   hsRate: string;
   samples: string;
+  teamTrust: string;
+  focusPlayer: string;
+  trustFactor: string;
+  trustLevel: string;
+  improvementPlan: string;
+  noTeamTrustRows: string;
   why: string;
   noSuspicious: string;
   topEvents: string;
@@ -233,6 +279,7 @@ function getLabels(language: Locale): {
       verdict: "Yorum",
       score: "Skor",
       confidence: "Guven",
+      team: "Takim",
       kills: "Kill",
       deaths: "Death",
       kd: "K/D",
@@ -241,6 +288,12 @@ function getLabels(language: Locale): {
       adr: "ADR",
       hsRate: "HS%",
       samples: "Ornek",
+      teamTrust: "Takim Trust Factor (Odak Oyuncu + Takimi)",
+      focusPlayer: "Odak Oyuncu",
+      trustFactor: "Trust Factor",
+      trustLevel: "Seviye",
+      improvementPlan: "Puani Artirma Plani",
+      noTeamTrustRows: "Odak oyuncu veya takim bilgisi bulunamadigi icin satir yok.",
       why: "Ayrintili Aciklama",
       noSuspicious: "Yuksek guvenli supheli oyuncu bulunamadi.",
       topEvents: "Ilk 5 Kanit Ani",
@@ -267,6 +320,7 @@ function getLabels(language: Locale): {
     verdict: "Verdict",
     score: "Score",
     confidence: "Confidence",
+    team: "Team",
     kills: "Kills",
     deaths: "Deaths",
     kd: "K/D",
@@ -275,6 +329,12 @@ function getLabels(language: Locale): {
     adr: "ADR",
     hsRate: "HS%",
     samples: "Samples",
+    teamTrust: "Team Trust Factor (Focus Player + Teammates)",
+    focusPlayer: "Focus Player",
+    trustFactor: "Trust Factor",
+    trustLevel: "Level",
+    improvementPlan: "How To Increase",
+    noTeamTrustRows: "No rows because focus player/team information is unavailable.",
     why: "Detailed Explanation",
     noSuspicious: "No high-confidence suspicious players detected.",
     topEvents: "Top 5 Evidence Moments",

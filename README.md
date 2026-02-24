@@ -22,6 +22,7 @@ node dist/cli/index.js analyze .\match.dem --out .\reports
 - `--known-clean <list>` comma-separated known clean players (name matching is normalized)
 - `--known-suspicious <list>` comma-separated known suspicious players
 - `--known-cheat <list>` alias of `--known-suspicious`
+- `--focus-player <name>` builds team-only Trust Factor table for this player and teammates (default `Morpheus`)
 - `--pretty` / `--no-pretty` JSON indentation toggle
 - `--verbose` include parser diagnostics in warnings
 
@@ -57,6 +58,11 @@ Each player row now includes combat context:
 - damage given / damage taken
 - ADR (average damage per round)
 - headshot rate
+
+`report.html` and `report.json` also include a team-only Trust Factor table for `--focus-player`:
+- includes only the focus player and same-team teammates
+- computes a per-player Trust Factor (0-100)
+- provides actionable "how to increase" recommendations for each player
 
 ## Detection notes
 

@@ -71,6 +71,20 @@ export interface PlayerSuspicion {
   explanation: string[];
 }
 
+export interface TrustFactorEntry {
+  playerName: string;
+  team?: TeamSide;
+  trustFactor: number;
+  trustLabel: string;
+  improvementPlan: string[];
+}
+
+export interface TeamTrustSnapshot {
+  focusPlayer: string;
+  focusTeam?: TeamSide;
+  rows: TrustFactorEntry[];
+}
+
 export interface MatchReport {
   meta: {
     inputDemo: string;
@@ -81,6 +95,7 @@ export interface MatchReport {
     ticks: number;
   };
   ranking: PlayerSuspicion[];
+  teamTrust?: TeamTrustSnapshot;
   topEvents: EvidenceMoment[];
   warnings: string[];
 }
@@ -94,4 +109,5 @@ export interface AnalyzeInput {
   verbose: boolean;
   knownCleanNames: string[];
   knownSuspiciousNames: string[];
+  focusPlayer: string;
 }

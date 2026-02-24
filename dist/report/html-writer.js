@@ -25,6 +25,10 @@ function renderHtml(report) {
     const warnings = report.warnings.length
         ? `<ul>${report.warnings.map((warning) => `<li>${escapeHtml(warning)}</li>`).join("\n")}</ul>`
         : `<p>${labels.noWarnings}</p>`;
+    const teamTrustRows = report.teamTrust?.rows.map(renderTeamTrustRow).join("\n") ?? "";
+    const teamTrustInfo = report.teamTrust?.focusTeam && report.teamTrust.focusTeam !== "SPEC"
+        ? `${escapeHtml(report.teamTrust.focusPlayer)} (${escapeHtml(report.teamTrust.focusTeam)})`
+        : escapeHtml(report.teamTrust?.focusPlayer ?? "-");
     return `<!doctype html>
 <html lang="${language}">
 <head>
@@ -128,6 +132,24 @@ th {
   </table>
 </section>
 <section>
+  <h2>${labels.teamTrust}</h2>
+  <p><strong>${labels.focusPlayer}:</strong> ${teamTrustInfo}</p>
+  <table>
+    <thead>
+      <tr>
+        <th>${labels.player}</th>
+        <th>${labels.team}</th>
+        <th>${labels.trustFactor}</th>
+        <th>${labels.trustLevel}</th>
+        <th>${labels.improvementPlan}</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${teamTrustRows || `<tr><td colspan="5">${labels.noTeamTrustRows}</td></tr>`}
+    </tbody>
+  </table>
+</section>
+<section>
   <h2>${labels.why}</h2>
   <ul>${reasons || `<li>${labels.noSuspicious}</li>`}</ul>
 </section>
@@ -178,6 +200,15 @@ function renderPlayerRow(player) {
 <td>${sampleCount}</td>
 </tr>`;
 }
+function renderTeamTrustRow(entry) {
+    return `<tr>
+<td>${escapeHtml(entry.playerName)}</td>
+<td>${escapeHtml(entry.team ?? "-")}</td>
+<td><span class="badge">${entry.trustFactor}</span></td>
+<td>${escapeHtml(entry.trustLabel)}</td>
+<td>${escapeHtml(entry.improvementPlan.join(" "))}</td>
+</tr>`;
+}
 function getLabels(language) {
     if (language === "tr") {
         return {
@@ -193,6 +224,7 @@ function getLabels(language) {
             verdict: "Yorum",
             score: "Skor",
             confidence: "Guven",
+            team: "Takim",
             kills: "Kill",
             deaths: "Death",
             kd: "K/D",
@@ -201,6 +233,12 @@ function getLabels(language) {
             adr: "ADR",
             hsRate: "HS%",
             samples: "Ornek",
+            teamTrust: "Takim Trust Factor (Odak Oyuncu + Takimi)",
+            focusPlayer: "Odak Oyuncu",
+            trustFactor: "Trust Factor",
+            trustLevel: "Seviye",
+            improvementPlan: "Puani Artirma Plani",
+            noTeamTrustRows: "Odak oyuncu veya takim bilgisi bulunamadigi icin satir yok.",
             why: "Ayrintili Aciklama",
             noSuspicious: "Yuksek guvenli supheli oyuncu bulunamadi.",
             topEvents: "Ilk 5 Kanit Ani",
@@ -226,6 +264,7 @@ function getLabels(language) {
         verdict: "Verdict",
         score: "Score",
         confidence: "Confidence",
+        team: "Team",
         kills: "Kills",
         deaths: "Deaths",
         kd: "K/D",
@@ -234,6 +273,12 @@ function getLabels(language) {
         adr: "ADR",
         hsRate: "HS%",
         samples: "Samples",
+        teamTrust: "Team Trust Factor (Focus Player + Teammates)",
+        focusPlayer: "Focus Player",
+        trustFactor: "Trust Factor",
+        trustLevel: "Level",
+        improvementPlan: "How To Increase",
+        noTeamTrustRows: "No rows because focus player/team information is unavailable.",
         why: "Detailed Explanation",
         noSuspicious: "No high-confidence suspicious players detected.",
         topEvents: "Top 5 Evidence Moments",

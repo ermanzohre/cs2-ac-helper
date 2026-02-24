@@ -31,6 +31,7 @@ program
     .option("--known-clean <list>", "Comma-separated known clean player names", parseNameList, [])
     .option("--known-suspicious <list>", "Comma-separated known suspicious player names", parseNameList, [])
     .option("--known-cheat <list>", "Alias of --known-suspicious", parseNameList, [])
+    .option("--focus-player <name>", "Build Trust Factor table for this player and teammates", "Morpheus")
     .option("--pretty", "Pretty print JSON output", true)
     .option("--no-pretty", "Disable JSON pretty printing")
     .option("--verbose", "Verbose logs", false)
@@ -57,6 +58,7 @@ program
             verbose: Boolean(options.verbose),
             knownCleanNames: options.knownClean,
             knownSuspiciousNames,
+            focusPlayer: String(options.focusPlayer ?? "Morpheus"),
         });
         if (formatSet.has("json")) {
             (0, json_writer_1.writeJsonReport)(outDir, report, Boolean(options.pretty));

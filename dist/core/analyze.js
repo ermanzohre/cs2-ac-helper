@@ -10,6 +10,7 @@ const guardrails_1 = require("../scoring/guardrails");
 const compute_score_1 = require("../scoring/compute-score");
 const feedback_1 = require("../scoring/feedback");
 const verdict_1 = require("../scoring/verdict");
+const trust_factor_1 = require("../scoring/trust-factor");
 const weights_1 = require("../scoring/weights");
 const time_1 = require("../utils/time");
 async function analyzeDemo(input) {
@@ -120,6 +121,10 @@ async function analyzeDemo(input) {
         return bSamples - aSamples;
     });
     const topEvents = collectTopEvents(players);
+    const teamTrust = (0, trust_factor_1.buildTeamTrustSnapshot)(players, input.focusPlayer, input.language);
+    if (teamTrust.rows.length === 0) {
+        warnings.push(localizeTeamTrustWarning(input.focusPlayer, input.language));
+    }
     if (parsed.rounds < input.minRounds) {
         if (input.language === "tr") {
             warnings.push(`Round sayısı düşük (${parsed.rounds}), minimum değer (${input.minRounds}) altında. Güven sınırlandı.`);
@@ -138,6 +143,7 @@ async function analyzeDemo(input) {
             ticks: parsed.totalTicks,
         },
         ranking: players,
+        teamTrust,
         topEvents,
         warnings,
     };
@@ -173,4 +179,10 @@ function localizeWarning(warning, language) {
         return warning.replace("[verbose] Parsed events:", "[verbose] Çözümlenen eventler:");
     }
     return warning;
+}
+function localizeTeamTrustWarning(focusPlayer, language) {
+    if (language === "tr") {
+        return `Trust Factor tablosu olusturulamadi: odak oyuncu bulunamadi veya takim bilgisi eksik (${focusPlayer}).`;
+    }
+    return `Trust Factor table could not be generated: focus player was not found or team data is missing (${focusPlayer}).`;
 }
